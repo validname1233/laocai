@@ -1,0 +1,23 @@
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+    indi.dkx.laocai: debug
+    reactor:
+      netty:
+        http:
+          client: debug
+
+spring:
+  application:
+    name: laocai
+
+  mvc:
+    problemdetails:
+      enabled: true # RFC 7807
+
+qq-bot:
+  appid: "102128900"
+  secret: "onmlkjiiiiiiijklmnoprtvxz147ADGJ"
+  base_url: "https://sandbox.api.sgroup.qq.com"
