@@ -59,7 +59,7 @@ public class RootController {
         return switch (payload.getOp()) {
             case 0 -> {
                 GroupAtMessage message = objectMapper.convertValue(d, GroupAtMessage.class);
-                // yield groupAtMessageService.handle(message)
+//                 yield groupAtMessageService.handle(message).then();
                 groupAtMessageService.handle(message).subscribe();
                 yield Mono.empty();
             }
