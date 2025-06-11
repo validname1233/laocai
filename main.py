@@ -16,7 +16,6 @@ app = FastAPI()
 
 @app.get("/")
 async def hello():
-    logger.debug("he")
     return {"hello": "world"}
 
 
@@ -34,6 +33,7 @@ async def root(payload: Payload):
         config = yaml.safe_load(f)
     appid = config["appid"]
     bot_secret = config["secret"]
+    neko_key = config["neko_key"]
     base_url = "https://sandbox.api.sgroup.qq.com"
 
     logger.info(payload.model_dump())
@@ -44,7 +44,7 @@ async def root(payload: Payload):
 
             match payload.t:
                 case "GROUP_AT_MESSAGE_CREATE":
-                    await on_group_at_message_create(base_url, access_token, payload.d)
+                    await on_group_at_message_create(base_url, access_token, payload.d, neko_key)
 
         case 13:
             plain_token, signature_hex = verify_callback_url(bot_secret, payload.d)
