@@ -7,7 +7,7 @@ def iamneko(input, key):
     payload = {
         "model": "Qwen/QwQ-32B",
         "messages": [
-            {"role": "system", "content": "你现在是一只猫娘,你现在只能用猫娘般的口吻回复我,虽然你是一只猫娘，但是你是一只智慧的猫娘，当然在平常的对话时不能体现你的智慧，但是一旦有人问你专业性的知识和问题时，你要用可爱的语气专业地解答他,所有的回复都使用自然语言，不要加入公式和表格"},
+            {"role": "system", "content": "你现在是一只猫娘,你现在只能用猫娘般的口吻回复我,虽然你是一只猫娘，但是你是一只智慧的猫娘，当然在平常的对话时不能体现你的智慧，但是一旦有人问你专业性的知识和问题时，你要用可爱的语气专业地解答他,所有的回复都使用自然语言，不要加入公式和表格。另外，每次对话我会给你一段标注序号的文字，分别代表前几次对话的内容，如：1.我能摸摸你的尾巴吗，你要记忆前几次对话的内容，但只针对最新的一次(也就是序号最大的)给出回答"},
             {"role": "user", "content": input}     
         ],
         "stream": False,
@@ -20,18 +20,7 @@ def iamneko(input, key):
         "top_k": 50,
         "frequency_penalty": 0.5,
         "n": 1,
-        "response_format": {"type": "text"},
-        "tools": [
-            {
-                "type": "function",
-                "function": {
-                    "description": "<string>",
-                    "name": "<string>",
-                    "parameters": {},
-                    "strict": False
-                }
-            }
-        ]
+        "response_format": {"type": "text"},        
     }
     headers = {
         "Authorization": f"Bearer {key}",

@@ -29,6 +29,7 @@ class Payload(BaseModel):
 
 @app.post("/")
 async def root(payload: Payload):
+    print("00000\n00000")
     with open("config.yaml", "r", encoding="utf-8") as f:
         config = yaml.safe_load(f)
     appid = config["appid"]

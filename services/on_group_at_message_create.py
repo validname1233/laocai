@@ -11,6 +11,9 @@ from .neko.neko import iamneko
 """
 from . import logger
 
+memory = [] #记忆力
+id_seq = []
+
 #from openai import AsyncOpenAI
 #from openai.types.chat import ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam
 
@@ -32,7 +35,28 @@ async def on_group_at_message_create(base_url: str, access_token: str, d: dict, 
 
     if(len(data.content)>=5):
         if(data.content[:5] == " /说话 "):
-            content_neko = iamneko(data.content[4:], neko_key)
+
+            for i in id_seq:
+                if(i == data.id):
+                    return  #若消息的序列号已存在在列表中（即重复接受服务器的Payload）则跳出
+            
+            id_seq.append(data.id)
+            memory.append(data.content[4:])
+            if(len(memory)>5):
+                id_seq.pop(0)
+                memory.pop(0)
+            
+            content_all = ""
+            seq = 1
+            for c in memory:
+                content_all += str(seq) + "." + c
+                seq += 1
+            
+            content_neko = iamneko(content_all, neko_key)
+            print(id_seq)
+            print(memory)
+            print(content_all)
+
             response = requests.post(f"{base_url}/v2/groups/{data.group_openid}/messages",
                                 headers={"Authorization": f"QQBot {access_token}"},
                                 json={
@@ -54,6 +78,6 @@ async def on_group_at_message_create(base_url: str, access_token: str, d: dict, 
                                 "msg_type": 0,
                             })
         logger.debug(response.json())
-        
+
     #print("00000\n00000")
     
