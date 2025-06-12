@@ -1,54 +1,65 @@
-import yaml
-from fastapi import FastAPI
-import logging
-from pydantic import BaseModel, Field
-from typing import Optional
-from services.get_access_token import get_access_token
-from services.on_group_at_message_create import on_group_at_message_create
-from services.verify_callback_url import verify_callback_url
+"""
+牢财QQ机器人 - 主入口文件
+"""
 
-# 设置日志格式和级别
-logger = logging.getLogger("uvicorn")
-logger.setLevel(logging.DEBUG)
+from models import Payload
+from dependencies import AuthServiceDep, VerificationCallbackUrlServiceDep, MessageServiceDep
 
-app = FastAPI()
+from configs.logging_config import get_logger
+
+# 初始化配置和日志
+logger = get_logger()
+
+from fastapi import FastAPI, HTTPException, Depends
+
+# 创建FastAPI应用
+app = FastAPI(
+    title="牢财QQ机器人",
+    description="基于FastAPI的QQ群机器人, 支持AI聊天和掷骰功能",
+    version="0.1.0"
+)
 
 
 @app.get("/")
-async def hello():
-    return {"hello": "world"}
-
-
-class Payload(BaseModel):
-    id: Optional[str] = Field(default=None, description="payload id")
-    op: int = Field(..., description="指的是 opcode，参考连接维护")
-    d: dict = Field(..., description="代表事件内容，不同事件类型的事件内容格式都不同，请注意识别。主要用在op为 0 Dispatch 的时候")
-    s: Optional[int] = Field(default=None, description="下行消息都会有一个序列号，标识消息的唯一性，客户端需要再发送心跳的时候，携带客户端收到的最新的s")
-    t: Optional[str] = Field(default=None, description="代表事件类型。主要用在op为 0 Dispatch 的时候")
+async def health_check():
+    """健康检查接口"""
+    return {"status": "ok", "message": "牢财运行正常"}
 
 
 @app.post("/")
-async def root(payload: Payload):
-    print("00000\n00000")
-    with open("config.yaml", "r", encoding="utf-8") as f:
-        config = yaml.safe_load(f)
-    appid = config["appid"]
-    bot_secret = config["secret"]
-    neko_key = config["neko_key"]
-    base_url = "https://sandbox.api.sgroup.qq.com"
+async def webhook_handler(
+    payload: Payload,
+    auth_service: AuthServiceDep, # 认证服务
+    verification_callback_url_service: VerificationCallbackUrlServiceDep, # 验证回调URL服务
+    message_service: MessageServiceDep, # 消息服务
+    ):
+    """WebHook处理接口"""
+    logger.debug(f"接收到WebHook请求: op={payload.op}, t={payload.t}")
+    
+    try:
+        match payload.op:
+            case 0:  # Dispatch 事件
+                access_token = await auth_service.get_access_token()
+                
+                match payload.t:
+                    case "GROUP_AT_MESSAGE_CREATE":
+                        await message_service.handle( 
+                            access_token, 
+                            payload.d, 
+                        )
+                        
+            case 13:  # URL验证
+                result = verification_callback_url_service.verify(payload.d)
+                return result
+                
+        return {"status": "success"}
+        
+    except Exception as e:
+        logger.error(f"处理WebHook请求失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"内部服务器错误: {str(e)}") 
 
-    logger.info(payload.model_dump())
+logger.info("牢财启动完成") 
 
-    match payload.op:
-        case 0:
-            access_token = get_access_token(appid, bot_secret)
-
-            match payload.t:
-                case "GROUP_AT_MESSAGE_CREATE":
-                    await on_group_at_message_create(base_url, access_token, payload.d, neko_key)
-
-        case 13:
-            plain_token, signature_hex = verify_callback_url(bot_secret, payload.d)
-            return {"plain_token": plain_token, "signature": signature_hex}
-
-    return None
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True) 
