@@ -62,7 +62,8 @@ cp config.yaml.example config.yaml
 配置文件说明：
 - `appid`: QQ机器人的AppID
 - `secret`: QQ机器人的Secret
-- `neko_key`: SiliconFlow API密钥
+- `api_url`: SiliconFlow API URL
+- `api_key`: SiliconFlow API密钥
 - `base_url`: QQ API基础URL
 - `log_level`: 日志级别
 
@@ -70,10 +71,10 @@ cp config.yaml.example config.yaml
 
 ```bash
 # 开发模式启动
-uvicorn main_new:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8080 --reload
 
 # 或直接运行
-python main_new.py
+python mainw.py
 ```
 
 ### 4. WebHook配置
@@ -113,8 +114,8 @@ http://your-domain.com:8000/webhook
 ## 📚 API文档
 
 启动服务后，可以通过以下地址查看API文档：
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+- Swagger UI: http://localhost:8080/docs
+- ReDoc: http://localhost:8080/redoc
 
 ## 🎯 使用示例
 
