@@ -1,5 +1,4 @@
 import requests
-from typing import Optional
 from configs.logging_config import get_logger
 from configs.app_config import APPConfig
 

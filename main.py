@@ -10,7 +10,7 @@ from configs.logging_config import get_logger
 # 初始化配置和日志
 logger = get_logger()
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException
 
 # 创建FastAPI应用
 app = FastAPI(
