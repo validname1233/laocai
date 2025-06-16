@@ -155,6 +155,8 @@ class MessageService:
             
             # 处理掷骰命令
             if await self._handle_dice_command(access_token, msg): return
+
+            await self._send_message(access_token, msg.group_openid, f"牢财不知道你在说什么喵", msg.id)
                 
             logger.debug("未匹配到任何命令处理器")
             
