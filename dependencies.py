@@ -11,6 +11,7 @@ from services.neko_service import NekoService
 from services.auth_service import AuthService
 from services.verification_callback_url_service import VerificationCallbackUrlService
 from services.message_service import MessageService
+from services.dice_service import DiceService
 
 # === 配置依赖 ===
 # 创建FastAPI依赖注解
@@ -56,11 +57,22 @@ def get_neko_service(app_config: APPConfigDep) -> NekoService:
 NekoServiceDep = Annotated[NekoService, Depends(get_neko_service)]
 
 @lru_cache()
-def get_message_service(app_config: APPConfigDep, neko_service: NekoServiceDep) -> MessageService:
+def get_dice_service(app_config: APPConfigDep) -> DiceService:
+    """创建掷骰服务实例"""
+    return DiceService(app_config)
+
+DiceServiceDep = Annotated[DiceService, Depends(get_dice_service)]
+
+@lru_cache()
+def get_message_service(app_config: APPConfigDep, neko_service: NekoServiceDep, dice_service: DiceServiceDep) -> MessageService:
     """创建消息服务实例"""
-    return MessageService(app_config, neko_service)
+    message_service = MessageService(app_config)
+    message_service.services.append(neko_service)
+    message_service.services.append(dice_service)
+    return message_service
 
 MessageServiceDep = Annotated[MessageService, Depends(get_message_service)]
+
 
 # === 清理函数（用于测试）===
 

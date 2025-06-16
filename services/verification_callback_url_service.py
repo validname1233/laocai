@@ -11,7 +11,7 @@ class VerificationCallbackUrlService:
     def __init__(self, app_config: APPConfig):
         self.app_config = app_config
 
-    def verify(self, d: dict) -> dict:
+    def verify(self, event: VerifyEvent) -> dict:
         """
         验证回调URL
     
@@ -22,8 +22,6 @@ class VerificationCallbackUrlService:
         Returns:
             包含plain_token和signature的字典
         """
-        event = VerifyEvent(**d)
-        
         try:
             logger.debug("开始验证回调URL")
 

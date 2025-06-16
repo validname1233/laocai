@@ -2,7 +2,7 @@
 牢财QQ机器人 - 主入口文件
 """
 
-from models import Payload
+from models import Payload, GroupAtMessage, VerifyEvent
 from dependencies import AuthServiceDep, VerificationCallbackUrlServiceDep, MessageServiceDep
 
 from configs.logging_config import get_logger
@@ -43,13 +43,13 @@ async def webhook_handler(
                 
                 match payload.t:
                     case "GROUP_AT_MESSAGE_CREATE":
-                        await message_service.handle( 
+                        await message_service.handle(
                             access_token, 
-                            payload.d, 
+                            GroupAtMessage(**payload.d), 
                         )
                         
             case 13:  # URL验证
-                result = verification_callback_url_service.verify(payload.d)
+                result = verification_callback_url_service.verify(VerifyEvent(**payload.d))
                 return result
                 
         return {"status": "success"}
