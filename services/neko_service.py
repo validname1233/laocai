@@ -4,7 +4,7 @@ from configs.app_config import APPConfig
 
 logger = get_logger()
 
-class NekoAIService:
+class NekoService:
     """猫娘AI服务类"""
     def __init__(self, app_config: APPConfig):
         self.api_url = app_config.api_url

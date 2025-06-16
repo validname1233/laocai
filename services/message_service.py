@@ -4,7 +4,7 @@ import requests
 from typing import List
 from models import GroupAtMessage, GroupAtMessageResponse
 from configs.logging_config import get_logger
-from services.neko_service import NekoAIService
+from services.neko_service import NekoService
 from configs.app_config import APPConfig
 
 logger = get_logger()
@@ -39,7 +39,7 @@ class MessageService:
                 content_all += f"{i}.{content}; "
             return content_all
         
-    def __init__(self, app_config: APPConfig = None, neko_service: NekoAIService = None):
+    def __init__(self, app_config: APPConfig = None, neko_service: NekoService = None):
         self.app_config = app_config
         self.prev_msg_ids = [] # 全局消息ID序列
         self.chat_message_memory = self.ChatMessageMemory() # 全局LLM记忆实例

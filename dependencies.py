@@ -7,7 +7,7 @@ from typing import Annotated
 from fastapi import Depends
 
 from configs.app_config import APPConfig
-from services.neko_service import NekoAIService
+from services.neko_service import NekoService
 from services.auth_service import AuthService
 from services.verification_callback_url_service import VerificationCallbackUrlService
 from services.message_service import MessageService
@@ -49,11 +49,11 @@ AuthServiceDep = Annotated[AuthService, Depends(get_auth_service)]
 
 
 @lru_cache()
-def get_neko_service(app_config: APPConfigDep) -> NekoAIService:
+def get_neko_service(app_config: APPConfigDep) -> NekoService:
     """创建猫娘AI服务实例"""
-    return NekoAIService(app_config)
+    return NekoService(app_config)
 
-NekoServiceDep = Annotated[NekoAIService, Depends(get_neko_service)]
+NekoServiceDep = Annotated[NekoService, Depends(get_neko_service)]
 
 @lru_cache()
 def get_message_service(app_config: APPConfigDep, neko_service: NekoServiceDep) -> MessageService:
