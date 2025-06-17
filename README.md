@@ -157,6 +157,10 @@ http://your-domain.com:8000/webhook
 - [SiliconFlow](https://siliconflow.cn/) - AI服务提供商
 - [QQ机器人开放平台](https://bot.q.qq.com/) - 官方机器人平台
 
+## 未来更新方向
+- 把message_service改成group_message_service，并且添加private_message_service, 并将两个类修改为Message_service的子类
+- 重构项目引用结构，把绝对引用改成相对引用
+
 ---
 
 如有问题或建议，欢迎提交 Issue 或 Pull Request！
