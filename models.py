@@ -33,4 +33,5 @@ class GroupAtMessageResponse(BaseModel):
     """消息响应模型"""
     content: str
     msg_id: str
-    msg_type: int = 0 
+    msg_type: int = 0
+    msg_seq: int = 1

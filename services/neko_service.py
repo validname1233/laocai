@@ -1,4 +1,4 @@
-import requests, queue
+import requests, queue, asyncio
 from configs.logging_config import get_logger
 from configs.app_config import APPConfig
 from models import GroupAtMessage
@@ -100,9 +100,20 @@ class NekoService(MessageService):
         self.messages.put({"role": "user", "content": msg.content[4:]}) # 去掉 " /说话 "
         
         logger.debug(f"生成AI响应的输入: {self.messages.queue}")
-        
+
         ai_response = await self._generate_response()
+
+        # 检查AI响应是否为空
+        if not ai_response or not ai_response.strip():
+            logger.warning("AI响应为空，使用默认回复")
+            ai_response = "喵~ 主人，我现在有点迷糊呢~"
+
+        # 分割响应并过滤空白部分
+        response_parts = [part.strip() for part in ai_response.split("\n\n") if part.strip()]
         
-        await self._send_message(access_token, msg.group_openid, ai_response, msg.id)
+        for i, ai_response_part in enumerate(response_parts):
+            # 降低发送频率
+            await asyncio.sleep(5)
+            await self._send_message(access_token, msg.group_openid, ai_response_part, msg.id, msg_seq=i+1)
         
         return True

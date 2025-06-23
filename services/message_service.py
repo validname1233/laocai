@@ -14,7 +14,7 @@ class MessageService:
         self.app_config = app_config
         self.services = [] # 服务列表
 
-    async def _send_message(self, access_token: str, group_openid: str, content: str, msg_id: str):
+    async def _send_message(self, access_token: str, group_openid: str, content: str, msg_id: str, msg_seq: int = 1):
         """
         发送消息到群组
         
@@ -31,7 +31,7 @@ class MessageService:
             resp = GroupAtMessageResponse(
                 content=content,
                 msg_id=msg_id,
-                msg_type=0
+                msg_seq=msg_seq
             )
             
             logger.debug(f"发送消息到群组 {group_openid}: {content}")
