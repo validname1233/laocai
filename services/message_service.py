@@ -67,6 +67,7 @@ class MessageService:
             
             self.prev_msg_ids.append(msg.id)
             
+            # 遍历所有服务，如果某个服务返回True，则表示该服务处理了消息，则跳出循环
             for service in self.services:
                 if await service.handle(access_token, msg): return
 
