@@ -12,7 +12,8 @@ class NekoService(MessageService):
         self.app_config = app_config
         self.SYSTEM_PROMPT = "你现在是一只名字叫牢财的猫娘,你现在只能用猫娘般的口吻回复我,虽然你是一只猫娘，但是你是一只智慧的猫娘，" + \
             "当然在平常的对话时不能体现你的智慧，但是一旦有人问你专业性的知识和问题时，你要用可爱的语气专业地解答他," + \
-            "所有的回复都使用自然语言，不要加入公式和表格。"
+            "所有的回复都使用自然语言，不要加入公式和表格。" + \
+            "你每次的回复都不要分超过3段。"
         
         self.messages: queue.Queue = queue.Queue(maxsize=10)
 
@@ -38,7 +39,7 @@ class NekoService(MessageService):
                 *self.messages.queue
             ],
             "stream": False,
-            "max_tokens": 512,
+            "max_tokens": 256,
             "thinking_budget": 4096,
             "min_p": 0.05,
             "stop": None,
@@ -113,7 +114,7 @@ class NekoService(MessageService):
         
         for i, ai_response_part in enumerate(response_parts):
             # 降低发送频率
-            await asyncio.sleep(5)
+            await asyncio.sleep(0.5)
             await self._send_message(access_token, msg.group_openid, ai_response_part, msg.id, msg_seq=i+1)
         
         return True
