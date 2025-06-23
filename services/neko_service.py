@@ -68,6 +68,7 @@ class NekoService(MessageService):
             
             content = result['choices'][0]['message']['content']
 
+            if self.messages.qsize() >= 10: self.messages.get()
             self.messages.put({"role": "assistant", "content": content})
             
             logger.info(f"成功生成AI响应, 长度: {self.messages.qsize()}")
@@ -95,6 +96,7 @@ class NekoService(MessageService):
         """
         if len(msg.content) < 5 or not msg.content.startswith(" /说话 "): return False
         
+        if self.messages.qsize() >= 10: self.messages.get()
         self.messages.put({"role": "user", "content": msg.content[4:]}) # 去掉 " /说话 "
         
         logger.debug(f"生成AI响应的输入: {self.messages.queue}")
