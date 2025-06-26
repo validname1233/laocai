@@ -160,6 +160,7 @@ http://your-domain.com:8000/webhook
 ## 未来更新方向
 - 把message_service改成group_message_service，并且添加private_message_service, 并将两个类修改为Message_service的子类
 - 重构项目引用结构，把绝对引用改成相对引用
+- 添加数据库读写功能
 
 ---
 
