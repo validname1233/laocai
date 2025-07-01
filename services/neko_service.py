@@ -59,7 +59,7 @@ class NekoService(MessageService):
         try:
             logger.debug(f"调用猫娘AI服务, 输入长度: {self.messages.qsize()}")
             
-            response = requests.post(self.app_config.api_url, json=payload, headers=headers, timeout=30)
+            response = requests.post(self.app_config.api_url, json=payload, headers=headers, timeout=60)
             response.raise_for_status()
             
             result = response.json()
