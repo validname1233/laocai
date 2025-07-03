@@ -71,7 +71,7 @@ class MessageService:
             for service in self.services:
                 if await service.handle(access_token, msg): return
 
-            await self._send_message(access_token, msg.group_openid, f"牢财不知道你在说什么喵", msg.id)
+            await self._send_message(access_token, msg.group_openid, "牢财不知道你在说什么喵", msg.id)
                 
             logger.debug("未匹配到任何命令处理器")
             
