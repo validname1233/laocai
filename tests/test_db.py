@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 # 定义数据库连接URL - 连接到本地MySQL数据库
-DATABASE_URL = "mysql+mysqldb://root:123456@localhost:3306/laocai"
+DATABASE_URL = "mysql+mysqldb://root:123456@localhost:3306/laocai_db"
 
 # 创建数据库引擎，配置连接池和日志选项
 engine = create_engine(DATABASE_URL, echo=True, pool_recycle=3600, pool_pre_ping=True)
