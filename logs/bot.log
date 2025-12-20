@@ -79,3 +79,529 @@
 2025-12-20 11:33:57.053 | INFO     | main:lifespan:14 - QQ Robot 已停止
 2025-12-20 11:33:57.053 | INFO     | logging:callHandlers:1736 - Application shutdown complete.
 2025-12-20 11:33:57.054 | INFO     | logging:callHandlers:1736 - Finished server process [8848]
+2025-12-20 23:39:49.273 | INFO     | main:lifespan:14 - QQ Robot 正在启动...
+2025-12-20 23:39:49.274 | INFO     | logging:callHandlers:1736 - Application startup complete.
+2025-12-20 23:39:49.275 | INFO     | logging:callHandlers:1736 - Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+2025-12-20 23:41:00.489 | INFO     | main:lifespan:14 - QQ Robot 正在启动...
+2025-12-20 23:41:00.490 | INFO     | logging:callHandlers:1736 - Application startup complete.
+2025-12-20 23:41:00.491 | INFO     | logging:callHandlers:1736 - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2025-12-20 23:41:43.128 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245303, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:41:43.129 | INFO     | logging:callHandlers:1736 - 127.0.0.1:9262 - "POST / HTTP/1.1" 200
+2025-12-20 23:41:43.184 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245303, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:41:43.184 | INFO     | logging:callHandlers:1736 - 127.0.0.1:9262 - "POST / HTTP/1.1" 200
+2025-12-20 23:41:43.397 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245303, 'post_type': <EventType.MESSAGE: 'message'>, 'self_id': 3658371243, 'user_id': 2331630699, 'message_id': 46817488, 'message_seq': 46817488, 'real_id': 46817488, 'real_seq': '8', 'message_type': 'private', 'sender': {'user_id': 2331630699, 'nickname': 'lucky.brightest', 'card': ''}, 'raw_message': '。', 'font': 14, 'sub_type': 'friend', 'message': [{'type': 'text', 'data': {'text': '。'}}], 'message_format': 'array', 'target_id': 2331630699, 'raw': {'msgId': '7585965818042819043', 'msgRandom': '948455621', 'msgSeq': '8', 'cntSeq': '0', 'chatType': 1, 'msgType': 2, 'subMsgType': 1, 'sendType': 0, 'senderUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'peerUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'channelId': '', 'guildId': '', 'guildCode': '0', 'fromUid': '0', 'fromAppid': '0', 'msgTime': '1766245303', 'msgMeta': {}, 'sendStatus': 2, 'sendRemarkName': '', 'sendMemberName': '', 'sendNickName': '', 'guildName': '', 'channelName': '', 'elements': [{'elementType': 1, 'elementId': '7585965818042819042', 'elementGroupId': 0, 'extBufForUI': {}, 'textElement': {'content': '。', 'atType': 0, 'atUid': '0', 'atTinyId': '0', 'atNtUid': '', 'subElementType': 0, 'atChannelId': '0', 'linkInfo': None, 'atRoleId': '0', 'atRoleColor': 0, 'atRoleName': '', 'needNotify': 0}, 'faceElement': None, 'marketFaceElement': None, 'replyElement': None, 'picElement': None, 'pttElement': None, 'videoElement': None, 'grayTipElement': None, 'arkElement': None, 'fileElement': None, 'liveGiftElement': None, 'markdownElement': None, 'structLongMsgElement': None, 'multiForwardMsgElement': None, 'giphyElement': None, 'walletElement': None, 'inlineKeyboardElement': None, 'textGiftElement': None, 'calendarElement': None, 'yoloGameResultElement': None, 'avRecordElement': None, 'structMsgElement': None, 'faceBubbleElement': None, 'shareLocationElement': None, 'tofuRecordElement': None, 'taskTopMsgElement': None, 'recommendedMsgElement': None, 'actionBarElement': None, 'prologueMsgElement': None, 'forwardMsgElement': None}], 'auxiliaryElements': [], 'records': [], 'emojiLikesList': [], 'commentCnt': '0', 'directMsgFlag': 0, 'directMsgMembers': [], 'peerName': '', 'freqLimitInfo': None, 'editable': False, 'avatarMeta': '', 'avatarPendant': '', 'feedId': '', 'roleId': '0', 'timeStamp': '0', 'clientIdentityInfo': None, 'isImportMsg': False, 'atType': 0, 'roleType': 0, 'fromChannelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'fromGuildRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'levelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'recallTime': '0', 'isOnlineMsg': True, 'generalFlags': {}, 'clientSeq': '62272', 'fileGroupSize': None, 'foldingInfo': None, 'multiTransInfo': None, 'senderUin': '2331630699', 'peerUin': '2331630699', 'msgAttrs': {}, 'anonymousExtInfo': None, 'nameType': 0, 'avatarFlag': 0, 'extInfoForUI': None, 'personalMedal': None, 'categoryManage': 0, 'msgEventInfo': None, 'sourceType': 1, 'id': 46817488}}
+2025-12-20 23:41:43.398 | INFO     | logging:callHandlers:1736 - 127.0.0.1:9262 - "POST / HTTP/1.1" 500
+2025-12-20 23:41:43.399 | ERROR    | logging:callHandlers:1736 - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+
+  File "D:\QQbot\laocai-NapCat-python\.venv\Scripts\uvicorn.exe\__main__.py", line 10, in <module>
+
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 1485, in __call__
+    return self.main(*args, **kwargs)
+           │    │     │       └ {}
+           │    │     └ ()
+           │    └ <function Command.main at 0x0000027C5B1BEB60>
+           └ <Command main>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 1406, in main
+    rv = self.invoke(ctx)
+         │    │      └ <click.core.Context object at 0x0000027C5B323A10>
+         │    └ <function Command.invoke at 0x0000027C5B1BE840>
+         └ <Command main>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 1269, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           │   │      │    │           │   └ {'app': 'main:app', 'host': '127.0.0.1', 'port': 8000, 'uds': None, 'fd': None, 'reload': False, 'reload_dirs': (), 'reload_i...
+           │   │      │    │           └ <click.core.Context object at 0x0000027C5B323A10>
+           │   │      │    └ <function main at 0x0000027C5B3EBB00>
+           │   │      └ <Command main>
+           │   └ <function Context.invoke at 0x0000027C5B1BDA80>
+           └ <click.core.Context object at 0x0000027C5B323A10>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 824, in invoke
+    return callback(*args, **kwargs)
+           │         │       └ {'app': 'main:app', 'host': '127.0.0.1', 'port': 8000, 'uds': None, 'fd': None, 'reload': False, 'reload_dirs': (), 'reload_i...
+           │         └ ()
+           └ <function main at 0x0000027C5B3EBB00>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\main.py", line 423, in main
+    run(
+    └ <function run at 0x0000027C5B25C720>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\main.py", line 593, in run
+    server.run()
+    │      └ <function Server.run at 0x0000027C5B28F740>
+    └ <uvicorn.server.Server object at 0x0000027C5B404440>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x0000027C5B245080>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x0000027C5B323CB0>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x0000027C5B404440>
+           │           │    │             └ None
+           │           │    └ <function Server.serve at 0x0000027C5B28F7E0>
+           │           └ <uvicorn.server.Server object at 0x0000027C5B404440>
+           └ <function run at 0x0000027C5AAA1DA0>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x0000027C5B3CBCA0>
+           │      └ <function Runner.run at 0x0000027C5AB6EAC0>
+           └ <asyncio.runners.Runner object at 0x0000027C5B4046E0>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\ser...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000027C5AB6C680>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000027C5B4046E0>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x0000027C5AB6C5E0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000027C5AB6E3E0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000027C5A9D9440>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000027C5C624490>()>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000027C5C624490>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000027C5C624490>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000027C5C624490>()>
+> File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000027C5C670050>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027C5C...
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000027C5C503620>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000027C5C670050>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\applications.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027C5C...
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027C5C...
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000027C5C670C20>
+          └ <fastapi.applications.FastAPI object at 0x0000027C5C503620>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000027C5B3EA0C0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000027C5C670AD0>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000027C5C670C20>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000027C5B3EA0C0>
+          │                            │    │    │     │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000027C5C690050>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000027C5C670980>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000027C5C670AD0>
+          └ <function wrap_app_handling_exceptions at 0x0000027C5C4CA520>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67A520>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000027C5C670980>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67A520>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x0000027C5C5DCF50>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000027C5C670980>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67A520>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000027C5C5DCF50>>
+          └ <fastapi.routing.APIRouter object at 0x0000027C5C5DCF50>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67A520>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x0000027C5C4CBCE0>
+          └ APIRoute(path='/', name='receive_event', methods=['POST'])
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67A520>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x0000027C5C64A700>
+          └ APIRoute(path='/', name='receive_event', methods=['POST'])
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 118, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67A520>
+          │                            │    │        │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x0000027C5C62AC30>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000027C5C67A480>
+          └ <function wrap_app_handling_exceptions at 0x0000027C5C4CA520>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000027C5C67B920>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000027...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000027C5C67A480>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 104, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000027C5C62AC30>
+                     └ <function get_request_handler.<locals>.app at 0x0000027C5C64A7A0>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 428, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000027C5C4E5C60>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'event': Event(time=1766245303, post_type=<EventType.MESSAGE: 'message'>, self_id=3658371243, user_id=2331630699, message_id...
+                 │         └ <function receive_event at 0x0000027C5C64A660>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+  File "D:\QQbot\laocai-NapCat-python\main.py", line 29, in receive_event
+    message = Message.model_validate(event)
+              │       │              └ Event(time=1766245303, post_type=<EventType.MESSAGE: 'message'>, self_id=3658371243, user_id=2331630699, message_id=46817488,...
+              │       └ <classmethod(<function BaseModel.model_validate at 0x0000027C5C08E660>)>
+              └ <class 'model.dto.message.Message'>
+
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\pydantic\main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           │   └ <pydantic._internal._mock_val_ser.MockValSer object at 0x0000027C5C68EF80>
+           └ <class 'model.dto.message.Message'>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\pydantic\_internal\_mock_val_ser.py", line 100, in __getattr__
+    raise PydanticUserError(self._error_message, code=self._code)
+          │                 │    │                    │    └ <member '_code' of 'MockValSer' objects>
+          │                 │    │                    └ <pydantic._internal._mock_val_ser.MockValSer object at 0x0000027C5C604C80>
+          │                 │    └ <member '_error_message' of 'MockValSer' objects>
+          │                 └ <pydantic._internal._mock_val_ser.MockValSer object at 0x0000027C5C604C80>
+          └ <class 'pydantic.errors.PydanticUserError'>
+
+pydantic.errors.PydanticUserError: `Message` is not fully defined; you should define `MessageData`, then call `Message.model_rebuild()`.
+
+For further information visit https://errors.pydantic.dev/2.12/u/class-not-fully-defined
+2025-12-20 23:45:25.215 | INFO     | logging:callHandlers:1736 - Shutting down
+2025-12-20 23:45:25.323 | INFO     | logging:callHandlers:1736 - Waiting for application shutdown.
+2025-12-20 23:45:25.324 | INFO     | main:lifespan:16 - QQ Robot 已停止
+2025-12-20 23:45:25.324 | INFO     | logging:callHandlers:1736 - Application shutdown complete.
+2025-12-20 23:45:25.325 | INFO     | logging:callHandlers:1736 - Finished server process [90872]
+2025-12-20 23:46:03.035 | INFO     | main:lifespan:14 - QQ Robot 正在启动...
+2025-12-20 23:46:03.036 | INFO     | logging:callHandlers:1736 - Application startup complete.
+2025-12-20 23:46:03.037 | INFO     | logging:callHandlers:1736 - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2025-12-20 23:46:12.437 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245572, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 1, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:46:12.440 | INFO     | logging:callHandlers:1736 - 127.0.0.1:12094 - "POST / HTTP/1.1" 200
+2025-12-20 23:46:13.307 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245573, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:46:13.307 | INFO     | logging:callHandlers:1736 - 127.0.0.1:12094 - "POST / HTTP/1.1" 200
+2025-12-20 23:46:13.368 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245573, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:46:13.369 | INFO     | logging:callHandlers:1736 - 127.0.0.1:12094 - "POST / HTTP/1.1" 200
+2025-12-20 23:46:13.592 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245574, 'post_type': <EventType.MESSAGE: 'message'>, 'self_id': 3658371243, 'user_id': 2331630699, 'message_id': 258468465, 'message_seq': 258468465, 'real_id': 258468465, 'real_seq': '9', 'message_type': 'private', 'sender': {'user_id': 2331630699, 'nickname': 'lucky.brightest', 'card': ''}, 'raw_message': '。', 'font': 14, 'sub_type': 'friend', 'message': [{'type': 'text', 'data': {'text': '。'}}], 'message_format': 'array', 'target_id': 2331630699, 'raw': {'msgId': '7585966977770365762', 'msgRandom': '197663339', 'msgSeq': '9', 'cntSeq': '0', 'chatType': 1, 'msgType': 2, 'subMsgType': 1, 'sendType': 0, 'senderUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'peerUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'channelId': '', 'guildId': '', 'guildCode': '0', 'fromUid': '0', 'fromAppid': '0', 'msgTime': '1766245574', 'msgMeta': {}, 'sendStatus': 2, 'sendRemarkName': '', 'sendMemberName': '', 'sendNickName': '', 'guildName': '', 'channelName': '', 'elements': [{'elementType': 1, 'elementId': '7585966977770365761', 'elementGroupId': 0, 'extBufForUI': {}, 'textElement': {'content': '。', 'atType': 0, 'atUid': '0', 'atTinyId': '0', 'atNtUid': '', 'subElementType': 0, 'atChannelId': '0', 'linkInfo': None, 'atRoleId': '0', 'atRoleColor': 0, 'atRoleName': '', 'needNotify': 0}, 'faceElement': None, 'marketFaceElement': None, 'replyElement': None, 'picElement': None, 'pttElement': None, 'videoElement': None, 'grayTipElement': None, 'arkElement': None, 'fileElement': None, 'liveGiftElement': None, 'markdownElement': None, 'structLongMsgElement': None, 'multiForwardMsgElement': None, 'giphyElement': None, 'walletElement': None, 'inlineKeyboardElement': None, 'textGiftElement': None, 'calendarElement': None, 'yoloGameResultElement': None, 'avRecordElement': None, 'structMsgElement': None, 'faceBubbleElement': None, 'shareLocationElement': None, 'tofuRecordElement': None, 'taskTopMsgElement': None, 'recommendedMsgElement': None, 'actionBarElement': None, 'prologueMsgElement': None, 'forwardMsgElement': None}], 'auxiliaryElements': [], 'records': [], 'emojiLikesList': [], 'commentCnt': '0', 'directMsgFlag': 0, 'directMsgMembers': [], 'peerName': '', 'freqLimitInfo': None, 'editable': False, 'avatarMeta': '', 'avatarPendant': '', 'feedId': '', 'roleId': '0', 'timeStamp': '0', 'clientIdentityInfo': None, 'isImportMsg': False, 'atType': 0, 'roleType': 0, 'fromChannelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'fromGuildRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'levelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'recallTime': '0', 'isOnlineMsg': True, 'generalFlags': {}, 'clientSeq': '62273', 'fileGroupSize': None, 'foldingInfo': None, 'multiTransInfo': None, 'senderUin': '2331630699', 'peerUin': '2331630699', 'msgAttrs': {}, 'anonymousExtInfo': None, 'nameType': 0, 'avatarFlag': 0, 'extInfoForUI': None, 'personalMedal': None, 'categoryManage': 0, 'msgEventInfo': None, 'sourceType': 1, 'id': 258468465}}
+2025-12-20 23:46:13.593 | INFO     | logging:callHandlers:1736 - 127.0.0.1:12094 - "POST / HTTP/1.1" 500
+2025-12-20 23:46:13.593 | ERROR    | logging:callHandlers:1736 - Exception in ASGI application
+
+Traceback (most recent call last):
+
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+
+  File "D:\QQbot\laocai-NapCat-python\.venv\Scripts\uvicorn.exe\__main__.py", line 10, in <module>
+
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 1485, in __call__
+    return self.main(*args, **kwargs)
+           │    │     │       └ {}
+           │    │     └ ()
+           │    └ <function Command.main at 0x0000028ED5E7EB60>
+           └ <Command main>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 1406, in main
+    rv = self.invoke(ctx)
+         │    │      └ <click.core.Context object at 0x0000028ED5FE3A10>
+         │    └ <function Command.invoke at 0x0000028ED5E7E840>
+         └ <Command main>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 1269, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           │   │      │    │           │   └ {'app': 'main:app', 'host': '127.0.0.1', 'port': 8000, 'uds': None, 'fd': None, 'reload': False, 'reload_dirs': (), 'reload_i...
+           │   │      │    │           └ <click.core.Context object at 0x0000028ED5FE3A10>
+           │   │      │    └ <function main at 0x0000028ED60ABB00>
+           │   │      └ <Command main>
+           │   └ <function Context.invoke at 0x0000028ED5E7DA80>
+           └ <click.core.Context object at 0x0000028ED5FE3A10>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\click\core.py", line 824, in invoke
+    return callback(*args, **kwargs)
+           │         │       └ {'app': 'main:app', 'host': '127.0.0.1', 'port': 8000, 'uds': None, 'fd': None, 'reload': False, 'reload_dirs': (), 'reload_i...
+           │         └ ()
+           └ <function main at 0x0000028ED60ABB00>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\main.py", line 423, in main
+    run(
+    └ <function run at 0x0000028ED5F1C720>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\main.py", line 593, in run
+    server.run()
+    │      └ <function Server.run at 0x0000028ED5F4F740>
+    └ <uvicorn.server.Server object at 0x0000028ED60C4440>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+           │           │    │             │                      │    │      └ <function Config.get_loop_factory at 0x0000028ED5F05080>
+           │           │    │             │                      │    └ <uvicorn.config.Config object at 0x0000028ED5FE3CB0>
+           │           │    │             │                      └ <uvicorn.server.Server object at 0x0000028ED60C4440>
+           │           │    │             └ None
+           │           │    └ <function Server.serve at 0x0000028ED5F4F7E0>
+           │           └ <uvicorn.server.Server object at 0x0000028ED60C4440>
+           └ <function run at 0x0000028ED5761DA0>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x0000028ED608BCA0>
+           │      └ <function Runner.run at 0x0000028ED582EAC0>
+           └ <asyncio.runners.Runner object at 0x0000028ED60C46E0>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\ser...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000028ED582C680>
+           │    └ <ProactorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000028ED60C46E0>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\base_events.py", line 706, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x0000028ED582C5E0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\base_events.py", line 677, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000028ED582E3E0>
+    └ <ProactorEventLoop running=True closed=False debug=False>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\base_events.py", line 2034, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000028ED56B5440>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000028ED737DE10>()>
+  File "C:\Users\23316\AppData\Roaming\uv\python\cpython-3.13.3-windows-x86_64-none\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000028ED737DE10>()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000028ED737DE10>()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle <_asyncio.TaskStepMethWrapper object at 0x0000028ED737DE10>()>
+> File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 409, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000028ED7360050>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028ED7...
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000028ED71CF4D0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000028ED7360050>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\applications.py", line 1135, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028ED7...
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028ED7...
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000028ED7360C20>
+          └ <fastapi.applications.FastAPI object at 0x0000028ED71CF4D0>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000028ED7375D00>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000028ED7360AD0>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000028ED7360C20>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000028ED7375D00>
+          │                            │    │    │     │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000028ED7247F00>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000028ED7360980>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000028ED7360AD0>
+          └ <function wrap_app_handling_exceptions at 0x0000028ED719A520>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED73762A0>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000028ED7360980>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED73762A0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x0000028ED729D090>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000028ED7360980>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED73762A0>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000028ED729D090>>
+          └ <fastapi.routing.APIRouter object at 0x0000028ED729D090>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED73762A0>
+          │     │      │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x0000028ED719BCE0>
+          └ APIRoute(path='/', name='receive_event', methods=['POST'])
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED73762A0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x0000028ED7320AE0>
+          └ APIRoute(path='/', name='receive_event', methods=['POST'])
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 118, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED73762A0>
+          │                            │    │        │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x0000028ED7309040>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000028ED7376340>
+          └ <function wrap_app_handling_exceptions at 0x0000028ED719A520>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000028ED7376480>
+          │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.httptools_impl.RequestResponseCycle object at 0x0000028...
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000028ED7376340>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 104, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000028ED7309040>
+                     └ <function get_request_handler.<locals>.app at 0x0000028ED7320A40>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 428, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000028ED71B5C60>
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\fastapi\routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'event': Event(time=1766245574, post_type=<EventType.MESSAGE: 'message'>, self_id=3658371243, user_id=2331630699, message_id...
+                 │         └ <function receive_event at 0x0000028ED7320B80>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+  File "D:\QQbot\laocai-NapCat-python\main.py", line 30, in receive_event
+    message = Message.model_validate(event.model_dump())
+              │       │              │     └ <function BaseModel.model_dump at 0x0000028ED6D6E2A0>
+              │       │              └ Event(time=1766245574, post_type=<EventType.MESSAGE: 'message'>, self_id=3658371243, user_id=2331630699, message_id=258468465...
+              │       └ <classmethod(<function BaseModel.model_validate at 0x0000028ED6D6E660>)>
+              └ <class 'model.dto.message.Message'>
+
+  File "D:\QQbot\laocai-NapCat-python\.venv\Lib\site-packages\pydantic\main.py", line 716, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           │   │                      └ <method 'validate_python' of 'pydantic_core._pydantic_core.SchemaValidator' objects>
+           │   └ SchemaValidator(title="Message", validator=DefinitionRef(
+           │         DefinitionRefValidator {
+           │             definition: "Message",
+           │         },
+           │     ...
+           └ <class 'model.dto.message.Message'>
+
+pydantic_core._pydantic_core.ValidationError: 7 validation errors for Message
+sender.sex
+  Field required [type=missing, input_value={'user_id': 2331630699, '....brightest', 'card': ''}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+sender.age
+  Field required [type=missing, input_value={'user_id': 2331630699, '....brightest', 'card': ''}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+sender.level
+  Field required [type=missing, input_value={'user_id': 2331630699, '....brightest', 'card': ''}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+sender.role
+  Field required [type=missing, input_value={'user_id': 2331630699, '....brightest', 'card': ''}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+group_id
+  Field required [type=missing, input_value={'time': 1766245574, 'pos...e': 1, 'id': 258468465}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+group_name
+  Field required [type=missing, input_value={'time': 1766245574, 'pos...e': 1, 'id': 258468465}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+temp_source
+  Field required [type=missing, input_value={'time': 1766245574, 'pos...e': 1, 'id': 258468465}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+2025-12-20 23:46:17.448 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245577, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:46:17.449 | INFO     | logging:callHandlers:1736 - 127.0.0.1:12103 - "POST / HTTP/1.1" 200
+2025-12-20 23:46:35.492 | INFO     | main:lifespan:14 - QQ Robot 正在启动...
+2025-12-20 23:46:35.493 | INFO     | logging:callHandlers:1736 - Application startup complete.
+2025-12-20 23:46:35.494 | ERROR    | logging:callHandlers:1736 - [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8001): [winerror 10048] 通常每个套接字地址(协议/网络地址/端口)只允许使用一次。
+2025-12-20 23:46:35.494 | INFO     | logging:callHandlers:1736 - Waiting for application shutdown.
+2025-12-20 23:46:35.494 | INFO     | main:lifespan:16 - QQ Robot 已停止
+2025-12-20 23:46:35.494 | INFO     | logging:callHandlers:1736 - Application shutdown complete.
+2025-12-20 23:47:43.609 | INFO     | logging:callHandlers:1736 - Shutting down
+2025-12-20 23:47:43.720 | INFO     | logging:callHandlers:1736 - Waiting for application shutdown.
+2025-12-20 23:47:43.720 | INFO     | main:lifespan:16 - QQ Robot 已停止
+2025-12-20 23:47:43.720 | INFO     | logging:callHandlers:1736 - Application shutdown complete.
+2025-12-20 23:47:43.721 | INFO     | logging:callHandlers:1736 - Finished server process [17024]
+2025-12-20 23:47:48.157 | INFO     | main:lifespan:14 - QQ Robot 正在启动...
+2025-12-20 23:47:48.158 | INFO     | logging:callHandlers:1736 - Application startup complete.
+2025-12-20 23:47:48.158 | INFO     | logging:callHandlers:1736 - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2025-12-20 23:48:03.323 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245683, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 1, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:03.323 | INFO     | logging:callHandlers:1736 - 127.0.0.1:11131 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:03.914 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245683, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:03.915 | INFO     | logging:callHandlers:1736 - 127.0.0.1:11131 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:03.974 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245683, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:03.975 | INFO     | logging:callHandlers:1736 - 127.0.0.1:11131 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:04.191 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245684, 'post_type': <EventType.MESSAGE: 'message'>, 'self_id': 3658371243, 'user_id': 2331630699, 'message_id': 267905695, 'message_seq': 267905695, 'real_id': 267905695, 'real_seq': '10', 'message_type': 'private', 'sender': {'user_id': 2331630699, 'nickname': 'lucky.brightest', 'card': ''}, 'raw_message': '。', 'font': 14, 'sub_type': 'friend', 'message': [{'type': 'text', 'data': {'text': '。'}}], 'message_format': 'array', 'target_id': 2331630699, 'raw': {'msgId': '7585967449512283478', 'msgRandom': '935271755', 'msgSeq': '10', 'cntSeq': '0', 'chatType': 1, 'msgType': 2, 'subMsgType': 1, 'sendType': 0, 'senderUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'peerUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'channelId': '', 'guildId': '', 'guildCode': '0', 'fromUid': '0', 'fromAppid': '0', 'msgTime': '1766245684', 'msgMeta': {}, 'sendStatus': 2, 'sendRemarkName': '', 'sendMemberName': '', 'sendNickName': '', 'guildName': '', 'channelName': '', 'elements': [{'elementType': 1, 'elementId': '7585967449512283477', 'elementGroupId': 0, 'extBufForUI': {}, 'textElement': {'content': '。', 'atType': 0, 'atUid': '0', 'atTinyId': '0', 'atNtUid': '', 'subElementType': 0, 'atChannelId': '0', 'linkInfo': None, 'atRoleId': '0', 'atRoleColor': 0, 'atRoleName': '', 'needNotify': 0}, 'faceElement': None, 'marketFaceElement': None, 'replyElement': None, 'picElement': None, 'pttElement': None, 'videoElement': None, 'grayTipElement': None, 'arkElement': None, 'fileElement': None, 'liveGiftElement': None, 'markdownElement': None, 'structLongMsgElement': None, 'multiForwardMsgElement': None, 'giphyElement': None, 'walletElement': None, 'inlineKeyboardElement': None, 'textGiftElement': None, 'calendarElement': None, 'yoloGameResultElement': None, 'avRecordElement': None, 'structMsgElement': None, 'faceBubbleElement': None, 'shareLocationElement': None, 'tofuRecordElement': None, 'taskTopMsgElement': None, 'recommendedMsgElement': None, 'actionBarElement': None, 'prologueMsgElement': None, 'forwardMsgElement': None}], 'auxiliaryElements': [], 'records': [], 'emojiLikesList': [], 'commentCnt': '0', 'directMsgFlag': 0, 'directMsgMembers': [], 'peerName': '', 'freqLimitInfo': None, 'editable': False, 'avatarMeta': '', 'avatarPendant': '', 'feedId': '', 'roleId': '0', 'timeStamp': '0', 'clientIdentityInfo': None, 'isImportMsg': False, 'atType': 0, 'roleType': 0, 'fromChannelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'fromGuildRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'levelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'recallTime': '0', 'isOnlineMsg': True, 'generalFlags': {}, 'clientSeq': '62274', 'fileGroupSize': None, 'foldingInfo': None, 'multiTransInfo': None, 'senderUin': '2331630699', 'peerUin': '2331630699', 'msgAttrs': {}, 'anonymousExtInfo': None, 'nameType': 0, 'avatarFlag': 0, 'extInfoForUI': None, 'personalMedal': None, 'categoryManage': 0, 'msgEventInfo': None, 'sourceType': 1, 'id': 267905695}}
+2025-12-20 23:48:04.192 | INFO     | main:receive_event:31 - 收到消息：[MessageText(type=<MessageDataType.TEXT: 'text'>, data=TextData(text='。'))]
+2025-12-20 23:48:04.193 | INFO     | logging:callHandlers:1736 - 127.0.0.1:11131 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:08.324 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245688, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:08.325 | INFO     | logging:callHandlers:1736 - 127.0.0.1:11131 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:37.743 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245717, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:37.744 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6696 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:42.879 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245722, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 1, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:42.879 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6697 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:45.285 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245725, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:45.286 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6697 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:47.587 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245727, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:47.588 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6697 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:47.661 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245727, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:47.662 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6697 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:47.862 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245728, 'post_type': <EventType.MESSAGE: 'message'>, 'self_id': 3658371243, 'user_id': 2331630699, 'message_id': 2142753328, 'message_seq': 2142753328, 'real_id': 2142753328, 'real_seq': '11', 'message_type': 'private', 'sender': {'user_id': 2331630699, 'nickname': 'lucky.brightest', 'card': ''}, 'raw_message': '1', 'font': 14, 'sub_type': 'friend', 'message': [{'type': 'text', 'data': {'text': '1'}}], 'message_format': 'array', 'target_id': 2331630699, 'raw': {'msgId': '7585967638489810890', 'msgRandom': '500820340', 'msgSeq': '11', 'cntSeq': '0', 'chatType': 1, 'msgType': 2, 'subMsgType': 1, 'sendType': 0, 'senderUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'peerUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'channelId': '', 'guildId': '', 'guildCode': '0', 'fromUid': '0', 'fromAppid': '0', 'msgTime': '1766245728', 'msgMeta': {}, 'sendStatus': 2, 'sendRemarkName': '', 'sendMemberName': '', 'sendNickName': '', 'guildName': '', 'channelName': '', 'elements': [{'elementType': 1, 'elementId': '7585967638489810889', 'elementGroupId': 0, 'extBufForUI': {}, 'textElement': {'content': '1', 'atType': 0, 'atUid': '0', 'atTinyId': '0', 'atNtUid': '', 'subElementType': 0, 'atChannelId': '0', 'linkInfo': None, 'atRoleId': '0', 'atRoleColor': 0, 'atRoleName': '', 'needNotify': 0}, 'faceElement': None, 'marketFaceElement': None, 'replyElement': None, 'picElement': None, 'pttElement': None, 'videoElement': None, 'grayTipElement': None, 'arkElement': None, 'fileElement': None, 'liveGiftElement': None, 'markdownElement': None, 'structLongMsgElement': None, 'multiForwardMsgElement': None, 'giphyElement': None, 'walletElement': None, 'inlineKeyboardElement': None, 'textGiftElement': None, 'calendarElement': None, 'yoloGameResultElement': None, 'avRecordElement': None, 'structMsgElement': None, 'faceBubbleElement': None, 'shareLocationElement': None, 'tofuRecordElement': None, 'taskTopMsgElement': None, 'recommendedMsgElement': None, 'actionBarElement': None, 'prologueMsgElement': None, 'forwardMsgElement': None}], 'auxiliaryElements': [], 'records': [], 'emojiLikesList': [], 'commentCnt': '0', 'directMsgFlag': 0, 'directMsgMembers': [], 'peerName': '', 'freqLimitInfo': None, 'editable': False, 'avatarMeta': '', 'avatarPendant': '', 'feedId': '', 'roleId': '0', 'timeStamp': '0', 'clientIdentityInfo': None, 'isImportMsg': False, 'atType': 0, 'roleType': 0, 'fromChannelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'fromGuildRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'levelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'recallTime': '0', 'isOnlineMsg': True, 'generalFlags': {}, 'clientSeq': '62275', 'fileGroupSize': None, 'foldingInfo': None, 'multiTransInfo': None, 'senderUin': '2331630699', 'peerUin': '2331630699', 'msgAttrs': {}, 'anonymousExtInfo': None, 'nameType': 0, 'avatarFlag': 0, 'extInfoForUI': None, 'personalMedal': None, 'categoryManage': 0, 'msgEventInfo': None, 'sourceType': 1, 'id': 2142753328}}
+2025-12-20 23:48:47.862 | INFO     | main:receive_event:31 - 收到消息：[MessageText(type=<MessageDataType.TEXT: 'text'>, data=TextData(text='1'))]
+2025-12-20 23:48:47.863 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6697 - "POST / HTTP/1.1" 200
+2025-12-20 23:48:47.890 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245727, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:48:47.891 | INFO     | logging:callHandlers:1736 - 127.0.0.1:6697 - "POST / HTTP/1.1" 200
+2025-12-20 23:49:31.577 | INFO     | logging:callHandlers:1736 - Shutting down
+2025-12-20 23:49:31.685 | INFO     | logging:callHandlers:1736 - Waiting for application shutdown.
+2025-12-20 23:49:31.686 | INFO     | main:lifespan:16 - QQ Robot 已停止
+2025-12-20 23:49:31.686 | INFO     | logging:callHandlers:1736 - Application shutdown complete.
+2025-12-20 23:49:31.686 | INFO     | logging:callHandlers:1736 - Finished server process [80012]
+2025-12-20 23:49:34.638 | INFO     | main:lifespan:14 - QQ Robot 正在启动...
+2025-12-20 23:49:34.639 | INFO     | logging:callHandlers:1736 - Application startup complete.
+2025-12-20 23:49:34.640 | INFO     | logging:callHandlers:1736 - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2025-12-20 23:49:39.864 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245779, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 1, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:49:39.864 | INFO     | logging:callHandlers:1736 - 127.0.0.1:2392 - "POST / HTTP/1.1" 200
+2025-12-20 23:49:40.336 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245780, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:49:40.337 | INFO     | logging:callHandlers:1736 - 127.0.0.1:2392 - "POST / HTTP/1.1" 200
+2025-12-20 23:49:40.408 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245780, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:49:40.408 | INFO     | logging:callHandlers:1736 - 127.0.0.1:2392 - "POST / HTTP/1.1" 200
+2025-12-20 23:49:40.551 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245781, 'post_type': <EventType.MESSAGE: 'message'>, 'self_id': 3658371243, 'user_id': 2331630699, 'message_id': 1906746677, 'message_seq': 1906746677, 'real_id': 1906746677, 'real_seq': '12', 'message_type': 'private', 'sender': {'user_id': 2331630699, 'nickname': 'lucky.brightest', 'card': ''}, 'raw_message': '这', 'font': 14, 'sub_type': 'friend', 'message': [{'type': 'text', 'data': {'text': '这'}}], 'message_format': 'array', 'target_id': 2331630699, 'raw': {'msgId': '7585967866398027508', 'msgRandom': '327824024', 'msgSeq': '12', 'cntSeq': '0', 'chatType': 1, 'msgType': 2, 'subMsgType': 1, 'sendType': 0, 'senderUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'peerUid': 'u_Dux6pKC9PAygnPzK4bObnw', 'channelId': '', 'guildId': '', 'guildCode': '0', 'fromUid': '0', 'fromAppid': '0', 'msgTime': '1766245781', 'msgMeta': {}, 'sendStatus': 2, 'sendRemarkName': '', 'sendMemberName': '', 'sendNickName': '', 'guildName': '', 'channelName': '', 'elements': [{'elementType': 1, 'elementId': '7585967866398027507', 'elementGroupId': 0, 'extBufForUI': {}, 'textElement': {'content': '这', 'atType': 0, 'atUid': '0', 'atTinyId': '0', 'atNtUid': '', 'subElementType': 0, 'atChannelId': '0', 'linkInfo': None, 'atRoleId': '0', 'atRoleColor': 0, 'atRoleName': '', 'needNotify': 0}, 'faceElement': None, 'marketFaceElement': None, 'replyElement': None, 'picElement': None, 'pttElement': None, 'videoElement': None, 'grayTipElement': None, 'arkElement': None, 'fileElement': None, 'liveGiftElement': None, 'markdownElement': None, 'structLongMsgElement': None, 'multiForwardMsgElement': None, 'giphyElement': None, 'walletElement': None, 'inlineKeyboardElement': None, 'textGiftElement': None, 'calendarElement': None, 'yoloGameResultElement': None, 'avRecordElement': None, 'structMsgElement': None, 'faceBubbleElement': None, 'shareLocationElement': None, 'tofuRecordElement': None, 'taskTopMsgElement': None, 'recommendedMsgElement': None, 'actionBarElement': None, 'prologueMsgElement': None, 'forwardMsgElement': None}], 'auxiliaryElements': [], 'records': [], 'emojiLikesList': [], 'commentCnt': '0', 'directMsgFlag': 0, 'directMsgMembers': [], 'peerName': '', 'freqLimitInfo': None, 'editable': False, 'avatarMeta': '', 'avatarPendant': '', 'feedId': '', 'roleId': '0', 'timeStamp': '0', 'clientIdentityInfo': None, 'isImportMsg': False, 'atType': 0, 'roleType': 0, 'fromChannelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'fromGuildRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'levelRoleInfo': {'roleId': '0', 'name': '', 'color': 0}, 'recallTime': '0', 'isOnlineMsg': True, 'generalFlags': {}, 'clientSeq': '62276', 'fileGroupSize': None, 'foldingInfo': None, 'multiTransInfo': None, 'senderUin': '2331630699', 'peerUin': '2331630699', 'msgAttrs': {}, 'anonymousExtInfo': None, 'nameType': 0, 'avatarFlag': 0, 'extInfoForUI': None, 'personalMedal': None, 'categoryManage': 0, 'msgEventInfo': None, 'sourceType': 1, 'id': 1906746677}}
+2025-12-20 23:49:40.552 | INFO     | main:receive_event:31 - 收到消息：type=<MessageDataType.TEXT: 'text'> data=TextData(text='这')
+2025-12-20 23:49:40.552 | INFO     | logging:callHandlers:1736 - 127.0.0.1:2392 - "POST / HTTP/1.1" 200
+2025-12-20 23:49:41.678 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245781, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:49:41.679 | INFO     | logging:callHandlers:1736 - 127.0.0.1:2392 - "POST / HTTP/1.1" 200
+2025-12-20 23:49:44.869 | INFO     | main:receive_event:27 - 收到事件：{'time': 1766245784, 'post_type': <EventType.NOTICE: 'notice'>, 'self_id': 3658371243, 'notice_type': 'notify', 'sub_type': 'input_status', 'status_text': '对方正在输入...', 'event_type': 2, 'user_id': 2331630699, 'group_id': 0}
+2025-12-20 23:49:44.870 | INFO     | logging:callHandlers:1736 - 127.0.0.1:2392 - "POST / HTTP/1.1" 200
+2025-12-20 23:51:21.919 | INFO     | logging:callHandlers:1736 - Shutting down
+2025-12-20 23:51:22.029 | INFO     | logging:callHandlers:1736 - Waiting for application shutdown.
+2025-12-20 23:51:22.029 | INFO     | main:lifespan:16 - QQ Robot 已停止
+2025-12-20 23:51:22.030 | INFO     | logging:callHandlers:1736 - Application shutdown complete.
+2025-12-20 23:51:22.030 | INFO     | logging:callHandlers:1736 - Finished server process [29020]
