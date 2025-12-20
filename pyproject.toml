@@ -1,25 +1,18 @@
 [project]
-name = "laocai-qqbot"
-version = "2.0.0"
-description = "基于FastAPI的智能QQ群机器人，支持AI聊天和掷骰功能"
+name = "laocai"
+version = "0.1.0"
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12, <3.13"
-authors = [
-    {name = "FHM", email = "your.email@example.com"},
-]
+requires-python = ">=3.13"
 dependencies = [
-    "cryptography>=45.0.2",
-    "fastapi[standard]>=0.115.0",
-    "requests>=2.32.3",
-    "pyyaml>=6.0.0",
-    "mysqlclient",
-    "sqlalchemy>=2.0.41",
+    "fastapi[standard]>=0.125.0",
+    "langchain-openai>=1.1.6",
+    "loguru>=0.7.3",
 ]
 
 [[tool.uv.index]]
-url = "https://mirrors.aliyun.com/pypi/simple/"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 default = true
-
-[tool.uv.sources]
-mysqlclient = { path = "mysqlclient-2.2.7-cp312-cp312-win_amd64.whl" }
-
+ 
+[tool.uv.pip]
+index-url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"

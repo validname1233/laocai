@@ -1,167 +1,152 @@
-# 牢财QQ机器人 🐱
+## 这是什么？（一句话）
 
-基于FastAPI的智能QQ群机器人，支持AI聊天和掷骰功能。
+这是一个 **NapCat / OneBot 风格事件的“接收端”**：用 **FastAPI** 启一个 HTTP 服务，接收上报事件（`POST /`），把事件按结构化模型解析后写入日志，方便你后续在这里接 **指令解析 / 自动回复 / AI 对话** 等功能。
 
-## ✨ 功能特性
+目前代码的主要行为：
 
-- 🤖 **AI聊天**: 基于猫娘人设的智能对话，支持上下文记忆
-- 🎲 **掷骰功能**: 支持多种掷骰命令，如 `r3d6`
-- 📝 **日志管理**: 完善的日志记录和级别控制
-- ⚡ **高性能**: 基于FastAPI框架，支持异步处理
-- 🔧 **易于配置**: YAML配置文件，支持环境切换
-
-## 🏗️ 项目结构
-
-```
-laocai-python/
-├── app/                        # 主应用包
-│   ├── __init__.py
-│   ├── main.py                 # FastAPI应用入口
-│   ├── config.py               # 配置管理
-│   ├── logging_config.py       # 日志配置
-│   ├── models.py               # 数据模型
-│   ├── api/                    # API路由
-│   │   ├── __init__.py
-│   │   └── routes.py           # 路由定义
-│   └── services/               # 业务服务
-│       ├── __init__.py
-│       ├── auth_service.py     # 认证服务
-│       ├── message_service.py  # 消息处理服务
-│       ├── neko_service.py     # AI聊天服务
-│       └── verification_service.py  # 验证服务
-├── services/                   # 原有服务（待迁移）
-├── main.py                     # 原主文件（已废弃）
-├── main_new.py                 # 新主入口文件
-├── config.yaml.example         # 配置文件模板
-├── config.yaml                 # 实际配置文件（需自行创建）
-├── pyproject.toml              # 项目依赖配置
-└── README.md                   # 项目说明
-```
-
-## 🚀 快速开始
-
-### 1. 安装依赖
-
-```bash
-# 使用 uv 安装依赖（推荐）
-uv sync
-
-# 或使用 pip
-pip install -r requirements.txt
-```
-
-### 2. 配置文件
-
-```bash
-# 复制配置模板
-cp config.yaml.example config.yaml
-
-# 编辑配置文件，填入您的实际配置
-```
-
-配置文件说明：
-- `appid`: QQ机器人的AppID
-- `secret`: QQ机器人的Secret
-- `api_url`: SiliconFlow API URL
-- `api_key`: SiliconFlow API密钥
-- `base_url`: QQ API基础URL
-- `log_level`: 日志级别
-
-### 3. 启动服务
-
-```bash
-# 开发模式启动
-uvicorn main:app --host 0.0.0.0 --port 8080 --reload
-
-# 或直接运行
-python mainw.py
-```
-
-### 4. WebHook配置
-
-在QQ机器人管理后台配置WebHook地址：
-```
-http://your-domain.com:8000/webhook
-```
-
-## 🔧 项目优化亮点
-
-### 1. **模块化架构**
-- 按功能模块划分代码结构
-- 清晰的依赖关系和接口定义
-- 便于测试和维护
-
-### 2. **配置管理优化**
-- 统一的配置管理类
-- 支持环境变量和文件配置
-- 配置验证和错误处理
-
-### 3. **日志系统改进**
-- 统一的日志配置
-- 支持多种日志级别
-- 结构化日志输出
-
-### 4. **错误处理增强**
-- 全面的异常捕获和处理
-- 用户友好的错误提示
-- 详细的错误日志记录
-
-### 5. **代码质量提升**
-- 类型提示和文档字符串
-- 符合PEP8的代码风格
-- 可复用的服务类
-
-## 📚 API文档
-
-启动服务后，可以通过以下地址查看API文档：
-- Swagger UI: http://localhost:8080/docs
-- ReDoc: http://localhost:8080/redoc
-
-## 🎯 使用示例
-
-### AI聊天
-在群内@机器人并发送：
-```
-@机器人 /说话 你好，你是谁？
-```
-
-### 掷骰功能
-```
-@机器人 r3d6    # 掷3个6面骰子
-@机器人 r1d100  # 掷1个100面骰子
-```
-
-## 🔄 从旧版本迁移
-
-如果您正在使用旧版本的机器人，请按以下步骤迁移：
-
-1. 备份您的 `config.yaml` 文件
-2. 使用新的启动方式: `python main_new.py`
-3. 旧版本文件将逐步被新版本替代
-
-## 🤝 贡献指南
-
-1. Fork 本项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
-
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
-
-## 🙏 致谢
-
-- [FastAPI](https://fastapi.tiangolo.com/) - 现代、快速的Web框架
-- [SiliconFlow](https://siliconflow.cn/) - AI服务提供商
-- [QQ机器人开放平台](https://bot.q.qq.com/) - 官方机器人平台
-
-## 未来更新方向
-- 把message_service改成group_message_service，并且添加private_message_service, 并将两个类修改为Message_service的子类
-- 重构项目引用结构，把绝对引用改成相对引用
-- 添加数据库读写功能
+- **接收事件**：`POST /`（请求体会被解析为 `model.Event`）
+- **打印日志**：输出完整事件 `model_dump()`，并额外打印 `plain_text()`（把消息段尽量还原成纯文本）
+- **健康检查**：`GET /` 返回 `{"message":"Hello World"}`
 
 ---
 
-如有问题或建议，欢迎提交 Issue 或 Pull Request！
+## 适合谁用？
+
+- 你已经有 **NapCat / OneBot** 的事件上报（HTTP 回调）
+- 你想先把 **事件稳定收进来 + 打日志**，再逐步做机器人逻辑
+- 你想要一个 **Pydantic 模型**来承接事件字段，避免“到处 dict 下标”
+
+---
+
+## 环境要求
+
+- **Python**：`>= 3.13`（见 `pyproject.toml`）
+- **依赖管理**：推荐用 **uv**（本项目带 `uv.lock`）
+
+安装 uv（任选其一方式，按你的习惯来）：
+
+- Windows（PowerShell）：
+
+```bash
+pip install uv
+```
+
+---
+
+## 快速开始（跑起来就算成功）
+
+在项目根目录执行：
+
+```bash
+uv run uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+看到类似日志就说明服务启动成功：
+
+- `QQ Robot 正在启动...`
+- Uvicorn 启动信息
+
+然后访问健康检查：
+
+- 浏览器打开 `http://127.0.0.1:8080/`
+- 或 PowerShell：
+
+```bash
+curl http://127.0.0.1:8080/
+```
+
+---
+
+## 如何测试 `POST /`（手动发一条“假事件”）
+
+### PowerShell 一键测试
+
+```bash
+$body = @{
+  post_type    = "message"
+  message_type = "group"
+  self_id      = 10001
+  user_id      = 20002
+  group_id     = 860323671
+  message      = @(
+    @{
+      type = "text"
+      data = @{ text = "你好，我是测试消息" }
+    }
+  )
+  raw = @{}
+} | ConvertTo-Json -Depth 10
+
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8080/" -ContentType "application/json" -Body $body
+```
+
+### 预期效果
+
+服务端日志会打印两条关键内容：
+
+- **收到事件**：解析后的结构化内容（`event.model_dump()`）
+- **plain_text=...**：把消息段尽量拼成纯文本（用于后续指令解析更方便）
+
+接口返回值为：`OK`
+
+---
+
+## NapCat / OneBot 怎么对接？（把真实事件打进来）
+
+你需要在 NapCat / OneBot 的配置里，把 **HTTP 上报地址** 指向这个服务：
+
+- 本机调试：`http://127.0.0.1:8000/`
+- 局域网/服务器：`http://<你的服务器IP>:8000/`
+
+只要上报成功，你就能在 `logs/bot.log` 里看到每次事件的记录。
+
+---
+
+## 项目结构（你改代码一般只需要看这些）
+
+```text
+.
+├─ main.py                 # FastAPI 入口：GET / + POST /
+├─ model/
+│  ├─ event.py             # 事件模型（NapCat/OneBot 风格）+ plain_text()
+│  └─ __init__.py
+├─ logger_config.py        # Loguru 日志配置（接管 uvicorn/fastapi 日志）
+├─ logs/
+│  └─ bot.log              # 日志文件（自动轮转/保留）
+├─ config.toml             # 预留配置（当前代码未读取）
+├─ config-local.toml       # 本地敏感配置示例（当前代码未读取，注意别提交真实 token）
+└─ pyproject.toml          # 依赖与 Python 版本要求
+```
+
+---
+
+## 事件模型说明（`model.Event`）
+
+这个项目使用 `Pydantic` 把事件解析成强类型对象：
+
+- **允许额外字段**：`extra="allow"`，所以就算 NapCat/OneBot 多给了字段也不会直接炸
+- **核心字段**：`post_type` / `message_type` / `group_id` / `user_id` / `message`（消息段数组）
+- **消息段**：形如 `{"type": "text"|"at"|..., "data": {...}}`
+- **plain_text()**：把 `text` 和 `at` 尽量合并成一段纯文本（例如 `@12345你好`）
+
+---
+
+## 日志在哪里？怎么排查问题？
+
+- **控制台日志**：默认 INFO
+- **文件日志**：`logs/bot.log`（DEBUG，10MB 轮转，保留 7 天，异步写入不阻塞）
+
+常见问题：
+
+- **返回 422**：说明请求体不符合 `model.Event` 的最基本结构（最常见是 `message` 不是数组，或数组里的段缺 `type`）
+- **收不到事件**：先确认 NapCat/OneBot 上报地址是否能访问到你的 8080 端口（本机/内网/防火墙）
+
+---
+
+## 下一步怎么扩展？（你大概率会这么做）
+
+建议的开发路线：
+
+- 在 `receive_event()` 里根据 `event.is_group()/is_private()`、`event.plain_text()` 做简单指令解析
+- 需要“发消息”时，再接入 NapCat/OneBot 的 HTTP API（目前仓库里还没实现这部分）。
+
