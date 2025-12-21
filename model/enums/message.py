@@ -25,11 +25,12 @@ class MessageDataType(str, Enum):
     LOCATION = 'location'
 
 class PicSubType(int, Enum):
-    KNORMAL = 0,
-    KCUSTOM = 1,
-    KHOT = 2,
-    KDIPPERCHART = 3,
-    KSMART = 4,
-    KSPACE = 5,
-    KUNKNOW = 6,
+    # NOTE: 不要在枚举值后面加逗号，否则会变成 tuple，导致解析 int 时异常
+    KNORMAL = 0
+    KCUSTOM = 1
+    KHOT = 2
+    KDIPPERCHART = 3
+    KSMART = 4
+    KSPACE = 5
+    KUNKNOW = 6
     KRELATED = 7
