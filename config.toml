@@ -1,6 +1,0 @@
-[bot-api]
-base_url = "http://127.0.0.1:3000" # NapCat API 地址
-
-[ai]
-base_url = "https://aihubmix.com/v1" # AI Hub Mix API 地址，类似于硅基流动
-model = "mimo-v2-flash-free" # 模型名

@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: laocai
+
+simbot:
+  # simbot.application: 与 Application 相关的配置
+  application:
+    application-launch-mode: none
+  # simbot.bots: 与 bot 配置相关的属性。
+  bots:
+    auto-registration-failure-policy: ERROR
+    auto-registration-mismatch-configurable-bot-manager-policy: ERROR_LOG
+    auto-registration-resource-load-failure-policy: ERROR
+    auto-start-bots: true
+    auto-start-mode: ASYNC
+    configuration-json-resources:
+      - 'classpath:simbot-bots/*.bot.json'
+  # simbot.components: 组件相关的配置信息。
+  components:
+    auto-install-providers: true
+    auto-install-provider-configures: true
+
+  # simbot.plugins: 插件相关的配置信息。
+  plugins:
+    auto-install-providers: true
+    auto-install-provider-configures: true

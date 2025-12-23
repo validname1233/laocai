@@ -1,18 +1,40 @@
-# Custom ignore files
-uv.lock
-config-local.toml
+### Custom ###
+src/main/resources/simbot-bots/myBot.bot.json
 
-# Logs
-logs/
-
-# Python-generated files
-__pycache__/
-**/__pycache__/
-*.py[oc]
+HELP.md
+.gradle
 build/
-dist/
-wheels/
-*.egg-info
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# Virtual environments
-.venv
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
