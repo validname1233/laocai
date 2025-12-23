@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{white} %highlight{%-5level}{FATAL=red bright, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %style{%pid}{magenta} --- [%15.15t] %style{%-40.40c{1.}}{cyan} : %m%n
+        </Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" disableAnsi="false" noConsoleNoAnsi="false"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="love.forte.simbot" level="INFO"/>
+        <Logger name="indi.dkx" level="DEBUG"/>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

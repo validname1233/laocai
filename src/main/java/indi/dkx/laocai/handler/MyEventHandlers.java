@@ -3,13 +3,14 @@ package indi.dkx.laocai.handler;
 import lombok.extern.slf4j.Slf4j;
 import love.forte.simbot.component.onebot.v11.core.event.message.OneBotFriendMessageEvent;
 import love.forte.simbot.event.ChatGroupMessageEvent;
-import love.forte.simbot.message.At;
-import love.forte.simbot.message.Message;
+import love.forte.simbot.message.*;
 import love.forte.simbot.quantcat.common.annotations.ContentTrim;
 import love.forte.simbot.quantcat.common.annotations.Filter;
 import love.forte.simbot.quantcat.common.annotations.Listener;
+import love.forte.simbot.quantcat.common.filter.MatchType;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -20,13 +21,25 @@ public class MyEventHandlers {
      */
     @Listener
     @ContentTrim
-    @Filter("摸摸")
-    public void onGroupMessage(ChatGroupMessageEvent event) {
-        log.debug("ChatGroupMessageEvent: {}", event);
-        event.getMessageContent().getMessages().forEach(message -> {
-            if (message instanceof At) event.replyAsync("喵! ");
-        });
+    @Filter(targets = @Filter.Targets(groups = {"634550174"}, atBot = true), value = "摸摸")
+    public void onGroupMessageDice(ChatGroupMessageEvent event) {
+        log.debug("ChatGroupMessageEvent-{}", event.getMessageContent().getPlainText());
+        Messages messages = Messages.of(At.of(event.getAuthorId()), Text.of(" 喵！"));
+        event.getContent().sendAsync(messages);
+    }
 
+    /**
+     * 此处是一个标准库中通用的类型：聊天群消息事件
+     */
+    @Listener
+    @ContentTrim
+    @Filter(targets = @Filter.Targets(groups = {"634550174"}), value = "是不是", matchType = MatchType.TEXT_STARTS_WITH)
+    public void onGroupMessageYes(ChatGroupMessageEvent event) {
+        log.debug("ChatGroupMessageEvent-{}", event.getMessageContent().getPlainText());
+
+        event.replyAsync("以牢财的意思，"
+                + (Math.random() > 0.5 ? "是" : "并不是")
+                + Objects.requireNonNull(event.getMessageContent().getPlainText()).substring(3));
     }
 
     /**

@@ -52,8 +52,8 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("love.forte.simbot:simbot-core-spring-boot-starter:4.14.0")
-	implementation("love.forte.simbot.component:simbot-component-onebot-v11-core:1.8.2")
-	runtimeOnly("io.ktor:ktor-client-cio:2.3.0")
+	implementation("love.forte.simbot.component:simbot-component-onebot-v11-core:1.9.0")
+	runtimeOnly("io.ktor:ktor-client-java:2.3.13")
 
 	implementation("dev.langchain4j:langchain4j:1.9.1")
 	implementation("dev.langchain4j:langchain4j-open-ai-spring-boot-starter:1.9.1-beta17")
