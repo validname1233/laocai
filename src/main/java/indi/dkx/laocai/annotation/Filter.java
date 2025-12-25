@@ -1,0 +1,16 @@
+package indi.dkx.laocai.annotation;
+
+import java.lang.annotation.*;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Filter {
+    /**
+     * 过滤关键词，例如 "你好"
+     * 只有当消息内容包含/等于该词时触发
+     */
+    String value() default "";
+
+    // 可以扩展：比如 filterType (EQUALS, CONTAINS, REGEX)
+}

@@ -1,10 +1,10 @@
 package indi.dkx.laocai;
 
-import love.forte.simbot.spring.EnableSimbot;
+import indi.dkx.laocai.annotation.EnableLaocaiBot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@EnableSimbot
+@EnableLaocaiBot
 @SpringBootApplication
 public class LaocaiApplication {
 
