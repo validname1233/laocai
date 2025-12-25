@@ -9,8 +9,18 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class IncomingMentionSegment extends IncomingSegment {
+    private IncomingMentionSegmentData data;
+
     /**
-     * 被提及的用户 QQ号
+     * 创建一个 mention 消息段
+     * @param userId 用户 QQ号
      */
-    private Long userId;
+    public record IncomingMentionSegmentData(Long userId) {}
+
+    public static IncomingMentionSegment of(Long userId) {
+        IncomingMentionSegment segment = new IncomingMentionSegment();
+        segment.setType("mention");
+        segment.setData(new IncomingMentionSegmentData(userId));
+        return segment;
+    }
 }

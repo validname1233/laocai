@@ -43,7 +43,10 @@ public class AutoSseListener implements CommandLineRunner {
                 .bodyToFlux(type)
                 // --- 关键：添加重试机制 ---
                 .retryWhen(Retry.fixedDelay(Long.MAX_VALUE, Duration.ofSeconds(5))
-                        .doBeforeRetry(_ -> log.info("连接断开或失败，5秒后重试...")))
+                        .doBeforeRetry(signal -> {
+                            // 关键！打印出具体的异常堆栈
+                            log.error("SSE 连接断开或处理失败，5秒后重试。原因: {}", signal.failure().getMessage(), signal.failure());
+                        }))
                 .subscribe(
                         sse -> {
                             // 处理接收到的数据

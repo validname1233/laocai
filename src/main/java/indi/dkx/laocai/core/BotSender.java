@@ -28,7 +28,7 @@ public class BotSender {
      * @param segments 消息内容（可以是纯文本，也可以是 CQ 码）
      */
     public void sendGroupMsg(Long groupId, List<IncomingSegment> segments) {
-        // 构建请求体 (OneBot V11 标准)
+        // 构建请求体 (Milky 标准)
         Map<String, Object> body = new HashMap<>();
         body.put("group_id", groupId);
         body.put("message", segments);

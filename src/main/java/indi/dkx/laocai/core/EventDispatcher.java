@@ -27,6 +27,9 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
 
     private final ApplicationContext applicationContext;
 
+    // 内部类：保存 bean 和 method 的对应关系
+    private record HandlerMethod(Object bean, Method method) {}
+
     // 内存里存着所有 "订阅者"
     private final List<HandlerMethod> handlers = new ArrayList<>();
 
@@ -100,23 +103,9 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
         }
 
         String keyword = filter.value();
-        String msgContent = extractPlainText(incomingMessage); // 获取消息纯文本
+        String msgContent = incomingMessage.getPlainText(); // 获取消息纯文本
 
         // 简单的包含关系，你可以改成 equals 或正则
         return msgContent != null && msgContent.contains(keyword);
     }
-
-    // --- 辅助：从复杂的 Event 结构里提取文本 (根据你的 POJO 结构) ---
-    private String extractPlainText(IncomingMessage incomingMessage) {
-        return incomingMessage.getSegments().stream()
-                // 1. 筛选出文本类型的段
-                .filter(seg -> seg instanceof IncomingTextSegment)
-                // 2. 强转并提取内容
-                .map(seg -> ((IncomingTextSegment) seg).getData().getText())
-                // 3. 拼接成一个字符串
-                .collect(Collectors.joining());
-    }
-
-    // 内部类：保存 bean 和 method 的对应关系
-    record HandlerMethod(Object bean, Method method) {}
 }

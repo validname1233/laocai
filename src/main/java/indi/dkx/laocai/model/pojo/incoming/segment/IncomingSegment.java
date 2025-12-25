@@ -29,5 +29,5 @@ import lombok.Data;
 })
 @Data
 public abstract class IncomingSegment {
-    String type;
+    private String type;
 }

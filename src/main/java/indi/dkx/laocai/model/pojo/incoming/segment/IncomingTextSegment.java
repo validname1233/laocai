@@ -1,9 +1,6 @@
 package indi.dkx.laocai.model.pojo.incoming.segment;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * text 文本消息段
@@ -12,19 +9,18 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class IncomingTextSegment extends IncomingSegment {
+
     private IncomingTextSegmentData data;
 
-    public IncomingTextSegment(IncomingTextSegmentData data) {
-        this.type = "text";
-        this.data = data;
-    }
+    /**
+     * @param text 文本内容
+     */
+    public record IncomingTextSegmentData(String text) { }
 
-    @Data
-    @AllArgsConstructor
-    public static class IncomingTextSegmentData {
-        /**
-         * 文本内容
-         */
-        private String text;
+    public static IncomingTextSegment of(String text) {
+        IncomingTextSegment segment = new IncomingTextSegment();
+        segment.setType("text");
+        segment.setData(new IncomingTextSegmentData(text));
+        return segment;
     }
 }

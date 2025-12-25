@@ -9,7 +9,7 @@ import lombok.Getter;
 public enum Role {
     OWNER("owner"),
     ADMIN("admin"),
-    UNKNOWN("unknown");
+    MEMBER("member");
 
     // @JsonValue 告诉 Jackson：
     // 1. 序列化时（转JSON）：调用这个字段的值作为 JSON 字符串
