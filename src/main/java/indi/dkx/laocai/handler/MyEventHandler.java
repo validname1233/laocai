@@ -3,6 +3,7 @@ package indi.dkx.laocai.handler;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.core.BotSender;
+import indi.dkx.laocai.model.pojo.incoming.message.IncomingFriendMessage;
 import indi.dkx.laocai.model.pojo.incoming.message.IncomingGroupMessage;
 import indi.dkx.laocai.model.pojo.incoming.segment.IncomingMentionSegment;
 import indi.dkx.laocai.model.pojo.incoming.segment.IncomingTextSegment;
@@ -34,5 +35,16 @@ public class MyEventHandler {
                     IncomingTextSegment.of(" 喵")
             ));
         }
+    }
+
+    @Listener
+    public void handle(IncomingFriendMessage message) throws InterruptedException {
+        log.info("收到群消息: {}", message.getPlainText());
+        if (message.getPlainText().equals("D")) {
+            Thread.sleep(5000L);
+        }
+        botSender.sendPrivateMsg(message.getSenderId(), List.of(
+                IncomingTextSegment.of(message.getPlainText())
+        ));
     }
 }

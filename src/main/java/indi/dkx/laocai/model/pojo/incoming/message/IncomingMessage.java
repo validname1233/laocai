@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
         @JsonSubTypes.Type(value = IncomingGroupMessage.class, name = "group")
 })
 @Data
-public abstract class IncomingMessage {
+public class IncomingMessage {
     private String messageScene;
     private Long peerId;
     private Long messageSeq;

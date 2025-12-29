@@ -13,7 +13,7 @@ import lombok.Data;
 )
 // 2. 定义映射关系：值 -> 类
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = IncomingMessageEvent.class, name = "message_receive"), // 收到消息
+        @JsonSubTypes.Type(value = MessageReceiveEvent.class, name = "message_receive"), // 收到消息
 })
 @Data
 public abstract class Event {

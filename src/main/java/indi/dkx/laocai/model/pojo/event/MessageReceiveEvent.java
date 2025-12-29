@@ -8,6 +8,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class IncomingMessageEvent<T extends IncomingMessage> extends Event {
-    private T data;
+public class MessageReceiveEvent extends Event {
+    private IncomingMessage data;
 }

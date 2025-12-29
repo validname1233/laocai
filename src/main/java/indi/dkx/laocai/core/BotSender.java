@@ -1,8 +1,6 @@
 package indi.dkx.laocai.core;
 
 import indi.dkx.laocai.model.pojo.incoming.segment.IncomingSegment;
-import jakarta.annotation.Resource;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,13 +12,19 @@ import java.util.Map;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class BotSender {
 
-    private final WebClient.Builder webClientBuilder;
+    private final WebClient webClient;
 
-    @Value("${laocai.bot.url:http://localhost:3010}")
-    private String botUrl;
+    /**
+     * 手动构造函数注入
+     * Spring 会自动把 Builder 和 botUrl 传进来
+     */
+    public BotSender(WebClient.Builder webClientBuilder,
+                     @Value("${laocai.bot.url:http://localhost:3010}") String botUrl) {
+        // 创建单例 WebClient，并设置好 BaseUrl
+        this.webClient = webClientBuilder.baseUrl(botUrl).build();
+    }
 
     /**
      * 发送群消息
@@ -36,8 +40,7 @@ public class BotSender {
         log.debug("发送群消息: {}", body);
 
         // 发送 POST 请求
-        webClientBuilder.baseUrl(botUrl).build()
-                .post()
+        webClient.post()
                 .uri("/api/send_group_message") // OneBot 发送群消息的端点
                 .bodyValue(body)
                 .retrieve()
@@ -56,8 +59,7 @@ public class BotSender {
         body.put("user_id", userId);
         body.put("message", segments);
 
-        webClientBuilder.baseUrl(botUrl).build()
-                .post()
+        webClient.post()
                 .uri("/api/send_private_message")
                 .bodyValue(body)
                 .retrieve()

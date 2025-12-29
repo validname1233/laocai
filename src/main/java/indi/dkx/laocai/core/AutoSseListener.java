@@ -1,20 +1,19 @@
 package indi.dkx.laocai.core;
 
 import indi.dkx.laocai.model.pojo.event.Event;
-import indi.dkx.laocai.model.pojo.event.IncomingMessageEvent;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingFriendMessage;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingGroupMessage;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingMessage;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingTextSegment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.BufferOverflowStrategy;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import reactor.util.retry.Retry;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.codec.ServerSentEvent;
 
 import java.time.Duration;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,43 +21,48 @@ public class AutoSseListener implements CommandLineRunner {
 
     private final EventDispatcher eventDispatcher;
 
-    private final WebClient.Builder webClientBuilder;
+    private final WebClient webClient;
 
-    // 建议把 URL 提取为变量，方便配置
-    private final String botUrl;
+    /**
+     * 事件分发并发度（避免 handler 阻塞拖垮 SSE 消费线程）
+     */
+    private final int dispatchConcurrency;
+
+    /**
+     * 事件积压缓冲上限（超过上限按策略丢弃，避免 OOM）
+     */
+    private final int dispatchBufferSize;
 
     @Override
     public void run(String... args) {
         log.info(">>> 准备连接 LLBot SSE...");
 
-        WebClient client = webClientBuilder.baseUrl(botUrl).build();
-
         // 定义接收类型（推荐用 ServerSentEvent 包装类，比纯 String 更稳）
-        ParameterizedTypeReference<ServerSentEvent<Event>> type =
-                new ParameterizedTypeReference<>() {};
+        ParameterizedTypeReference<ServerSentEvent<Event>> type = new ParameterizedTypeReference<>() {};
 
-        client.get()
+        webClient.get()
                 .uri("/event")
                 .retrieve()
                 .bodyToFlux(type)
+                .mapNotNull(ServerSentEvent::data)
+                // 背压：当 handler/下游处理跟不上时，最多缓冲 N 条，超过则丢弃最旧的，避免无限堆积
+                .onBackpressureBuffer(
+                        dispatchBufferSize,
+                        dropped -> log.warn("事件处理拥塞，丢弃最旧事件: {}", dropped),
+                        BufferOverflowStrategy.DROP_LATEST
+                )
+                // 并发分发：每条事件在 boundedElastic 上执行，避免阻塞 Netty/Reactor 线程
+                .flatMap(
+                        event -> Mono.fromRunnable(() -> eventDispatcher.dispatch(event))
+                                .subscribeOn(Schedulers.boundedElastic()),
+                        dispatchConcurrency
+                )
                 // --- 关键：添加重试机制 ---
                 .retryWhen(Retry.fixedDelay(Long.MAX_VALUE, Duration.ofSeconds(5))
-                        .doBeforeRetry(signal -> {
-                            // 关键！打印出具体的异常堆栈
-                            log.error("SSE 连接断开或处理失败，5秒后重试。原因: {}", signal.failure().getMessage(), signal.failure());
-                        }))
+                        .doBeforeRetry(signal -> log.error("SSE 连接断开或处理失败，5秒后重试。", signal.failure())))
                 .subscribe(
-                        sse -> {
-                            // 处理接收到的数据
-                            log.debug("收到事件: {}", sse.data());
-                            Event event = sse.data();
-                            // 收到消息 -> 扔给调度器
-                            if (event != null) eventDispatcher.dispatch(event);
-                        },
-                        error -> {
-                            // 如果重试机制耗尽（上面设置了 MAX_VALUE，理论上不会走到这），才会报错
-                            log.error("发生了无法恢复的错误", error);
-                        }
-        );
+                        ignored -> { },
+                        error -> log.error("发生了无法恢复的错误", error)
+                );
     }
 }
