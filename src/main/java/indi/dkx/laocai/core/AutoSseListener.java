@@ -39,9 +39,12 @@ public class AutoSseListener implements CommandLineRunner {
 
         // 定义接收类型（推荐用 ServerSentEvent 包装类，比纯 String 更稳）
         ParameterizedTypeReference<ServerSentEvent<Event>> type = new ParameterizedTypeReference<>() {};
+        //创建了一个匿名内部类，这样泛型信息就存进了字节码里
+
 
         webClient.get()
                 .uri("/event")
+                .header("Authorization", "Bearer 123456")
                 .retrieve()
                 .bodyToFlux(type)
                 .mapNotNull(ServerSentEvent::data)

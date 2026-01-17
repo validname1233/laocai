@@ -42,6 +42,7 @@ public class BotSender {
         // 发送 POST 请求
         webClient.post()
                 .uri("/api/send_group_message") // OneBot 发送群消息的端点
+                .header("Authorization", "Bearer 123456")
                 .bodyValue(body)
                 .retrieve()
                 .bodyToMono(String.class) // 获取响应结果
