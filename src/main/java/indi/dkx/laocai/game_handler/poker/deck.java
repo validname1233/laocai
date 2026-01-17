@@ -15,7 +15,7 @@ public class deck {
 
     private boolean[] usedPokers = new boolean[52];
 
-    public int drawOne(){
+    public String drawOne(){
         Random rand = new Random();
         randDraw = rand.nextInt(52);
         usedPokers[randDraw] = 1;
