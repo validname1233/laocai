@@ -47,10 +47,10 @@ public class AutoSseListener implements CommandLineRunner {
                 .retrieve()
                 .bodyToFlux(type)
                 .mapNotNull(ServerSentEvent::data)
-                // 背压：当 handler/下游处理跟不上时，最多缓冲 N 条，超过则丢弃最旧的，避免无限堆积
+                // 背压：当 handler/下游处理跟不上时，最多缓冲 N 条，超过则丢弃最新的，避免无限堆积
                 .onBackpressureBuffer(
                         dispatchBufferSize,
-                        dropped -> log.warn("事件处理拥塞，丢弃最旧事件: {}", dropped),
+                        dropped -> log.warn("事件处理拥塞，丢弃最新事件: {}", dropped),
                         BufferOverflowStrategy.DROP_LATEST
                 )
                 // 并发分发：每条事件在 boundedElastic 上执行，避免阻塞 Netty/Reactor 线程

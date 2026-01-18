@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class Texas{
 
     private final BotSender botSender;
-    private List<TexasPlayer> players = new ArrayList<>();
+    private final List<TexasPlayer> players = new ArrayList<>();
     private long groupId = 0;
 
     @Listener
@@ -33,7 +34,7 @@ public class Texas{
         if(!players.isEmpty()){
             boolean inGame = false;
             for(TexasPlayer player : players){
-                if (player.userId == message.getGroupMember().userId()) {
+                if (Objects.equals(player.userId, message.getGroupMember().userId())) {
                     inGame = true;
                     break;
                 }
@@ -44,13 +45,13 @@ public class Texas{
             players.add(new TexasPlayer(message.getGroupMember().nickname(),message.getGroupMember().userId()));
         }
 
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
         for (TexasPlayer player : players) {
-            temp += player.nickname + " ";
+            temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
             IncomingTextSegment.of("当前玩家"),
-            IncomingTextSegment.of(temp)
+            IncomingTextSegment.of(temp.toString())
         ));
     }
 
@@ -58,13 +59,13 @@ public class Texas{
     @Filter("开始德州扑克")
     public void texasStart(IncomingGroupMessage message) {
         log.info("收到群消息: {}", message.getPlainText());
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
         for (TexasPlayer player : players) {
-            temp += player.nickname + " ";
+            temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
             IncomingTextSegment.of("当前玩家"),
-            IncomingTextSegment.of(temp),
+            IncomingTextSegment.of(temp.toString()),
             IncomingTextSegment.of("开始游戏")
         ));
 
