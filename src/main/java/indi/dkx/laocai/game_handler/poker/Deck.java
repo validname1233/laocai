@@ -1,7 +1,7 @@
 package indi.dkx.laocai.game_handler.poker;
 import java.util.*;
 
-public class deck {
+public class Deck {
     private final String[] pokers = {
         // ♣ 梅花 Clubs
         "♣2", "♣3", "♣4", "♣5", "♣6", "♣7", "♣8", "♣9", "♣10", "♣J", "♣Q", "♣K", "♣A",
@@ -16,14 +16,32 @@ public class deck {
     private boolean[] usedPokers = new boolean[52];
 
     public String drawOne(){
+        int randDraw;
         Random rand = new Random();
+        while(usedPokers[randDraw = rand.nextInt(52)])
         randDraw = rand.nextInt(52);
-        usedPokers[randDraw] = 1;
+        usedPokers[randDraw] = true;
         return pokers[randDraw];
     }
 
     public void shuffle(){
-        Arrays.fill(usedPokers, 0);
+        Arrays.fill(usedPokers, false);
+    }
+
+    public static void main(String[] args){
+        Deck deck1 = new Deck();
+        deck1.shuffle();
+        System.out.println(deck1.drawOne());
+        deck1.shuffle();
+        for(int i=0;i<52;i++){
+            System.out.println(deck1.drawOne());
+        }
+        boolean flag = true;
+        for(int i=0;i<52;i++){
+            if(!deck1.usedPokers[i])flag = false;
+        }
+        System.out.println(flag);
     }
 
 }
+
