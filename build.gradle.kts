@@ -43,15 +43,15 @@ dependencies {
 	// 引入 Log4j2 依赖
 	implementation("org.springframework.boot:spring-boot-starter-log4j2:3.5.9")
 
-	compileOnly("org.projectlombok:lombok")
-	annotationProcessor("org.projectlombok:lombok")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.projectreactor:reactor-test")
+	compileOnly("org.projectlombok:lombok:1.18.42")
+	annotationProcessor("org.projectlombok:lombok:1.18.42")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.9")
+	testImplementation("io.projectreactor:reactor-test:3.8.2")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-	implementation("dev.langchain4j:langchain4j:1.9.1")
-	implementation("dev.langchain4j:langchain4j-open-ai-spring-boot-starter:1.9.1-beta17")
+	implementation("dev.langchain4j:langchain4j:1.10.0")
+	implementation("dev.langchain4j:langchain4j-open-ai-spring-boot-starter:1.10.0-beta18")
 }
 
 tasks.withType<Test> {

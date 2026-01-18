@@ -16,10 +16,9 @@ public class Deck {
     private boolean[] usedPokers = new boolean[52];
 
     public String drawOne(){
-        int randDraw;
         Random rand = new Random();
-        while(usedPokers[randDraw = rand.nextInt(52)])
-        randDraw = rand.nextInt(52);
+        int randDraw = rand.nextInt(52);
+        while(usedPokers[randDraw]) randDraw = rand.nextInt(52);
         usedPokers[randDraw] = true;
         return pokers[randDraw];
     }

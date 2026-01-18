@@ -13,7 +13,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.codec.ServerSentEvent;
 
 import java.time.Duration;
-import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor

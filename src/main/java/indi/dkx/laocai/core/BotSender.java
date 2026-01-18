@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,9 @@ public class BotSender {
     public BotSender(WebClient.Builder webClientBuilder,
                      @Value("${laocai.bot.url:http://localhost:3010}") String botUrl) {
         // 创建单例 WebClient，并设置好 BaseUrl
-        this.webClient = webClientBuilder.baseUrl(botUrl).build();
+        this.webClient = webClientBuilder.baseUrl(
+                Objects.requireNonNull(botUrl, "laocai.bot.url must not be null")
+        ).build();
     }
 
     /**

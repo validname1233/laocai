@@ -7,9 +7,11 @@ import indi.dkx.laocai.model.pojo.event.MessageReceiveEvent;
 import indi.dkx.laocai.model.pojo.incoming.message.IncomingMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -35,7 +37,7 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
 
     // --- 1. 扫描逻辑：Spring 启动完成后自动执行 ---
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         // 防止二次加载
         if (event.getApplicationContext().getParent() != null) return;
 
