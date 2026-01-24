@@ -1,4 +1,4 @@
-package indi.dkx.laocai.model.pojo.incoming.message;
+package indi.dkx.laocai.model.pojo.message;
 
 import indi.dkx.laocai.model.entity.FriendEntity;
 import lombok.Data;

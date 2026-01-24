@@ -3,10 +3,8 @@ package indi.dkx.laocai.game_handler;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.core.BotSender;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingFriendMessage;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingGroupMessage;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingMentionSegment;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingTextSegment;
+import indi.dkx.laocai.model.pojo.message.IncomingGroupMessage;
+import indi.dkx.laocai.model.pojo.segment.TextSegment;
 import indi.dkx.laocai.game_handler.player.TexasPlayer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +48,8 @@ public class Texas{
             temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
-            IncomingTextSegment.of("当前玩家"),
-            IncomingTextSegment.of(temp.toString())
+            TextSegment.of("当前玩家"),
+            TextSegment.of(temp.toString())
         ));
     }
 
@@ -64,9 +62,9 @@ public class Texas{
             temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
-            IncomingTextSegment.of("当前玩家"),
-            IncomingTextSegment.of(temp.toString()),
-            IncomingTextSegment.of("开始游戏")
+            TextSegment.of("当前玩家"),
+            TextSegment.of(temp.toString()),
+            TextSegment.of("开始游戏")
         ));
 
 

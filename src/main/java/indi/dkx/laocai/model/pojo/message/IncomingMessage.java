@@ -1,10 +1,10 @@
-package indi.dkx.laocai.model.pojo.incoming.message;
+package indi.dkx.laocai.model.pojo.message;
 
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingSegment;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingTextSegment;
+import indi.dkx.laocai.model.pojo.segment.Segment;
+import indi.dkx.laocai.model.pojo.segment.TextSegment;
 import lombok.Data;
 
 import java.util.List;
@@ -28,12 +28,12 @@ public class IncomingMessage {
     private Long messageSeq;
     private Long senderId;
     private Long time;
-    private List<IncomingSegment> segments;
+    private List<Segment<?>> segments;
 
     public String getPlainText() {
         return segments.stream()
-                .filter(seg -> seg instanceof IncomingTextSegment)
-                .map(seg -> ((IncomingTextSegment) seg).getData().text())
+                .filter(seg -> seg instanceof TextSegment)
+                .map(seg -> ((TextSegment) seg).getData().text())
                 .collect(Collectors.joining());
     }
 }

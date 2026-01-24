@@ -1,6 +1,6 @@
 package indi.dkx.laocai.model.pojo.event;
 
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingMessage;
+import indi.dkx.laocai.model.pojo.message.IncomingGroupMessage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,6 +8,5 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MessageReceiveEvent extends Event {
-    private IncomingMessage data;
+public class GroupMessageReceiveEvent extends Event<IncomingGroupMessage> {
 }

@@ -1,6 +1,6 @@
 package indi.dkx.laocai.core;
 
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingSegment;
+import indi.dkx.laocai.model.pojo.segment.Segment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -22,11 +22,14 @@ public class BotSender {
      * Spring 会自动把 Builder 和 botUrl 传进来
      */
     public BotSender(WebClient.Builder webClientBuilder,
-                     @Value("${laocai.bot.url:http://localhost:3010}") String botUrl) {
+                     @Value("${laocai.bot.url:http://localhost:3010}") String botUrl,
+                     @Value("${laocai.bot.access-token:}") String botToken
+    ) {
         // 创建单例 WebClient，并设置好 BaseUrl
         this.webClient = webClientBuilder.baseUrl(
                 Objects.requireNonNull(botUrl, "laocai.bot.url must not be null")
-        ).build();
+                ).defaultHeader("Authorization", "Bearer " + botToken)
+                .build();
     }
 
     /**
@@ -34,7 +37,7 @@ public class BotSender {
      * @param groupId 群号
      * @param segments 消息内容（可以是纯文本，也可以是 CQ 码）
      */
-    public void sendGroupMsg(Long groupId, List<IncomingSegment> segments) {
+    public void sendGroupMsg(Long groupId, List<Segment<?>> segments) {
         // 构建请求体 (Milky 标准)
         Map<String, Object> body = new HashMap<>();
         body.put("group_id", groupId);
@@ -45,7 +48,6 @@ public class BotSender {
         // 发送 POST 请求
         webClient.post()
                 .uri("/api/send_group_message") // OneBot 发送群消息的端点
-                .header("Authorization", "Bearer 123456")
                 .bodyValue(body)
                 .retrieve()
                 .bodyToMono(String.class) // 获取响应结果
@@ -58,7 +60,7 @@ public class BotSender {
     /**
      * 发送私聊消息
      */
-    public void sendPrivateMsg(Long userId, List<IncomingSegment> segments) {
+    public void sendPrivateMsg(Long userId, List<Segment<?>> segments) {
         Map<String, Object> body = new HashMap<>();
         body.put("user_id", userId);
         body.put("message", segments);
