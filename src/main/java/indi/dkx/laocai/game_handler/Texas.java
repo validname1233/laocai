@@ -3,6 +3,7 @@ package indi.dkx.laocai.game_handler;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.core.BotSender;
+import indi.dkx.laocai.model.pojo.event.Event;
 import indi.dkx.laocai.model.pojo.message.IncomingGroupMessage;
 import indi.dkx.laocai.model.pojo.segment.TextSegment;
 import indi.dkx.laocai.game_handler.player.TexasPlayer;
@@ -25,7 +26,8 @@ public class Texas{
 
     @Listener
     @Filter("我要玩德州扑克")
-    public void texasInit(IncomingGroupMessage message) {
+    public void texasInit(Event<IncomingGroupMessage> event) {
+        IncomingGroupMessage message = event.getData();
         log.info("收到群消息: {}", message.getPlainText());
         if(groupId == 0)groupId = message.getGroup().groupId();
 
@@ -55,7 +57,8 @@ public class Texas{
 
     @Listener
     @Filter("开始德州扑克")
-    public void texasStart(IncomingGroupMessage message) {
+    public void texasStart(Event<IncomingGroupMessage> event) {
+        IncomingGroupMessage message = event.getData();
         log.info("收到群消息: {}", message.getPlainText());
         StringBuilder temp = new StringBuilder();
         for (TexasPlayer player : players) {

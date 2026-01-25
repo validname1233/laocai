@@ -3,8 +3,7 @@ package indi.dkx.laocai.handler;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.core.BotSender;
-import indi.dkx.laocai.model.pojo.event.FriendMessageReceiveEvent;
-import indi.dkx.laocai.model.pojo.event.GroupMessageReceiveEvent;
+import indi.dkx.laocai.model.pojo.event.Event;
 import indi.dkx.laocai.model.pojo.message.IncomingFriendMessage;
 import indi.dkx.laocai.model.pojo.message.IncomingGroupMessage;
 import indi.dkx.laocai.model.pojo.segment.MentionSegment;
@@ -24,7 +23,7 @@ public class MyEventHandler {
 
     @Listener
     @Filter("摸摸")
-    public void handle(GroupMessageReceiveEvent event) {
+    public void handleGroup(Event<IncomingGroupMessage> event) {
         IncomingGroupMessage message = event.getData();
         log.info("收到群消息: {}", message.getPlainText());
         if (message.getSenderId() == 1938437495) {
@@ -41,7 +40,7 @@ public class MyEventHandler {
     }
 
     @Listener
-    public void handle(FriendMessageReceiveEvent event) throws InterruptedException {
+    public void handleFriend(Event<IncomingFriendMessage> event) throws InterruptedException {
         IncomingFriendMessage message = event.getData();
         log.info("收到好友消息: {}", message.getPlainText());
         if (message.getPlainText().equals("D")) {

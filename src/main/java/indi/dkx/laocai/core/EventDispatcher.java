@@ -3,8 +3,6 @@ package indi.dkx.laocai.core;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.model.pojo.event.Event;
-import indi.dkx.laocai.model.pojo.event.FriendMessageReceiveEvent;
-import indi.dkx.laocai.model.pojo.event.GroupMessageReceiveEvent;
 import indi.dkx.laocai.model.pojo.message.IncomingMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +14,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,27 +66,49 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
         List<HandlerMethod> handlersSnapshot = this.handlers;
         for (HandlerMethod handler : handlersSnapshot) {
             try {
-                // 1. 获取监听器方法的参数类型（例如 IncomingFriendMessage）
-                Class<?> paramType = handler.method.getParameterTypes()[0];
-
                 // TODO: 其他类型事件的过滤逻辑
                 //
                 //
 
-                if (!passFilter(handler.method, (IncomingMessage) event.getData())) {
-                    continue;
+                Object data = event.getData();
+                if (data instanceof IncomingMessage incomingMessage) {
+                    if (!passFilter(handler.method, incomingMessage)) {
+                        continue;
+                    }
                 }
-                if (event instanceof GroupMessageReceiveEvent && paramType.isInstance(event)) {
-                    handler.method.invoke(handler.bean, (GroupMessageReceiveEvent) event);
-                    break;
-                } else if (event instanceof FriendMessageReceiveEvent && paramType.isInstance(event)) {
-                    handler.method.invoke(handler.bean, (FriendMessageReceiveEvent) event);
+
+                if (isMatchingEvent(handler.method, data)) {
+                    handler.method.invoke(handler.bean, event);
                     break;
                 }
             } catch (Exception e) {
                 log.error("事件分发异常", e);
             }
         }
+    }
+
+    /**
+     * 判断方法参数类型是否与事件数据匹配
+     * @param method 方法
+     * @param data 事件数据
+     * @return 是否匹配
+     */
+    private boolean isMatchingEvent(Method method, Object data) {
+        // 获取方法第一个参数的泛型类型
+        Type genericParam = method.getGenericParameterTypes()[0];
+        // 检查是否是带泛型的 Event<T> 类型
+        if (genericParam instanceof ParameterizedType parameterizedType
+                && parameterizedType.getRawType() == Event.class) {
+            // 获取泛型的实际类型参数 T
+            Type actualType = parameterizedType.getActualTypeArguments()[0];
+            // 如果 T 是具体的 Class，检查 data 是否是该类型的实例
+            if (actualType instanceof Class<?> actualClass) {
+                return actualClass.isInstance(data);
+            }
+        }
+        // 如果参数是原始 Event 类型（无泛型），只要 data 不为空就匹配
+        Class<?> paramType = method.getParameterTypes()[0];
+        return paramType == Event.class && data != null;
     }
 
     // --- 辅助：过滤逻辑 ---

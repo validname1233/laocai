@@ -1,21 +1,10 @@
 package indi.dkx.laocai.model.pojo.event;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import indi.dkx.laocai.deserializer.EventDeserializer;
 import lombok.Data;
 
-// 1. 开启多态支持
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY, // 使用 JSON 中已有的字段判断
-        property = "event_type",                     // 字段名是 event_type
-        visible = true                               // 设为 true，子类里也能读到这个字段
-)
-// 2. 定义映射关系：值 -> 类
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = GroupMessageReceiveEvent.class, name = "message_receive"), // 消息接收事件
-        // TODO: 群文件上传事件
-})
+@JsonDeserialize(using = EventDeserializer.class)
 @Data
 public class Event<T> {
     /**
