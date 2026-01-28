@@ -3,8 +3,7 @@ package indi.dkx.laocai.core;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.model.pojo.event.Event;
-import indi.dkx.laocai.model.pojo.event.MessageReceiveEvent;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingMessage;
+import indi.dkx.laocai.model.pojo.message.IncomingMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +14,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,48 +60,55 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
     }
 
     // --- 2. 分发逻辑：由 AutoSseListener 调用 ---
-    public void dispatch(Event event) {
+    public void dispatch(Event<?> event) {
         // 先把 volatile 引用读到本地变量，之后循环用的就是这一份快照；
         // 即使同时有线程在刷新 handlers，也只是把引用切到另一份不可变列表，不会影响当前这次遍历。
         List<HandlerMethod> handlersSnapshot = this.handlers;
         for (HandlerMethod handler : handlersSnapshot) {
             try {
-                // 1. 获取监听器方法的参数类型（例如 IncomingFriendMessage）
-                Class<?> paramType = handler.method.getParameterTypes()[0];
+                // TODO: 其他类型事件的过滤逻辑
+                //
+                //
 
-                // 2. 准备要传给方法的参数，默认为原始事件
-                Object payload = event;
-
-                // 3. --- 智能拆包逻辑 (你提供的代码) ---
-                // 如果当前事件是包装类 (IncomingMessageEvent)，但方法想要的是内部数据 (IncomingMessage及其子类)
-                if (event instanceof MessageReceiveEvent messageReceiveEvent) {
-                    if (IncomingMessage.class.isAssignableFrom(paramType)) {
-                        // 提取内部 data (例如 FriendMessage)
-                        payload = messageReceiveEvent.getData();
-
-                        // 执行 @Filter 过滤 (依然使用原始 event 或 payload 进行判断，看 passFilter 怎么写)
-                        // 这里建议传 payload 进去判断，或者根据业务需求调整
-                        if (!passFilter(handler.method, (IncomingMessage) payload)) {
-                            continue;
-                        }
+                Object data = event.getData();
+                if (data instanceof IncomingMessage incomingMessage) {
+                    if (!passFilter(handler.method, incomingMessage)) {
+                        continue;
                     }
                 }
 
-                // 4. 类型检查：确认 payload 真的能塞进这个方法里
-                // 比如 payload 是 FriendMessage，方法参数也是 FriendMessage -> 匹配
-                // 比如 payload 是 GroupMessage，方法参数是 FriendMessage -> 不匹配，跳过
-                if (!paramType.isInstance(payload)) {
-                    continue;
+                if (isMatchingEvent(handler.method, data)) {
+                    handler.method.invoke(handler.bean, event);
+                    break;
                 }
-
-
-                // 6. 反射调用
-                handler.method.invoke(handler.bean, payload);
-
             } catch (Exception e) {
                 log.error("事件分发异常", e);
             }
         }
+    }
+
+    /**
+     * 判断方法参数类型是否与事件数据匹配
+     * @param method 方法
+     * @param data 事件数据
+     * @return 是否匹配
+     */
+    private boolean isMatchingEvent(Method method, Object data) {
+        // 获取方法第一个参数的泛型类型
+        Type genericParam = method.getGenericParameterTypes()[0];
+        // 检查是否是带泛型的 Event<T> 类型
+        if (genericParam instanceof ParameterizedType parameterizedType
+                && parameterizedType.getRawType() == Event.class) {
+            // 获取泛型的实际类型参数 T
+            Type actualType = parameterizedType.getActualTypeArguments()[0];
+            // 如果 T 是具体的 Class，检查 data 是否是该类型的实例
+            if (actualType instanceof Class<?> actualClass) {
+                return actualClass.isInstance(data);
+            }
+        }
+        // 如果参数是原始 Event 类型（无泛型），只要 data 不为空就匹配
+        Class<?> paramType = method.getParameterTypes()[0];
+        return paramType == Event.class && data != null;
     }
 
     // --- 辅助：过滤逻辑 ---
@@ -113,7 +121,7 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
         String keyword = filter.value();
         String msgContent = incomingMessage.getPlainText(); // 获取消息纯文本
 
-        // 简单的包含关系，可以改成 equals 或正则
+        // TODO: 简单的包含关系，可以改成 equals 或正则
         return msgContent != null && msgContent.contains(keyword);
     }
 }
