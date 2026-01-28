@@ -9,6 +9,8 @@ spring:
 laocai:
   bot:
     url: ${LLBOT_URL:http://127.0.0.1:3010} # 如果不写，默认为 localhost:3010
+    access-token: 123456
+
   dispatcher:
     concurrency: 32
     buffer-size: 5000

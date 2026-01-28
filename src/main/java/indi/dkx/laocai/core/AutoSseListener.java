@@ -37,13 +37,11 @@ public class AutoSseListener implements CommandLineRunner {
         log.info(">>> 准备连接 LLBot SSE...");
 
         // 定义接收类型（推荐用 ServerSentEvent 包装类，比纯 String 更稳）
-        ParameterizedTypeReference<ServerSentEvent<Event>> type = new ParameterizedTypeReference<>() {};
+        ParameterizedTypeReference<ServerSentEvent<Event<?>>> type = new ParameterizedTypeReference<>() {};
         //创建了一个匿名内部类，这样泛型信息就存进了字节码里
-
 
         webClient.get()
                 .uri("/event")
-                .header("Authorization", "Bearer 123456")
                 .retrieve()
                 .bodyToFlux(type)
                 .mapNotNull(ServerSentEvent::data)
@@ -59,7 +57,7 @@ public class AutoSseListener implements CommandLineRunner {
                                 .subscribeOn(Schedulers.boundedElastic()),
                         dispatchConcurrency
                 )
-                // --- 关键：添加重试机制 ---
+                // 重试机制
                 .retryWhen(Retry.fixedDelay(Long.MAX_VALUE, Duration.ofSeconds(5))
                         .doBeforeRetry(signal -> log.error("SSE 连接断开或处理失败，5秒后重试。", signal.failure())))
                 .subscribe(

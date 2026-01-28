@@ -3,10 +3,11 @@ package indi.dkx.laocai.handler;
 import indi.dkx.laocai.annotation.Filter;
 import indi.dkx.laocai.annotation.Listener;
 import indi.dkx.laocai.core.BotSender;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingFriendMessage;
-import indi.dkx.laocai.model.pojo.incoming.message.IncomingGroupMessage;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingMentionSegment;
-import indi.dkx.laocai.model.pojo.incoming.segment.IncomingTextSegment;
+import indi.dkx.laocai.model.pojo.event.Event;
+import indi.dkx.laocai.model.pojo.message.IncomingFriendMessage;
+import indi.dkx.laocai.model.pojo.message.IncomingGroupMessage;
+import indi.dkx.laocai.model.pojo.segment.MentionSegment;
+import indi.dkx.laocai.model.pojo.segment.TextSegment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -22,29 +23,31 @@ public class MyEventHandler {
 
     @Listener
     @Filter("摸摸")
-    public void handle(IncomingGroupMessage message) {
+    public void handleGroup(Event<IncomingGroupMessage> event) {
+        IncomingGroupMessage message = event.getData();
         log.info("收到群消息: {}", message.getPlainText());
         if (message.getSenderId() == 1938437495) {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    IncomingMentionSegment.of(message.getSenderId()),
-                    IncomingTextSegment.of(" 哈！")
+                    MentionSegment.of(message.getSenderId()),
+                    TextSegment.of(" 哈！")
             ));
         } else {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    IncomingMentionSegment.of(message.getSenderId()),
-                    IncomingTextSegment.of(" 喵")
+                    MentionSegment.of(message.getSenderId()),
+                    TextSegment.of(" 喵")
             ));
         }
     }
 
     @Listener
-    public void handle(IncomingFriendMessage message) throws InterruptedException {
-        log.info("收到群消息: {}", message.getPlainText());
+    public void handleFriend(Event<IncomingFriendMessage> event) throws InterruptedException {
+        IncomingFriendMessage message = event.getData();
+        log.info("收到好友消息: {}", message.getPlainText());
         if (message.getPlainText().equals("D")) {
             Thread.sleep(5000L);
         }
         botSender.sendPrivateMsg(message.getSenderId(), List.of(
-                IncomingTextSegment.of(message.getPlainText())
+                TextSegment.of(message.getPlainText())
         ));
     }
 }

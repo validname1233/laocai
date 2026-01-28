@@ -1,5 +1,4 @@
 package indi.dkx.laocai.game_handler.player;
-import indi.dkx.laocai.game_handler.player.Player;
 
 public class TexasPlayer extends Player{
     public TexasPlayer(String nickname, Long userId) {

@@ -12,5 +12,5 @@ public @interface Filter {
      */
     String value() default "";
 
-    // 可以扩展：比如 filterType (EQUALS, CONTAINS, REGEX)
+    // TODO: 比如 filterType (EQUALS, CONTAINS, REGEX)
 }
