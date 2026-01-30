@@ -2,7 +2,6 @@ package indi.dkx.laocai.model.pojo.event;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import indi.dkx.laocai.deserializer.EventDeserializer;
-import lombok.Data;
 
 /**
  * 事件
