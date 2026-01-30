@@ -36,21 +36,21 @@ public class EventDeserializer extends JsonDeserializer<Event<?>> {
                 yield switch (messageScene) {
                     case "friend" -> {
                         IncomingFriendMessage data = mapper.treeToValue(dataNode, IncomingFriendMessage.class);
-                        var event = new Event<IncomingFriendMessage>();
-                        event.setEventType(eventType);
-                        event.setTime(time);
-                        event.setSelfId(selfId);
-                        event.setData(data);
-                        yield event;
+                        yield Event.<IncomingFriendMessage>builder()
+                                .eventType(eventType)
+                                .time(time)
+                                .selfId(selfId)
+                                .data(data)
+                                .build();
                     }
                     case "group" -> {
                         IncomingGroupMessage data = mapper.treeToValue(dataNode, IncomingGroupMessage.class);
-                        var event = new Event<IncomingGroupMessage>();
-                        event.setEventType(eventType);
-                        event.setTime(time);
-                        event.setSelfId(selfId);
-                        event.setData(data);
-                        yield event;
+                        yield Event.<IncomingGroupMessage>builder()
+                                .eventType(eventType)
+                                .time(time)
+                                .selfId(selfId)
+                                .data(data)
+                                .build();
                     }
                     default -> throw new IllegalArgumentException("Unknown message_scene: " + messageScene);
                 };

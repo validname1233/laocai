@@ -2,10 +2,12 @@ package indi.dkx.laocai.model.pojo.event;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import indi.dkx.laocai.deserializer.EventDeserializer;
+import lombok.Builder;
 import lombok.Data;
 
 @JsonDeserialize(using = EventDeserializer.class)
 @Data
+@Builder
 public class Event<T> {
     /**
      * 类型区分字段
