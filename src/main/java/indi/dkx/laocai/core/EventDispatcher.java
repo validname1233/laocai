@@ -70,7 +70,7 @@ public class EventDispatcher implements ApplicationListener<ContextRefreshedEven
                 //
                 //
 
-                Object data = event.getData();
+                Object data = event.data();
                 if (data instanceof IncomingMessage incomingMessage) {
                     if (!passFilter(handler.method, incomingMessage)) {
                         continue;

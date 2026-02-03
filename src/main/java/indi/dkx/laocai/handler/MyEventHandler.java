@@ -24,7 +24,7 @@ public class MyEventHandler {
     @Listener
     @Filter("摸摸")
     public void handleGroup(Event<IncomingGroupMessage> event) {
-        IncomingGroupMessage message = event.getData();
+        IncomingGroupMessage message = event.data();
         log.info("收到群消息: {}", message.getPlainText());
         if (message.getSenderId() == 1938437495) {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
@@ -41,7 +41,7 @@ public class MyEventHandler {
 
     @Listener
     public void handleFriend(Event<IncomingFriendMessage> event) throws InterruptedException {
-        IncomingFriendMessage message = event.getData();
+        IncomingFriendMessage message = event.data();
         log.info("收到好友消息: {}", message.getPlainText());
         if (message.getPlainText().equals("D")) {
             Thread.sleep(5000L);
