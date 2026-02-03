@@ -50,8 +50,8 @@ public class Texas{
             temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
-            TextSegment.of("当前玩家"),
-            TextSegment.of(temp.toString())
+            new TextSegment("当前玩家"),
+            new TextSegment(temp.toString())
         ));
     }
 
@@ -65,9 +65,9 @@ public class Texas{
             temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
-            TextSegment.of("当前玩家"),
-            TextSegment.of(temp.toString()),
-            TextSegment.of("开始游戏")
+            new TextSegment("当前玩家"),
+            new TextSegment(temp.toString()),
+            new TextSegment("开始游戏")
         ));
 
 

@@ -28,13 +28,13 @@ public class MyEventHandler {
         log.info("收到群消息: {}", message.getPlainText());
         if (message.getSenderId() == 1938437495) {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    MentionSegment.of(message.getSenderId()),
-                    TextSegment.of(" 哈！")
+                    new MentionSegment(message.getSenderId()),
+                    new TextSegment(" 哈！")
             ));
         } else {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    MentionSegment.of(message.getSenderId()),
-                    TextSegment.of(" 喵")
+                    new MentionSegment(message.getSenderId()),
+                    new TextSegment(" 喵")
             ));
         }
     }
@@ -47,7 +47,7 @@ public class MyEventHandler {
             Thread.sleep(5000L);
         }
         botSender.sendPrivateMsg(message.getSenderId(), List.of(
-                TextSegment.of(message.getPlainText())
+                new TextSegment(message.getPlainText())
         ));
     }
 }

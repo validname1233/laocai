@@ -43,7 +43,7 @@ public class AutoSseListener implements CommandLineRunner {
         webClient.get()
                 .uri("/event")
                 .retrieve()
-                .bodyToFlux(type)
+                .bodyToFlux(type)  //读取字节流，并反序列化
                 .mapNotNull(ServerSentEvent::data)
                 // 背压：当 handler/下游处理跟不上时，最多缓冲 N 条，超过则丢弃最新的，避免无限堆积
                 .onBackpressureBuffer(
