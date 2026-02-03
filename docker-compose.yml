@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     environment:
       LLBOT_URL: http://host.docker.internal:3010
+      LLBOT_ACCESS_TOKEN: ${LLBOT_ACCESS_TOKEN}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped

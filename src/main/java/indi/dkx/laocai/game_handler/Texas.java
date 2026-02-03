@@ -27,7 +27,7 @@ public class Texas{
     @Listener
     @Filter("我要玩德州扑克")
     public void texasInit(Event<IncomingGroupMessage> event) {
-        IncomingGroupMessage message = event.getData();
+        IncomingGroupMessage message = event.data();
         log.info("收到群消息: {}", message.getPlainText());
         if(groupId == 0)groupId = message.getGroup().groupId();
 
@@ -58,7 +58,7 @@ public class Texas{
     @Listener
     @Filter("开始德州扑克")
     public void texasStart(Event<IncomingGroupMessage> event) {
-        IncomingGroupMessage message = event.getData();
+        IncomingGroupMessage message = event.data();
         log.info("收到群消息: {}", message.getPlainText());
         StringBuilder temp = new StringBuilder();
         for (TexasPlayer player : players) {

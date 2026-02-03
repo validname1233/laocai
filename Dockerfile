@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25
+FROM my-java:25
 
 WORKDIR /
 ENV TZ=Asia/Shanghai
