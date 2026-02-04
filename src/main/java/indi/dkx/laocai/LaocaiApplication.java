@@ -1,6 +1,6 @@
 package indi.dkx.laocai;
 
-import indi.dkx.laocai.annotation.EnableLaocaiBot;
+import indi.dkx.laocai.bot.annotation.EnableLaocaiBot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
