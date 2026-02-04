@@ -40,23 +40,23 @@ public class SegmentDeserializer extends JsonDeserializer<Segment<?>> {
         return switch(type){
             case "text" ->{
                 TextSegmentData data = mapper.treeToValue(dataNode, TextSegmentData.class);
-                var Segment = new TextSegment(data.text());
-                yield Segment;
+                var segment = new TextSegment(data.text());
+                yield segment;
             }
             case "mention" ->{
                 MentionSegmentData data = mapper.treeToValue(dataNode, MentionSegmentData.class);
-                var Segment = new MentionSegment(data.user_id());
-                yield Segment;
+                var segment = new MentionSegment(data.user_id());
+                yield segment;
             }
             case "reply" ->{
                 ReplySegmentData data = mapper.treeToValue(dataNode, ReplySegmentData.class);
-                var Segment = new ReplySegment(data.messageSeq());
-                yield Segment;
+                var segment = new ReplySegment(data.messageSeq());
+                yield segment;
             }
             case "face" ->{
                 FaceSegmentData data = mapper.treeToValue(dataNode, FaceSegmentData.class);
-                var Segment = new FaceSegment(data.faceId(), data.isLarge());
-                yield Segment;
+                var segment = new FaceSegment(data.faceId(), data.isLarge());
+                yield segment;
             }
             default -> throw new IllegalArgumentException("Unknown type: " + type);
         };
