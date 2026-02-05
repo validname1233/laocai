@@ -2,7 +2,7 @@ package indi.dkx.laocai.bot.model.event.data;
 
 
 import indi.dkx.laocai.bot.model.segment.Segment;
-import indi.dkx.laocai.bot.model.segment.TextSegment;
+import indi.dkx.laocai.bot.model.segment.data.TextSegmentData;
 import lombok.Data;
 
 import java.util.List;
@@ -20,8 +20,9 @@ public class IncomingMessage {
 
     public String getPlainText() {
         return segments.stream()
-                .filter(seg -> seg instanceof TextSegment)
-                .map(seg -> ((TextSegment) seg).getData().text())
-                .collect(Collectors.joining());
+        .map(Segment::getData)
+        .filter(data -> data instanceof TextSegmentData)
+        .map(data -> ((TextSegmentData) data).text())
+        .collect(Collectors.joining());
     }
 }

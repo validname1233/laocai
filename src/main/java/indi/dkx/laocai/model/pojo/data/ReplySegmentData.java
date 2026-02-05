@@ -1,4 +1,4 @@
-package indi.dkx.laocai.bot.model.segment.data;
+package indi.dkx.laocai.model.pojo.data;
 
 
 public record ReplySegmentData(

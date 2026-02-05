@@ -6,5 +6,5 @@ package indi.dkx.laocai.bot.model.segment.data;
  */
 public record TextSegmentData(
     String text
-) {
+)implements SegmentData {
 }
