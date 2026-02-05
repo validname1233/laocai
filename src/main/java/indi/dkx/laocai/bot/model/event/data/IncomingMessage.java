@@ -16,7 +16,7 @@ public class IncomingMessage {
     private Long messageSeq;
     private Long senderId;
     private Long time;
-    private List<Segment<?>> segments;
+    private List<Segment> segments;
 
     public String getPlainText() {
         return segments.stream()

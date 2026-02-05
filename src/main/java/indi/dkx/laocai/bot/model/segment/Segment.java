@@ -20,24 +20,24 @@ import indi.dkx.laocai.bot.model.segment.data.*;
 
 @JsonDeserialize(using = Segment.SegmentDeserializer.class)
 @Data
-public class Segment<T> {
+public class Segment {
     private final String type;
-    private final T data;
-    Segment(String type, T data) {
+    private final SegmentData data;
+    Segment(String type, SegmentData data) {
         this.type = type;
         this.data = data;
     }
 
     @Component
     @RequiredArgsConstructor
-    public static class SegmentDeserializer extends JsonDeserializer<Segment<?>> {
+    public static class SegmentDeserializer extends JsonDeserializer<Segment> {
         private final ObjectMapper mapper;
         
         //private static final Logger log = LoggerFactory.getLogger(SegmentDeserializer.class);
         //调试用日志
         
         @Override
-        public Segment<?> deserialize(JsonParser p, DeserializationContext context) throws IOException {
+        public Segment deserialize(JsonParser p, DeserializationContext context) throws IOException {
 
             //log.debug("进入 Deserializer.deserialize()");
             //调试用日志信息
@@ -52,7 +52,7 @@ public class Segment<T> {
                 case "face" -> mapper.treeToValue(dataNode, FaceSegmentData.class);
                 default -> throw new IllegalArgumentException("Unknown type: " + type);
             };
-            return new Segment<>(type, data);
+            return new Segment(type, data);
         }
     }
 }
