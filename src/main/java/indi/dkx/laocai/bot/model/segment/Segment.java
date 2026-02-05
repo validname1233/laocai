@@ -16,15 +16,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-<<<<<<< HEAD:src/main/java/indi/dkx/laocai/bot/model/segment/Segment.java
-import indi.dkx.laocai.bot.deserializer.SegmentDeserializer;
-=======
-import indi.dkx.laocai.model.pojo.data.FaceSegmentData;
-import indi.dkx.laocai.model.pojo.data.MentionSegmentData;
-import indi.dkx.laocai.model.pojo.data.ReplySegmentData;
-import indi.dkx.laocai.model.pojo.data.SegmentData;
-import indi.dkx.laocai.model.pojo.data.TextSegmentData;
->>>>>>> 重构Segment结构,保留不同的Data类,删除Segment的子类,并将Segment的反序列化器作为Segment的内部类:src/main/java/indi/dkx/laocai/model/pojo/segment/Segment.java
+import indi.dkx.laocai.bot.model.segment.data.*;
 
 @JsonDeserialize(using = Segment.SegmentDeserializer.class)
 @Data

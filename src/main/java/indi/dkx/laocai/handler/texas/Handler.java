@@ -1,22 +1,12 @@
 package indi.dkx.laocai.handler.texas;
 
-<<<<<<< HEAD:src/main/java/indi/dkx/laocai/handler/texas/Handler.java
 import indi.dkx.laocai.bot.annotation.Filter;
 import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.core.BotSender;
 import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
-import indi.dkx.laocai.bot.model.segment.TextSegment;
+import indi.dkx.laocai.bot.model.segment.Segments;
 import indi.dkx.laocai.handler.texas.player.TexasPlayer;
-=======
-import indi.dkx.laocai.annotation.Filter;
-import indi.dkx.laocai.annotation.Listener;
-import indi.dkx.laocai.core.BotSender;
-import indi.dkx.laocai.model.pojo.event.Event;
-import indi.dkx.laocai.model.pojo.message.IncomingGroupMessage;
-import indi.dkx.laocai.model.pojo.segment.Segments;
-import indi.dkx.laocai.game_handler.player.TexasPlayer;
->>>>>>> 重构Segment结构,保留不同的Data类,删除Segment的子类,并将Segment的反序列化器作为Segment的内部类:src/main/java/indi/dkx/laocai/game_handler/Texas.java
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
