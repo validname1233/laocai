@@ -6,8 +6,7 @@ import indi.dkx.laocai.bot.core.BotSender;
 import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingFriendMessage;
 import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
-import indi.dkx.laocai.bot.model.segment.MentionSegment;
-import indi.dkx.laocai.bot.model.segment.TextSegment;
+import indi.dkx.laocai.bot.model.segment.Segments;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,17 +23,20 @@ public class TestHandler {
     @Listener
     @Filter("摸摸")
     public void handleGroup(Event<IncomingGroupMessage> event) {
+        //log.debug("进入 摸摸 handler");
+        //调试用日志信息
+
         IncomingGroupMessage message = event.data();
         log.info("收到群消息: {}", message.getPlainText());
         if (message.getSenderId() == 1938437495) {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    new MentionSegment(message.getSenderId()),
-                    new TextSegment(" 哈！")
+                    Segments.mention(message.getSenderId()),
+                    Segments.text(" 哈！")
             ));
         } else {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    new MentionSegment(message.getSenderId()),
-                    new TextSegment(" 喵")
+                    Segments.mention(message.getSenderId()),
+                    Segments.text(" 喵")
             ));
         }
     }
@@ -47,7 +49,7 @@ public class TestHandler {
             Thread.sleep(5000L);
         }
         botSender.sendPrivateMsg(message.getSenderId(), List.of(
-                new TextSegment(message.getPlainText())
+            Segments.text(message.getPlainText())
         ));
     }
 }

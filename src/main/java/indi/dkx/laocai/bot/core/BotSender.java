@@ -37,7 +37,7 @@ public class BotSender {
      * @param groupId 群号
      * @param segments 消息内容（可以是纯文本，也可以是 CQ 码）
      */
-    public void sendGroupMsg(Long groupId, List<Segment<?>> segments) {
+    public void sendGroupMsg(Long groupId, List<Segment> segments) {
         // 构建请求体 (Milky 标准)
         Map<String, Object> body = new HashMap<>();
         body.put("group_id", groupId);
@@ -60,7 +60,7 @@ public class BotSender {
     /**
      * 发送私聊消息
      */
-    public void sendPrivateMsg(Long userId, List<Segment<?>> segments) {
+    public void sendPrivateMsg(Long userId, List<Segment> segments) {
         Map<String, Object> body = new HashMap<>();
         body.put("user_id", userId);
         body.put("message", segments);
