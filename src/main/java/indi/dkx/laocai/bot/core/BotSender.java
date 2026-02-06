@@ -1,13 +1,12 @@
 package indi.dkx.laocai.bot.core;
 
+import indi.dkx.laocai.bot.configuration.LaocaiBotConfigurationProperties;
 import indi.dkx.laocai.bot.model.segment.Segment;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.List;
 import java.util.Map;
 
@@ -21,14 +20,13 @@ public class BotSender {
      * 手动构造函数注入
      * Spring 会自动把 Builder 和 botUrl 传进来
      */
-    public BotSender(WebClient.Builder webClientBuilder,
-                     @Value("${laocai.bot.url:http://localhost:3010}") String botUrl,
-                     @Value("${laocai.bot.access-token:}") String botToken
+    public BotSender(
+            WebClient.Builder webClientBuilder,
+            LaocaiBotConfigurationProperties properties
     ) {
         // 创建单例 WebClient，并设置好 BaseUrl
-        this.webClient = webClientBuilder.baseUrl(
-                Objects.requireNonNull(botUrl, "laocai.bot.url must not be null")
-                ).defaultHeader("Authorization", "Bearer " + botToken)
+        this.webClient = webClientBuilder.baseUrl(properties.bot().url())
+                .defaultHeader("Authorization", "Bearer " + properties.bot().accessToken())
                 .build();
     }
 
