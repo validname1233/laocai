@@ -3,7 +3,6 @@ package indi.dkx.laocai.bot.listener;
 import indi.dkx.laocai.bot.annotation.ApplyBinder;
 import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.binder.BinderManager;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.aop.scope.ScopedProxyUtils;
@@ -31,9 +30,6 @@ import java.util.function.Supplier;
 @Component
 public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
-    @Resource
-    private EventListenerProcessor processor;
-
     private ApplicationContext applicationContext;
 
     private BeanDefinitionRegistry registry;
@@ -50,6 +46,7 @@ public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPost
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        EventListenerProcessor processor = beanFactory.getBean(EventListenerProcessor.class);
         String[] beanNames = beanFactory.getBeanDefinitionNames();
 
         for (String beanName : beanNames) {
@@ -61,7 +58,7 @@ public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPost
             if (beanType == null) continue;
 
             // 1. 快速检查类上是否有相关注解的潜力 (Spring 工具类)
-            if (!AnnotationUtils.isCandidateClass(beanType, Listener.class)) return;
+            if (!AnnotationUtils.isCandidateClass(beanType, Listener.class)) continue;
 
             // 2. 筛选出包含 @Listener 注解的方法
             Map<Method, Listener> annotatedMethods = MethodIntrospector.selectMethods(
@@ -69,7 +66,7 @@ public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPost
                     (MethodIntrospector.MetadataLookup<Listener>) method
                             -> AnnotatedElementUtils.findMergedAnnotation(method, Listener.class));
 
-            if (annotatedMethods.isEmpty()) return;
+            if (annotatedMethods.isEmpty()) continue;
 
             if (log.isDebugEnabled()) {
                 log.debug("Resolve candidate class {} bean named {} with any @Listener methods", beanType, beanName);

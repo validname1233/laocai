@@ -35,6 +35,11 @@ public class LaocaiBotRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        log.info("检测到 {} 个 EventListenerResolver", resolvers.size());
+        if (log.isDebugEnabled()) {
+            resolvers.forEach(resolver ->
+                    log.debug("EventListenerResolver 实例: {}", resolver.getClass().getName()));
+        }
         resolvers.forEach(resolver -> resolver.resolve(eventDispatcher));
 
         launchApp();
