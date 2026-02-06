@@ -3,13 +3,10 @@ package indi.dkx.laocai.bot.listener;
 import indi.dkx.laocai.bot.annotation.ApplyBinder;
 import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.binder.BinderManager;
-import indi.dkx.laocai.bot.model.event.Event;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 @Component
 public class EventListenerProcessor {

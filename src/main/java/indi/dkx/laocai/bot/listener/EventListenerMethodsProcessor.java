@@ -4,7 +4,6 @@ import indi.dkx.laocai.bot.annotation.ApplyBinder;
 import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.binder.BinderManager;
 import jakarta.annotation.Resource;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.aop.scope.ScopedProxyUtils;
