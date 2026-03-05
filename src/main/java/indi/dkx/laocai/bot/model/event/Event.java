@@ -1,6 +1,6 @@
 package indi.dkx.laocai.bot.model.event;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tools.jackson.databind.annotation.JsonDeserialize;
 import indi.dkx.laocai.bot.deserializer.EventDeserializer;
 
 /**

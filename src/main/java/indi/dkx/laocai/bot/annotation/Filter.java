@@ -1,10 +1,12 @@
 package indi.dkx.laocai.bot.annotation;
 
+import indi.dkx.laocai.bot.constant.PriorityConstant;
+
 import java.lang.annotation.*;
 
+@Repeatable(Filters.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface Filter {
     /**
      * 过滤关键词，例如 "你好"
@@ -12,5 +14,20 @@ public @interface Filter {
      */
     String value() default "";
 
+    int priority() default PriorityConstant.DEFAULT;
+
+    Targets[] targets() default {};
+
     // TODO: 比如 filterType (EQUALS, CONTAINS, REGEX)
+
+    @Retention(RetentionPolicy.SOURCE)
+    @interface Targets {
+        long[] users() default {};
+
+        long[] groups() default {};
+
+        long[] mentions() default {};
+
+        boolean mentionBot() default false;
+    }
 }

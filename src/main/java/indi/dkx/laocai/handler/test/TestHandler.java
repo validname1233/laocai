@@ -21,7 +21,7 @@ public class TestHandler {
     private final BotSender botSender;
 
     @Listener
-    @Filter("摸摸")
+    @Filter(value = "^[1-9]\\d{4,11}@qq\\.com(\\.cn)?$", targets = {@Filter.Targets(groups = {1234567890L, 1234567890L})})
     public void handleGroup(Event<IncomingGroupMessage> event) {
         //log.debug("进入 摸摸 handler");
         //调试用日志信息

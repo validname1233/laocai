@@ -6,6 +6,7 @@ import indi.dkx.laocai.bot.listener.EventListenerResolver;
 import indi.dkx.laocai.bot.model.event.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LaocaiBotRunner implements ApplicationRunner {
 
+    /**
+     * 事件分发器
+     */
     private final EventDispatcher eventDispatcher;
 
     private final WebClient.Builder webClientBuilder;
@@ -34,12 +38,11 @@ public class LaocaiBotRunner implements ApplicationRunner {
     private final List<EventListenerResolver> resolvers;
 
     @Override
-    public void run(ApplicationArguments args) {
+    public void run(@NonNull ApplicationArguments args) {
         log.info("检测到 {} 个 EventListenerResolver", resolvers.size());
-        if (log.isDebugEnabled()) {
-            resolvers.forEach(resolver ->
-                    log.debug("EventListenerResolver 实例: {}", resolver.getClass().getName()));
-        }
+        resolvers.forEach(resolver ->
+                log.debug("EventListenerResolver 实例: {}", resolver.getClass().getName()));
+        // 将每个 EventListenerResolver 注册到事件分发器 eventDispatcher
         resolvers.forEach(resolver -> resolver.resolve(eventDispatcher));
 
         launchApp();

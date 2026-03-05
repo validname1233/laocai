@@ -24,11 +24,12 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * 在 BeanFactory 后处理阶段扫描所有 Bean，寻找 @Listener 方法，并为其生成 EventListenerResolver Bean
+ * 在 BeanFactory 后处理阶段扫描所有 Bean，寻找 @Listener 方法，并为其生成 EventListenerResolver BeanDefinition,
+ * 然后再需要实例化的时候再进行实例化，避免了实例化开销。
  */
 @Slf4j
 @Component
-public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
+public class EventListenerResolverRegistryProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
@@ -68,9 +69,7 @@ public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPost
 
             if (annotatedMethods.isEmpty()) continue;
 
-            if (log.isDebugEnabled()) {
-                log.debug("Resolve candidate class {} bean named {} with any @Listener methods", beanType, beanName);
-            }
+            log.debug("Resolve candidate class {} instance named {} with any @Listener methods", beanType, beanName);
 
             // 3. 为每个方法生成 EventListenerResolver
             annotatedMethods.forEach((method, listenerAnnotation) -> {
@@ -104,7 +103,7 @@ public class EventListenerMethodsProcessor implements BeanDefinitionRegistryPost
                 String beanDefinitionName = beanName + method.toGenericString() + "#GENERATED_LISTENER";
 
                 if (log.isDebugEnabled())
-                    log.debug("Generate event listener resolver bean definition {} named {}",
+                    log.debug("Generate event listener resolver instance definition {} named {}",
                             beanDefinition, beanDefinitionName);
                 // 注册 BeanDefinition
                 registry.registerBeanDefinition(beanDefinitionName, beanDefinition);
