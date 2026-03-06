@@ -17,8 +17,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventDispatcher {
 
+    /**
+     * 监听器队列
+     *
+     * <p>用于存放监听器
+     *
+     * <p>TODO: 将来准备改为优先级队列
+     */
     private final List<EventListener> listenerQueue = new ArrayList<>();
 
+    /**
+     * 注册方法, 用于将监听器注册到分发器中
+     * @param listener 监听器
+     */
     public void register(EventListener listener) {
         listenerQueue.add(listener);
     }
@@ -29,7 +40,7 @@ public class EventDispatcher {
      */
     public void dispatch(Event<?> event) {
         for (EventListener listener : listenerQueue) {
-            // TODO
+            // TODO: 暂未实现全局拦截器, 只实现了事件监听器
             listener.handle(event);
         }
     }

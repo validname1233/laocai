@@ -42,11 +42,11 @@ public class EventListenerProcessor {
             ApplicationContext applicationContext,
             BinderManager binderManager
     ) {
-        // 读取Listener注解中的id
+        // TODO: 读取Listener注解中的id, 暂时未使用
         String id = listenerAnnotation.id();
-        // 读取Listener注解中的priority
+        // TODO: 读取Listener注解中的priority, 暂时未使用
         int priority = listenerAnnotation.priority();
-        // 获取这个函数监听的第一个参数的Event
+        // TODO: 获取这个函数监听的第一个参数的Event, 暂时未使用
         Type[] listenTarget = method.getGenericParameterTypes();
 
         // 用于存储匹配器
@@ -54,11 +54,14 @@ public class EventListenerProcessor {
         // 判断方法参数类型是否与事件数据匹配
         matchers.add((Event<?> event) -> matchParam(method, event));
 
+        // 获取方法上的 Filter 注解数据
         List<FilterData> filterDataList = getFilterDataList(method);
+        // 将 Filter 注解数据转换为匹配器并添加到匹配器列表中
         matchers.addAll(filterDataList.stream()
                 .sorted(Comparator.comparingInt(FilterData::priority).reversed())
                 .map(FilterData::matcher).toList());
 
+        // 返回一个 EventListenerResolver 对象
         return (EventDispatcher dispatcher) -> {
             Object instance = applicationContext.getBean(beanName);
             if (!method.canAccess(instance)) method.setAccessible(true);
@@ -98,36 +101,54 @@ public class EventListenerProcessor {
         return paramType == Event.class && event.data() != null;
     }
 
-    // TODO
+    /**
+     * 将方法上的所有 Filter 注解数据转换为 FilterData 列表
+     * @param method 方法
+     * @return FilterData 列表
+     */
     private List<FilterData> getFilterDataList(Method method) {
         return MergedAnnotations.from(method).stream(Filter.class).map(mergedAnnotation -> {
+            // 获取 Filter 注解中的 String value 匹配器
             Predicate<Event<?>> keywordMatcher = getKeywordMatcher(mergedAnnotation);
+            // 获取 Filter 注解中的 Targets注解 匹配器
             Predicate<Event<?>> targetMatcher = getTargetMatcher(mergedAnnotation);
 
+            // 组合两个匹配器，要求同时满足
             Predicate<Event<?>> combinedMatcher
                     = (Event<?> event) -> keywordMatcher.test(event) && targetMatcher.test(event);
-
+            // 返回 FilterData 对象
             return new FilterData(mergedAnnotation.getInt("priority"), combinedMatcher);
         }).toList();
     }
 
-    // TODO
+    /**
+     * 获取 Filter 注解中的 String value 匹配器
+     * @param mergedAnnotation Filter 注解数据
+     * @return String value 匹配器
+     */
     private Predicate<Event<?>> getKeywordMatcher(MergedAnnotation<Filter> mergedAnnotation) {
+        // 获取 Filter 注解中的 String value, 这里解析为正则表达式
         String value = mergedAnnotation.getString("value");
-
+        // 如果 value 为空，则返回 true 匹配器
         if (!StringUtils.hasText(value)) return (Event<?> _) -> true;
         else return (Event<?> event) -> {
             Object data = event.data();
             if (data instanceof IncomingMessage incomingMessage) {
                 String msgContent = incomingMessage.getPlainText();
+                // 如果 msgContent 不为空且匹配 value，则返回 true
                 return msgContent != null && msgContent.matches(value);
             }
             return false;
         };
     }
 
-    // TODO
+    /**
+     * 获取 Filter 注解中的 Targets 注解匹配器
+     * @param mergedAnnotation Filter 注解数据
+     * @return Targets 注解匹配器
+     */
     private Predicate<Event<?>> getTargetMatcher(MergedAnnotation<Filter> mergedAnnotation) {
+        // TODO: 还没实现, 默认返回 true 匹配器
         return (Event<?> _) -> true;
     }
 }

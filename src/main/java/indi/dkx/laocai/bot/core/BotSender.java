@@ -57,6 +57,8 @@ public class BotSender {
 
     /**
      * 发送私聊消息
+     * @param userId QQ号
+     * @param segments 消息内容（可以是纯文本，也可以是 CQ 码）
      */
     public void sendPrivateMsg(Long userId, List<Segment> segments) {
         Map<String, Object> body = new HashMap<>();

@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
+/**
+ * 启用牢财机器人开发模式
+ */
 @Target(ElementType.TYPE) // 只能用在类上
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

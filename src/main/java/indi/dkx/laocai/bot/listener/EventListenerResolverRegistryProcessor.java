@@ -73,7 +73,7 @@ public class EventListenerResolverRegistryProcessor implements BeanDefinitionReg
 
             // 3. 为每个方法生成 EventListenerResolver
             annotatedMethods.forEach((method, listenerAnnotation) -> {
-                // 获取 ApplyBinder 注解
+                // TODO: 获取 ApplyBinder 注解, 暂时不知道有什么用
                 ApplyBinder applyBinder = AnnotatedElementUtils.findMergedAnnotation(method, ApplyBinder.class);
 
                 // 创建 Supplier

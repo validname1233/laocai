@@ -15,13 +15,11 @@ import java.lang.annotation.*;
 public @interface Listener {
     /**
      * 此事件处理器的id。通常用于日志输出或调试用。默认会根据函数生成一个ID
-     * @return 事件处理器的id
      */
     String id() default "";
 
     /**
      * 此事件处理器的优先级
-     * @return 事件处理器的优先级
      */
     int priority() default PriorityConstant.DEFAULT;
 }
