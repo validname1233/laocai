@@ -1,6 +1,9 @@
 package indi.dkx.laocai.bot.annotation;
 
 import indi.dkx.laocai.bot.application.LaocaiBotRunner;
+import indi.dkx.laocai.bot.listener.EventDispatcher;
+import indi.dkx.laocai.bot.listener.EventListenerProcessor;
+import indi.dkx.laocai.bot.listener.EventListenerResolverRegistryProcessor;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -11,6 +14,12 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE) // 只能用在类上
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(LaocaiBotRunner.class) // <--- 核心：导入上面的配置类
+// <--- 核心：导入上面的配置类
+@Import({
+        LaocaiBotRunner.class,
+        EventListenerResolverRegistryProcessor.class,
+        EventListenerProcessor.class,
+        EventDispatcher.class
+})
 public @interface EnableLaocaiBot {
 }

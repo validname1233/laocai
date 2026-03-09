@@ -4,8 +4,6 @@ import indi.dkx.laocai.bot.model.event.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,6 @@ import java.util.List;
  * SimpleEventDispatcherImpl 简单事件分发器
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class EventDispatcher {
 
