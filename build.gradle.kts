@@ -34,13 +34,16 @@ dependencies {
 
 	compileOnly("org.projectlombok:lombok:1.18.42")
 	annotationProcessor("org.projectlombok:lombok:1.18.42")
+	testCompileOnly("org.projectlombok:lombok:1.18.42")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test:3.8.2")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-	implementation("dev.langchain4j:langchain4j:1.11.0")
-	implementation("dev.langchain4j:langchain4j-open-ai:1.11.0")
+	implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0-M4"))
+	implementation("org.springframework.ai:spring-ai-starter-model-openai")
 }
 
 tasks.withType<Test> {
