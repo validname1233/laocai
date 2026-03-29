@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.BufferOverflowStrategy;
 import reactor.core.publisher.Mono;
@@ -22,10 +21,10 @@ import java.time.Duration;
 import java.util.List;
 
 /**
- * 在 Spring Boot 启动后, 自动执行将该类中的逻辑
+ * 在 Spring Boot 启动后, 自动执行将该类中的逻辑。
+ * 仅当在启动类上显式添加 {@link indi.dkx.laocai.bot.annotation.EnableLaocaiBot} 时才会被注册并执行。
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class LaocaiBotRunner implements ApplicationRunner {
 

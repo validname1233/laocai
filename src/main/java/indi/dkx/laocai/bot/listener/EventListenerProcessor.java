@@ -9,7 +9,6 @@ import indi.dkx.laocai.bot.model.event.data.IncomingMessage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -20,7 +19,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
-@Component
 public class EventListenerProcessor {
 
     /**

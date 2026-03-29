@@ -17,7 +17,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.MethodIntrospector;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -28,7 +27,6 @@ import java.util.function.Supplier;
  * 然后再需要实例化的时候再进行实例化，避免了实例化开销。
  */
 @Slf4j
-@Component
 public class EventListenerResolverRegistryProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
