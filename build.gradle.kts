@@ -1,6 +1,6 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.5.9"
+	id("org.springframework.boot") version "4.0.3"
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
@@ -18,14 +18,6 @@ configurations {
 	compileOnly {
 		extendsFrom(configurations.annotationProcessor.get())
 	}
-	all {
-		// 1. 全局排除 Spring Boot 默认的日志启动器 (它包含了 Logback)
-		exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
-		// 2. 【关键】强制排除 log4j-to-slf4j，解决 "cannot be present with" 那个报错
-		exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
-		// 3. 顺便确保 Logback 彻底消失 (解决 Multiple SLF4J providers 警告)
-		exclude(group = "ch.qos.logback", module = "logback-classic")
-	}
 }
 
 repositories {
@@ -37,21 +29,18 @@ repositories {
 }
 
 dependencies {
-	// 排除默认的 Logback 依赖
-	implementation("org.springframework.boot:spring-boot-starter-webflux:3.5.9")
-
-	// 引入 Log4j2 依赖
-	implementation("org.springframework.boot:spring-boot-starter-log4j2:3.5.9")
+	implementation("org.springframework.boot:spring-boot-starter-webflux:4.0.3")
+	implementation("org.springframework.boot:spring-boot-webclient")
 
 	compileOnly("org.projectlombok:lombok:1.18.42")
 	annotationProcessor("org.projectlombok:lombok:1.18.42")
-	testImplementation("org.springframework.boot:spring-boot-starter-test:3.5.9")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test:3.8.2")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-	implementation("dev.langchain4j:langchain4j:1.10.0")
-	implementation("dev.langchain4j:langchain4j-open-ai-spring-boot-starter:1.10.0-beta18")
+	implementation("dev.langchain4j:langchain4j:1.11.0")
+	implementation("dev.langchain4j:langchain4j-open-ai:1.11.0")
 }
 
 tasks.withType<Test> {

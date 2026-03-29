@@ -1,54 +1,42 @@
 package indi.dkx.laocai.bot.deserializer;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.ValueDeserializer;
+import tools.jackson.databind.JsonNode;
 import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingFriendMessage;
 import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
-@Component
-@RequiredArgsConstructor
-public class EventDeserializer extends JsonDeserializer<Event<?>> {
-
-    private final ObjectMapper mapper;
-
+public class EventDeserializer extends ValueDeserializer<Event<?>> {
     @Override
-    public Event<?> deserialize(JsonParser p, DeserializationContext context) throws IOException {
-        JsonNode root = p.getCodec().readTree(p);
+    public Event<?> deserialize(JsonParser p, DeserializationContext context) {
 
-        String eventType = root.get("event_type").asText();
+        JsonNode root = p.readValueAsTree();
+
+        String eventType = root.get("event_type").asString();
         JsonNode dataNode = root.get("data");
 
-        // 公共字段
         Long time = root.get("time").asLong();
         Long selfId = root.get("self_id").asLong();
 
         return switch (eventType) {
             case "message_receive" -> {
-                String messageScene = dataNode.get("message_scene").asText();
+                String messageScene = dataNode.get("message_scene").asString();
                 yield switch (messageScene) {
                     case "friend" -> {
-                        IncomingFriendMessage data = mapper.treeToValue(dataNode, IncomingFriendMessage.class);
+                        // 3. 使用 p.objectReadContext() 代替注入的 mapper
+                        IncomingFriendMessage data = context.readTreeAsValue(dataNode, IncomingFriendMessage.class);
                         yield new Event<>(eventType, time, selfId, data);
                     }
                     case "group" -> {
-                        IncomingGroupMessage data = mapper.treeToValue(dataNode, IncomingGroupMessage.class);
+                        IncomingGroupMessage data = context.readTreeAsValue(dataNode, IncomingGroupMessage.class);
                         yield new Event<>(eventType, time, selfId, data);
                     }
                     default -> throw new IllegalArgumentException("Unknown message_scene: " + messageScene);
                 };
             }
-            case "bot_offline" -> {
-                // TODO: 处理 bot_offline 事件
-                throw new IllegalArgumentException("Unknown event_type: " + eventType);
-            }
+            case "bot_offline" -> throw new IllegalArgumentException("Unknown event_type: " + eventType);
             default -> throw new IllegalArgumentException("Unknown event_type: " + eventType);
         };
     }

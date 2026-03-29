@@ -6,11 +6,17 @@ spring:
   main:
     web-application-type: none
     keep-alive: true
+  profiles:
+    active: local
 laocai:
   bot:
-    url: ${LLBOT_URL:http://127.0.0.1:3010} # 如果不写，默认为 localhost:3010
-    access-token: ${LLBOT_ACCESS_TOKEN:123456}
-
+    url: http://127.0.0.1:3010 # 如果不写，默认为 localhost:3010
   dispatcher:
     concurrency: 32
     buffer-size: 5000
+logging:
+  level:
+    root: info
+    indi.dkx.laocai: debug
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %highlight(%5p) %clr([%t]){magenta} %clr(%-40.40logger{39}){cyan} %clr(>){faint} %m%n"
