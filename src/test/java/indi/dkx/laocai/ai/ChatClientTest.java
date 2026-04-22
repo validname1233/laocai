@@ -4,7 +4,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
@@ -12,14 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ChatClientTest {
 
     @Resource
-    private ChatClient.Builder chatClientBuilder;
+    private ChatClient chatClient;
 
 
     @Test
     void test() {
-        String content = chatClientBuilder.defaultAdvisors(new SimpleLoggerAdvisor())
-                .build()
-                .prompt()
+        String content = chatClient.prompt()
                 .user("1000-7=?")
                 .call()
                 .content();

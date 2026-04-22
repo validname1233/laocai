@@ -44,6 +44,8 @@ dependencies {
 
 	implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0-M4"))
 	implementation("org.springframework.ai:spring-ai-starter-model-openai")
+	implementation("org.springframework.ai:spring-ai-starter-model-chat-memory-repository-redis")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 }
 
 tasks.withType<Test> {
