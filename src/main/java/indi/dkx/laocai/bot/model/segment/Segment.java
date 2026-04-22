@@ -37,6 +37,7 @@ public class Segment {
                 case "mention" -> context.readTreeAsValue(dataNode, MentionSegmentData.class);
                 case "reply" -> context.readTreeAsValue(dataNode, ReplySegmentData.class);
                 case "face" -> context.readTreeAsValue(dataNode, FaceSegmentData.class);
+                case "video" -> context.readTreeAsValue(dataNode, VideoSegmentData.class);
                 default -> throw new IllegalArgumentException("Unknown type: " + type);
             };
             return new Segment(type, data);
