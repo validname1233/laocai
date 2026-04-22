@@ -14,8 +14,5 @@ spring:
         log-prompt: true
 
 logging:
-  level:
-    root: info
-    indi.dkx.laocai: debug
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %highlight(%5p) %clr([%t]){magenta} %clr(%-40.40logger{39}){cyan} %clr(>){faint} %m%n"
