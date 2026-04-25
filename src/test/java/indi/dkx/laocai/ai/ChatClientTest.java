@@ -11,15 +11,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ChatClientTest {
 
     @Resource
-    private ChatClient chatClient;
+    private ChatClientFactory chatClientFactory;
 
 
     @Test
     void test() {
+        ChatClient chatClient = chatClientFactory.getChatClient(1);
         String content = chatClient.prompt()
-                .user("1000-7=?")
+                .user("我叫乙骨忧太")
                 .call()
                 .content();
+
+        String content1 = chatClient.prompt()
+                .user("我叫什么？")
+                .call()
+                .content();
+
 
         log.info(content);
     }

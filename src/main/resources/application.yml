@@ -8,10 +8,20 @@ spring:
     keep-alive: true
   profiles:
     active: local
+
   ai:
     chat:
-      observations:
-        log-prompt: true
+      memory:
+        redis:
+          metadata-fields:
+            - name: id
+              type: text
+            - name: messageType
+              type: tag
+            - name: finishReason
+              type: tag
+            - name: choiceIndex
+              type: numeric
 
 logging:
   pattern:

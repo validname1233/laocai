@@ -50,8 +50,6 @@ public class ChatClientFactory {
         // TODO: 根据任务类型创建不同的 ChatClient
         return ChatClient.builder(chatModel)
                 .defaultSystem(chatLaocaiSystemPrompt)
-                // TODO: 添加工具
-//                .defaultTools(new WeatherTool())
                 .defaultAdvisors(
                         messageChatMemoryAdvisor,
                         SimpleLoggerAdvisor.builder().build()

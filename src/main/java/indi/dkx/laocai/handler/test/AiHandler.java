@@ -1,6 +1,7 @@
 package indi.dkx.laocai.handler.test;
 
 import indi.dkx.laocai.ai.ChatClientFactory;
+import indi.dkx.laocai.ai.tools.BotSenderTool;
 import indi.dkx.laocai.bot.annotation.Filter;
 import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.core.BotSender;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -21,6 +23,8 @@ public class AiHandler {
     private final ChatClientFactory chatClientFactory;
 
     private final BotSender botSender;
+
+    private final BotSenderTool botSenderTool;
 
 
     @Listener
@@ -36,6 +40,8 @@ public class AiHandler {
 
         String aiResponse = chatClientFactory.getChatClient(message.getGroup().groupId())
                 .prompt()
+                .tools(botSenderTool)
+                .toolContext(Map.of("groupId", message.getGroup().groupId()))
                 .user(content)
                 .call()
                 .content();

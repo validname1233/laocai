@@ -1,7 +1,7 @@
 package indi.dkx.laocai.bot.core;
 
-import indi.dkx.laocai.bot.configuration.LaocaiBotConfigurationProperties;
 import indi.dkx.laocai.bot.model.segment.Segment;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -9,26 +9,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class BotSender {
 
-    private final WebClient webClient;
-
-    /**
-     * 手动构造函数注入
-     * Spring 会自动把 Builder 和 botUrl 传进来
-     */
-    public BotSender(
-            WebClient.Builder webClientBuilder,
-            LaocaiBotConfigurationProperties properties
-    ) {
-        // 创建单例 WebClient，并设置好 BaseUrl
-        this.webClient = webClientBuilder.baseUrl(properties.bot().url())
-                .defaultHeader("Authorization", "Bearer " + properties.bot().accessToken())
-                .build();
-    }
+    private final WebClient milkyWebClient;
 
     /**
      * 发送群消息
@@ -44,7 +32,7 @@ public class BotSender {
         log.debug("发送群消息: {}", body);
 
         // 发送 POST 请求
-        webClient.post()
+        milkyWebClient.post()
                 .uri("/api/send_group_message") // OneBot 发送群消息的端点
                 .bodyValue(body)
                 .retrieve()
@@ -65,7 +53,7 @@ public class BotSender {
         body.put("user_id", userId);
         body.put("message", segments);
 
-        webClient.post()
+        milkyWebClient.post()
                 .uri("/api/send_private_message")
                 .bodyValue(body)
                 .retrieve()
@@ -73,6 +61,26 @@ public class BotSender {
                 .subscribe(
                         resp -> log.debug("私聊发送成功: {}", resp),
                         err -> log.error("私聊发送失败", err)
+                );
+    }
+
+
+    public void sendGroupAnnouncement(Long groupId, String content, Optional<String> imageUri) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("group_id", groupId);
+        body.put("content", content);
+        body.put("image_uri", imageUri.orElse(null));
+
+        milkyWebClient.post()
+                .uri("/api/send_group_announcement")
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(String.class)
+                .subscribe(
+                        resp -> {
+                            log.info("群公告发送成功: {}", resp);
+                        },
+                        err -> log.error("群公告发送失败", err)
                 );
     }
 }
