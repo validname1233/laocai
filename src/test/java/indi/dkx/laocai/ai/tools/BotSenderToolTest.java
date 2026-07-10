@@ -18,7 +18,7 @@ class BotSenderToolTest {
 
     @Test
     void sendGroupAnnouncement() {
-        String aiResponse = chatClientFactory.getChatClient(1098197034L)
+        String aiResponse = chatClientFactory.getChatPersonaClient(1098197034L)
                 .prompt()
                 .tools(botSenderTool)
                 .toolContext(Map.of("groupId", 1098197034L))

@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-webflux:4.0.3")
+	implementation("org.springframework.boot:spring-boot-starter-webflux:4.1.0")
 	implementation("org.springframework.boot:spring-boot-webclient")
 
 	compileOnly("org.projectlombok:lombok:1.18.42")
@@ -42,10 +42,10 @@ dependencies {
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-	implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0-M4"))
+	implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0"))
 	implementation("org.springframework.ai:spring-ai-starter-model-openai")
-	implementation("org.springframework.ai:spring-ai-starter-model-chat-memory-repository-redis")
-	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+	implementation("org.springframework.ai:spring-ai-starter-model-deepseek")
+	implementation("redis.clients:jedis:7.4.1")
 }
 
 tasks.withType<Test> {

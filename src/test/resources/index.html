@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>二维码保存为图片</title>
+</head>
+<body>
+<div id="qrcode"></div>
+<button id="saveBtn">保存为图片</button>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs2@0.0.2/qrcode.min.js"></script>
+<script>
+    const url = "https://user.mihoyo.com/qr_code_in_game.html?app_id=7&app_name=%E5%B4%A9%E5%9D%8F%E5%AD%A6%E5%9B%AD2&bbs=false&biz_key=bh2_cn&6expire=1773552816&ticket=69afad307a783e09ddb53298";
+
+    new QRCode(document.getElementById("qrcode"), {
+        text: url,
+        width: 220,
+        height: 220
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", function () {
+        const canvas = document.querySelector("#qrcode canvas");
+        if (!canvas) {
+            alert("二维码还没生成出来");
+            return;
+        }
+
+        const imageData = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = imageData;
+        a.download = "qrcode.png";
+        a.click();
+    });
+</script>
+</body>
+</html>
