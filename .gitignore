@@ -1,5 +1,11 @@
 ### Custom ###
-src/main/resources/simbot-bots/myBot.bot.json
+tmp/
+
+src/main/resources/application.yml
+
+.claude/
+cookies.txt
+papers/
 
 HELP.md
 .gradle

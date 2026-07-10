@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: laocai
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  main:
+    web-application-type: none
+    keep-alive: true
+  threads:
+    virtual:
+      enabled: true
+  ai:
+    openai:
+      api-key: replace-with-your-key
+      base-url: https://api.siliconflow.cn/v1
+      chat:
+        model: deepseek-v4-flash
+    deepseek:
+      api-key: replace-with-your-key
+      base-url: https://api.deepseek.com/v1
+      chat:
+        model: deepseek-v4-flash
+    
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %highlight(%5p) %clr([%t]){magenta} %clr(%-40.40logger{39}){cyan} %clr(>){faint} %m%n"
+
+redis:
+  host: localhost
+  port: 6379
+  password: replace-with-your-redis-password
+
+laocai:
+  bot:
+    url: http://127.0.0.1:3010
+    access-token: replace-with-your-token
+  dispatcher:
+    concurrency: 32
+    buffer-size: 5000
