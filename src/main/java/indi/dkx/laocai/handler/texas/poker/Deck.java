@@ -2,6 +2,11 @@ package indi.dkx.laocai.handler.texas.poker;
 
 import java.util.*;
 
+/**
+ * 扑克牌堆。
+ * <p>
+ * Texas 玩法需要一个固定牌集和“抽一张且不重复”的行为，所以把牌堆单独封装出来。
+ */
 public class Deck {
     private static final Poker[] pokers = {
             new Poker(Suit.SPADES, Rank.TWO, "♠2"),
@@ -66,6 +71,11 @@ public class Deck {
 
     private boolean[] usedPokers = new boolean[54];
 
+    /**
+     * 抽取一张未使用的牌。
+     * <p>
+     * 牌局需要保证同一局内不会重复发牌，所以抽牌时必须检查 used 状态。
+     */
     public Poker drawOne(){
         Random rand = new Random();
         int randDraw = rand.nextInt(54);
@@ -74,6 +84,11 @@ public class Deck {
         return pokers[randDraw];
     }
 
+    /**
+     * 重置牌堆使用状态。
+     * <p>
+     * 新一局开始时要把牌重新放回牌堆，否则抽牌状态会沿用上一局。
+     */
     public void shuffle(){
         Arrays.fill(usedPokers, false);
     }
@@ -93,4 +108,6 @@ public class Deck {
         System.out.println(flag);
     }
 }
+
+
 

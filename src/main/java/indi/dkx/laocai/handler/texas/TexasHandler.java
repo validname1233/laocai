@@ -15,10 +15,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * 德州扑克牌局处理器。
+ * <p>
+ * 牌局状态、报名名单和广播消息需要共享同一份会话上下文，单独收拢在一个处理器里更容易维护。
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class Handler {
+public class TexasHandler {
 
     private final BotSender botSender;
     private final List<TexasPlayer> players = new ArrayList<>();
@@ -71,8 +76,10 @@ public class Handler {
         ));
 
 
-        
-        //准备阶段及胜负判定
+
+        // 准备和胜负判定先留出独立入口，避免把牌局流程直接揉进报名逻辑里。
 
     }
 }
+
+
