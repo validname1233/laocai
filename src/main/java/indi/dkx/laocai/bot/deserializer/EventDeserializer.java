@@ -8,6 +8,11 @@ import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingFriendMessage;
 import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
 
+/**
+ * 事件反序列化器。
+ * <p>
+ * 协议返回的是一层通用事件壳加一层具体 data，必须先读 eventType 再决定 data 的目标类型。
+ */
 public class EventDeserializer extends ValueDeserializer<Event<?>> {
     @Override
     public Event<?> deserialize(JsonParser p, DeserializationContext context) {
@@ -25,7 +30,6 @@ public class EventDeserializer extends ValueDeserializer<Event<?>> {
                 String messageScene = dataNode.get("message_scene").asString();
                 yield switch (messageScene) {
                     case "friend" -> {
-                        // 3. 使用 p.objectReadContext() 代替注入的 mapper
                         IncomingFriendMessage data = context.readTreeAsValue(dataNode, IncomingFriendMessage.class);
                         yield new Event<>(eventType, time, selfId, data);
                     }
@@ -41,3 +45,5 @@ public class EventDeserializer extends ValueDeserializer<Event<?>> {
         };
     }
 }
+
+

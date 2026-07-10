@@ -4,44 +4,43 @@ import indi.dkx.laocai.bot.model.event.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SimpleEventDispatcherImpl 简单事件分发器
+ * 事件分发器。
+ * <p>
+ * 事件处理流程需要一个统一入口把已解析事件推送给所有监听器，而不是让每个监听器自己拉取事件。
  */
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class EventDispatcher {
 
     /**
-     * 监听器队列
-     *
-     * <p>用于存放监听器
-     *
-     * <p>TODO: 将来准备改为优先级队列
+     * 监听器队列。
+     * <p>
+     * 当前实现按注册顺序分发，先保留顺序语义，后续如果需要排序再替换容器实现。
      */
     private final List<EventListener> listenerQueue = new ArrayList<>();
 
     /**
-     * 注册方法, 用于将监听器注册到分发器中
-     * @param listener 监听器
+     * 注册监听器。
+     * <p>
+     * 监听器实例由扫描阶段创建，分发器只负责保存和调用，不负责构造。
      */
     public void register(EventListener listener) {
         listenerQueue.add(listener);
     }
 
     /**
-     * dispatchInFlow 将事件分发给所有注册的监听器
-     * @param event 事件
+     * 分发事件给所有监听器。
+     * <p>
+     * 当前阶段还没有全局拦截器，直接顺序调用最容易保证行为可预期。
      */
     public void dispatch(Event<?> event) {
         for (EventListener listener : listenerQueue) {
-            // TODO: 暂未实现全局拦截器, 只实现了事件监听器
             listener.handle(event);
         }
     }
 }
+

@@ -4,11 +4,13 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * 用于针对个事件处理器或所需处应用某些绑定器的标记注解。
- * 全局范围的绑定器无需应用，自动生效。
+ * 为单个事件处理方法指定绑定器。
+ * <p>
+ * 大多数绑定规则可以全局生效，但少数处理器需要额外绑定时，应该允许在方法级单独声明。
  */
 @Target(ElementType.METHOD)
 public @interface ApplyBinder {
 
     String value() default "";
 }
+

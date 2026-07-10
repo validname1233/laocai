@@ -4,7 +4,9 @@ import indi.dkx.laocai.bot.model.enums.Role;
 import indi.dkx.laocai.bot.model.enums.Sex;
 
 /**
- * 群成员实体
+ * 群成员信息快照。
+ * <p>
+ * 群消息处理经常要判断成员身份、权限和时间信息，把这些字段统一封装更容易维护。
  * @param userId 用户 QQ 号
  * @param nickname 用户昵称
  * @param sex 用户性别，可能值：male female unknown
@@ -30,3 +32,5 @@ public record GroupMemberEntity(
         Long lastSentTime,
         Long shutUpEndTime
 ) { }
+
+

@@ -1,15 +1,12 @@
 package indi.dkx.laocai.bot.listener;
 
-import indi.dkx.laocai.bot.annotation.ApplyBinder;
 import indi.dkx.laocai.bot.annotation.Filter;
 import indi.dkx.laocai.bot.annotation.Listener;
-import indi.dkx.laocai.bot.binder.BinderManager;
 import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingMessage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
@@ -20,12 +17,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
-@Component
+/**
+ * 把带注解的方法转换成可注册的事件监听器解析器。
+ * <p>
+ * 扫描阶段只负责收集元数据，真正的实例化和匹配器拼装要延迟到容器可用之后。
+ */
 public class EventListenerProcessor {
 
     /**
-     * 处理监听器方法
-     *
+     * 把一个监听方法转换成延迟注册器。
+     * <p>
+     * 方法上的参数类型、Filter 和 Binder 需要先统一成 matcher，再交给分发器持有。
      * @param beanName 监听器名称
      * @param method 监听器方法
      * @param listenerAnnotation 监听器注解
@@ -38,30 +40,22 @@ public class EventListenerProcessor {
             String beanName,
             Method method,
             Listener listenerAnnotation,
-            ApplyBinder applyBinder,
-            ApplicationContext applicationContext,
-            BinderManager binderManager
+            ApplicationContext applicationContext
     ) {
-        // TODO: 读取Listener注解中的id, 暂时未使用
         String id = listenerAnnotation.id();
-        // TODO: 读取Listener注解中的priority, 暂时未使用
         int priority = listenerAnnotation.priority();
-        // TODO: 获取这个函数监听的第一个参数的Event, 暂时未使用
         Type[] listenTarget = method.getGenericParameterTypes();
 
-        // 用于存储匹配器
         List<Predicate<Event<?>>> matchers = new ArrayList<>();
-        // 判断方法参数类型是否与事件数据匹配
+        // 先校验参数类型，再叠加注解过滤条件，避免对明显不匹配的事件多做判断。
         matchers.add((Event<?> event) -> matchParam(method, event));
 
-        // 获取方法上的 Filter 注解数据
         List<FilterData> filterDataList = getFilterDataList(method);
-        // 将 Filter 注解数据转换为匹配器并添加到匹配器列表中
+        // Filter 是可重复的，所以这里要按优先级排序后统一合并。
         matchers.addAll(filterDataList.stream()
                 .sorted(Comparator.comparingInt(FilterData::priority).reversed())
                 .map(FilterData::matcher).toList());
 
-        // 返回一个 EventListenerResolver 对象
         return (EventDispatcher dispatcher) -> {
             Object instance = applicationContext.getBean(beanName);
             if (!method.canAccess(instance)) method.setAccessible(true);
@@ -72,7 +66,6 @@ public class EventListenerProcessor {
                             .stream()
                             .allMatch((Predicate<Event<?>> matcher) -> matcher.test(event))
             );
-            // TODO
             dispatcher.register(listener);
         };
     }
@@ -152,3 +145,5 @@ public class EventListenerProcessor {
         return (Event<?> _) -> true;
     }
 }
+
+

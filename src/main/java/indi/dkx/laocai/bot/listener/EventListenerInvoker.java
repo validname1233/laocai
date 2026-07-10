@@ -1,9 +1,11 @@
 package indi.dkx.laocai.bot.listener;
 
 /**
- * TODO
- * SimpleEventListenerInvoker  简单事件监听器调用器
- * 合并了**全局配置的拦截器**和单独添加的拦截器
+ * 事件监听器调用器。
+ * <p>
+ * 监听器真正执行前通常还要合并全局规则和单方法规则，单独保留这个层次更容易扩展。
  */
 public class EventListenerInvoker {
 }
+
+

@@ -5,16 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 群权限等级。
+ * 响应状态。
  * <p>
- * 群成员权限判断依赖协议原始枚举值，统一收敛到一个枚举可以避免分支里直接散写字符串。
+ * 请求是否成功不能只看 HTTP 层，还要看协议返回的业务状态。
  */
 @Getter
 @AllArgsConstructor
-public enum Role {
-    OWNER("owner"),
-    ADMIN("admin"),
-    MEMBER("member");
+public enum ResponseStatus {
+    OK("ok"),
+    FAILED("failed");
 
     @JsonValue
     private final String value;

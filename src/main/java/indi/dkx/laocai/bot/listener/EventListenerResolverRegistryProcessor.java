@@ -1,8 +1,6 @@
 package indi.dkx.laocai.bot.listener;
 
-import indi.dkx.laocai.bot.annotation.ApplyBinder;
 import indi.dkx.laocai.bot.annotation.Listener;
-import indi.dkx.laocai.bot.binder.BinderManager;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.aop.scope.ScopedProxyUtils;
@@ -17,18 +15,17 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.MethodIntrospector;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * 在 BeanFactory 后处理阶段扫描所有 Bean，寻找 @Listener 方法，并为其生成 EventListenerResolver BeanDefinition,
- * 然后再需要实例化的时候再进行实例化，避免了实例化开销。
+ * 扫描并注册事件监听器解析器。
+ * <p>
+ * 先在 BeanFactory 后处理阶段收集元数据，再延迟实例化监听器，可以避免启动期提前创建不必要的对象。
  */
 @Slf4j
-@Component
 public class EventListenerResolverRegistryProcessor implements BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -73,20 +70,15 @@ public class EventListenerResolverRegistryProcessor implements BeanDefinitionReg
 
             // 3. 为每个方法生成 EventListenerResolver
             annotatedMethods.forEach((method, listenerAnnotation) -> {
-                // TODO: 获取 ApplyBinder 注解, 暂时不知道有什么用
-                ApplyBinder applyBinder = AnnotatedElementUtils.findMergedAnnotation(method, ApplyBinder.class);
 
                 // 创建 Supplier
                 Supplier<EventListenerResolver> eventListenerResolverDescription =
                         () -> {
-                            BinderManager binderManagerInstance = beanFactory.getBean(BinderManager.class);
                             return processor.process(
                                     beanName,
                                     method,
                                     listenerAnnotation,
-                                    applyBinder,
-                                    applicationContext,
-                                    binderManagerInstance
+                                    applicationContext
                             );
                         };
 
@@ -111,3 +103,5 @@ public class EventListenerResolverRegistryProcessor implements BeanDefinitionReg
         }
     }
 }
+
+
