@@ -1,7 +1,9 @@
 ### Custom ###
 tmp/
-
-src/main/resources/application.yml
+.env
+simpler-robot/
+laocai-app/src/main/resources/application.yml
+/laocai-app/application.yml
 
 .claude/
 cookies.txt
