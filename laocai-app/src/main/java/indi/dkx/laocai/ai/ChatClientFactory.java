@@ -37,6 +37,14 @@ public class ChatClientFactory {
     @Value("classpath:/prompt/reply-decision-system-prompt.txt")
     private Resource replyDecisionSystemPrompt;
 
+    /**
+     * 洛琪希语音人格系统提示词。
+     * <p>
+     * /audio 场景要走语音合成，文字回复必须只用日语，且要短，这和普通聊天人格的约束不一样，需要单独提示词。
+     */
+    @Value("classpath:/prompt/roxy-voice-system-prompt.txt")
+    private Resource roxyVoiceSystemPrompt;
+
     public ChatClient getChatClient(long id) {
         log.info("为 id: {} 创建 ChatClient 实例", id);
         return ChatClient.builder(openAiChatModel)
@@ -70,6 +78,22 @@ public class ChatClientFactory {
         log.info("为 id: {} 创建回复判断 ChatClient 实例", id);
         return ChatClient.builder(openAiChatModel)
                 .defaultSystem(replyDecisionSystemPrompt)
+                .defaultAdvisors(
+                        SimpleLoggerAdvisor.builder().build()
+                ).build();
+    }
+
+    /**
+     * 根据 id 获取洛琪希语音人格 ChatClient 实例。
+     * <p>
+     * 这个回复要交给日语 TTS 朗读，所以输出语言和长度都有硬约束，不能复用普通群聊人格。
+     * @param id 会话 id
+     * @return 洛琪希语音人格 ChatClient 实例
+     */
+    public ChatClient getRoxyVoiceClient(long id) {
+        log.info("为 id: {} 创建 RoxyVoiceClient 实例", id);
+        return ChatClient.builder(openAiChatModel)
+                .defaultSystem(roxyVoiceSystemPrompt)
                 .defaultAdvisors(
                         SimpleLoggerAdvisor.builder().build()
                 ).build();

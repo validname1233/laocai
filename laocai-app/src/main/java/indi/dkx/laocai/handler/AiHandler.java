@@ -1,7 +1,9 @@
 package indi.dkx.laocai.handler;
 
 import indi.dkx.laocai.ai.ChatClientFactory;
+import indi.dkx.laocai.ai.GPTSoVITSClient;
 import indi.dkx.laocai.ai.model.ReplyDecision;
+import indi.dkx.laocai.bot.annotation.Filter;
 import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.core.BotSender;
 import indi.dkx.laocai.bot.model.event.Event;
@@ -9,8 +11,9 @@ import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
 import indi.dkx.laocai.bot.model.event.data.IncomingMessage;
 import indi.dkx.laocai.bot.model.response.Response;
 import indi.dkx.laocai.bot.model.response.data.UserProfile;
-import indi.dkx.laocai.bot.model.segment.Segments;
-import indi.dkx.laocai.bot.model.segment.data.IncomingImageSegmentData;
+import indi.dkx.laocai.bot.model.segment.IncomingImageSegment;
+import indi.dkx.laocai.bot.model.segment.OutgoingRecordSegment;
+import indi.dkx.laocai.bot.model.segment.TextSegment;
 import indi.dkx.laocai.ai.model.ChatRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +61,11 @@ public class AiHandler {
 
     private static final long IMAGE_CACHE_TTL_DAYS = 2;
 
+    /**
+     * /audio 命令前缀。
+     */
+    private static final String AUDIO_COMMAND = "/audio";
+
     private final ChatClientFactory chatClientFactory;
 
     private final BotSender botSender;
@@ -66,8 +74,12 @@ public class AiHandler {
 
     private final JsonMapper jsonMapper;
 
+    private final GPTSoVITSClient ttsClient;
 
+
+    // 群聊闲聊只处理非命令消息，避免 /audio 这类命令同时触发自动回复
     @Listener
+    @Filter("(?s)(?!/audio\\b).*")
     public void test(Event<IncomingGroupMessage> event) {
         IncomingGroupMessage message = event.data();
         Long groupId = message.getGroup().groupId();
@@ -176,7 +188,7 @@ public class AiHandler {
 
         aiResponse = aiResponse.trim();
 
-        botSender.sendGroupMsg(groupId, List.of(Segments.text(aiResponse))).block();
+        botSender.sendGroupMsg(groupId, List.of(TextSegment.of(aiResponse))).block();
 
         appendMessage(groupId, new ChatRecord(
                 Instant.now().getEpochSecond(),
@@ -184,6 +196,60 @@ public class AiHandler {
                 aiResponse,
                 List.of()
         ));
+    }
+
+    /**
+     * 处理群聊 /audio 命令，用洛琪希人格生成日语回复并合成语音。
+     * <p>
+     * 语音链路是单轮对话：文本回复只是中间产物，最终发出去的是 wav，所以不写入群聊历史。
+     * @param event 群消息事件
+     */
+    @Listener
+    @Filter("(?s)/audio\\b.*")
+    public void handleAudio(Event<IncomingGroupMessage> event) {
+        IncomingGroupMessage message = event.data();
+        Long groupId = message.getGroup().groupId();
+
+        // 去掉命令前缀，剩下的才是要交给模型的实际内容
+        String prompt = message.getPlainText().substring(AUDIO_COMMAND.length()).trim();
+        log.info("收到 /audio 命令: groupId={} prompt={}", groupId, prompt);
+
+        if (prompt.isEmpty()) {
+            botSender.sendGroupMsg(groupId, List.of(
+                    TextSegment.of("用法：/audio 你想让洛琪希说的话")
+            )).block();
+            return;
+        }
+
+        String reply = chatClientFactory.getRoxyVoiceClient(groupId)
+                .prompt()
+                .user(prompt)
+                .call()
+                .content();
+
+        if (reply == null || reply.isBlank()) {
+            log.error("洛琪希人格回复为空: groupId={}", groupId);
+            botSender.sendGroupMsg(groupId, List.of(TextSegment.of("生成回复失败了，再试一次吧"))).block();
+            return;
+        }
+
+        reply = reply.trim();
+        log.info("洛琪希回复: {}", reply);
+
+        // TTS 是本地推理，耗时较长；这里所在的分发线程是 boundedElastic，可以安全阻塞
+        Path audio = ttsClient.synthesize(reply).block();
+
+        if (audio == null) {
+            // 合成失败时至少把文字发出去，不让用户完全收不到东西
+            botSender.sendGroupMsg(groupId, List.of(
+                    TextSegment.of("语音合成失败了，先把文字给你：\n" + reply)
+            )).block();
+            return;
+        }
+
+        botSender.sendGroupMsg(groupId, List.of(
+                OutgoingRecordSegment.of("file://" + audio)
+        )).block();
     }
 
     /**
@@ -212,13 +278,12 @@ public class AiHandler {
      */
     private List<String> cacheImages(IncomingMessage message) {
         return message.getSegments().stream()
-                .filter(segment -> "image".equals(segment.getType()))
-                .map(segment -> segment.getData() instanceof IncomingImageSegmentData data ? data : null)
-                .filter(Objects::nonNull)
+                .filter(segment -> segment instanceof IncomingImageSegment)
+                .map(segment -> (IncomingImageSegment) segment)
                 // 单张图片只要能落到本地，就把可复用的 resourceId 留下来；失败则跳过，不阻断整条消息。
                 .map(data -> {
-                    String resourceId = data.resourceId();
-                    String url = data.tempUrl();
+                    String resourceId = data.getResourceId();
+                    String url = data.getTempUrl();
                     if (resourceId == null || resourceId.isBlank() || url == null || url.isBlank()) {
                         return null;
                     }
@@ -265,6 +330,9 @@ public class AiHandler {
      */
     @Scheduled(cron = "0 0 3 * * *")
     public void cleanImageCache() {
+        // 语音和图片都是短期缓存，共用一个清理窗口就够了
+        ttsClient.cleanExpiredOutputs();
+
         if (!Files.isDirectory(IMAGE_CACHE_DIR)) {
             return;
         }
