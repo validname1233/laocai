@@ -6,7 +6,9 @@ import indi.dkx.laocai.bot.core.BotSender;
 import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingFriendMessage;
 import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
-import indi.dkx.laocai.bot.model.segment.Segments;
+import indi.dkx.laocai.bot.model.segment.MentionSegment;
+import indi.dkx.laocai.bot.model.segment.OutgoingRecordSegment;
+import indi.dkx.laocai.bot.model.segment.TextSegment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -33,13 +35,13 @@ public class TestHandler {
         log.info("收到群消息: {}", message.getPlainText());
         if (message.getSenderId() == 1938437495) {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    Segments.mention(message.getSenderId()),
-                    Segments.text(" 哈！")
+                    MentionSegment.of(message.getSenderId()),
+                    TextSegment.of(" 哈！")
             )).block();
         } else {
             botSender.sendGroupMsg(message.getGroup().groupId(), List.of(
-                    Segments.mention(message.getSenderId()),
-                    Segments.text(" 喵")
+                    MentionSegment.of(message.getSenderId()),
+                    TextSegment.of(" 喵")
             )).block();
         }
     }
@@ -53,7 +55,8 @@ public class TestHandler {
             Thread.sleep(5000L);
         }
         botSender.sendPrivateMsg(message.getSenderId(), List.of(
-            Segments.text(message.getPlainText())
+            // TextSegment.of(message.getPlainText())
+            OutgoingRecordSegment.of("file://D:\\QQbot\\laocai-llbot-java\\tmp\\audios\\output_ja.wav")
         )).block();
     }
 }

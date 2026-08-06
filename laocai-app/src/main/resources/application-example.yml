@@ -32,7 +32,7 @@ redis:
 
 laocai:
   bot:
-    url: http://127.0.0.1:3010
+    url: http://llbot:3010
     access-token: replace-with-your-token
   dispatcher:
     concurrency: 32
