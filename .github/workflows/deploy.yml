@@ -9,32 +9,16 @@ on:
 permissions:
   contents: read
 
+env:
+  DEPLOY_DIR: /opt/laocai # 服务器上的部署目录，首次需手动创建并放好 application.yml
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: '25'
-          cache: gradle
-
-      - name: Build Spring Boot jar
-        run: |
-          chmod +x ./gradlew
-          ./gradlew clean bootJar -x test
-
-      - name: Normalize jar name
-        run: |
-          JAR_FILE=$(ls build/libs/*.jar | grep -v 'plain' | head -n 1)
-          echo "Found jar: $JAR_FILE"
-          cp "$JAR_FILE" app.jar
-          ls -lh app.jar
 
       - name: Configure SSH
         run: |
@@ -43,23 +27,31 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p "${{ secrets.SERVER_PORT }}" -H "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Upload jar to WSL
+      - name: Sync project to server
         run: |
-          scp -i ~/.ssh/deploy_key \
-              -P "${{ secrets.SERVER_PORT }}" \
-              app.jar \
-              "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/tmp/laocai-${{ github.sha }}.jar"
+          # --delete 保持服务器目录与仓库一致；--exclude 的文件不会被删除，
+          # 保护服务器上仓库之外的运行时文件（配置、llbot 数据）
+          rsync -az --delete \
+            --exclude '.git' \
+            --exclude 'application.yml' \
+            --exclude 'llbot_config' \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.SERVER_PORT }}" \
+            ./ "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ env.DEPLOY_DIR }}/"
 
-      - name: Deploy on WSL
+      - name: Build and start services
         run: |
           ssh -i ~/.ssh/deploy_key \
               -p "${{ secrets.SERVER_PORT }}" \
               "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
-              "sudo -n /usr/local/bin/deploy-laocai.sh /tmp/laocai-${{ github.sha }}.jar"
+              "cd '${{ env.DEPLOY_DIR }}' \
+               && docker compose up -d --build \
+               && docker image prune -f"
 
       - name: Check service status
         run: |
           ssh -i ~/.ssh/deploy_key \
               -p "${{ secrets.SERVER_PORT }}" \
               "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
-              "systemctl status laocai --no-pager"
+              "cd '${{ env.DEPLOY_DIR }}' \
+               && docker compose ps \
+               && docker compose logs --tail 30 springboot"
