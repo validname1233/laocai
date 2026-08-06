@@ -5,7 +5,7 @@ import indi.dkx.laocai.bot.annotation.Listener;
 import indi.dkx.laocai.bot.core.BotSender;
 import indi.dkx.laocai.bot.model.event.Event;
 import indi.dkx.laocai.bot.model.event.data.IncomingGroupMessage;
-import indi.dkx.laocai.bot.model.segment.Segments;
+import indi.dkx.laocai.bot.model.segment.TextSegment;
 import indi.dkx.laocai.handler.texas.player.TexasPlayer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,8 +55,8 @@ public class TexasHandler {
             temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
-            Segments.text("当前玩家"),
-            Segments.text(temp.toString())
+            TextSegment.of("当前玩家"),
+            TextSegment.of(temp.toString())
         ));
     }
 
@@ -70,9 +70,9 @@ public class TexasHandler {
             temp.append(player.nickname).append(" ");
         }
         botSender.sendGroupMsg(groupId, List.of(
-            Segments.text("当前玩家"),
-            Segments.text(temp.toString()),
-            Segments.text("开始游戏")
+            TextSegment.of("当前玩家"),
+            TextSegment.of(temp.toString()),
+            TextSegment.of("开始游戏")
         ));
 
 
