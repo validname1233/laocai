@@ -1,6 +1,8 @@
 ### Custom ###
 src/main/resources/simbot-bots/myBot.bot.json
 
+tmp/
+
 HELP.md
 .gradle
 build/

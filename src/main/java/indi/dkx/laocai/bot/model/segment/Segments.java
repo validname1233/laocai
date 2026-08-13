@@ -17,6 +17,9 @@ public class Segments {
     public static Segment mention(Long user_id){
         return create("mention", new MentionSegmentData(user_id));
     }
+    public static Segment video(String uri, String thumbUri) {
+        return create("video", new VideoSegmentData(uri, thumbUri));
+    }
     private static Segment create(String type, SegmentData data){
         return new Segment(type, data);
     }

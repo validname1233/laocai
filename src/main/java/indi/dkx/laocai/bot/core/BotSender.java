@@ -75,4 +75,22 @@ public class BotSender {
                         err -> log.error("私聊发送失败", err)
                 );
     }
+
+    public void uploadGroupFile(Long groupId, String parentFolderId, String fileUri, String fileName) {
+        var body = new HashMap<String, Object>();
+        body.put("group_id", groupId);
+        body.put("file_uri", fileUri);
+        body.put("file_name", fileName);
+        if (parentFolderId != null) {
+            body.put("parent_folder_id", parentFolderId);
+        }
+        webClient.post()
+                .uri("/api/upload_group_file")
+                .bodyValue(body).retrieve()
+                .bodyToMono(String.class)
+                .subscribe(
+                        resp -> log.debug("群文件上传成功: {}", resp),
+                        err -> log.error("群文件上传失败", err)
+                );
+    }
 }
