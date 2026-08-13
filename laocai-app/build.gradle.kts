@@ -4,7 +4,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "indi.dkx"
+group = "indi.kyson"
 version = "0.0.1-SNAPSHOT"
 description = "laocai project for Spring Boot"
 
@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-	implementation("indi.dkx:laocai-bot-spring-boot-starter:0.0.1-SNAPSHOT")
+	implementation("indi.kyson:laocai-bot-spring-boot-starter:0.0.1-SNAPSHOT")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 
 	compileOnly("org.projectlombok:lombok:1.18.42")

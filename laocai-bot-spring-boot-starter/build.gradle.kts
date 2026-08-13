@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 }
 
-group = "indi.dkx"
+group = "indi.kyson"
 version = "0.0.1-SNAPSHOT"
 
 description = "Laocai Bot Spring Boot Starter"
