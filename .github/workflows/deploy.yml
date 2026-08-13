@@ -53,7 +53,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           # 上传到服务器部署目录
           source: "app.jar,Dockerfile,docker-compose.yml"
-          target: "/root/llbot/app/laocai"
+          target: "/root/laocai"
           overwrite: true
 
       # 登录服务器并构建/启动容器
@@ -69,5 +69,5 @@ jobs:
           script: |
             set -e
             # 进入部署目录并用 compose 重建
-            cd /root/llbot/app/laocai
+            cd /root/laocai
             docker compose up -d --build
