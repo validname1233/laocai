@@ -1,4 +1,7 @@
 plugins {
+    kotlin("jvm") version "2.4.10"
+    kotlin("plugin.spring") version "2.4.10"
+    kotlin("kapt") version "2.4.10"
     `java-library`
     `maven-publish`
 }
@@ -15,6 +18,13 @@ java {
     withSourcesJar()
 }
 
+kotlin {
+    compilerOptions {
+        javaParameters = true
+        freeCompilerArgs.add("-Xjsr305=strict")
+    }
+}
+
 repositories {
     maven {
         url = uri("https://maven.aliyun.com/repository/public/")
@@ -23,24 +33,19 @@ repositories {
     mavenCentral()
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
 dependencies {
     api(platform("org.springframework.boot:spring-boot-dependencies:4.1.0"))
+    api("indi.kyson:laocai-bot-core:0.0.1-SNAPSHOT")
     api("org.springframework.boot:spring-boot-starter-webflux")
+    api("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-webclient")
 
-    compileOnly("org.projectlombok:lombok:1.18.42")
-    annotationProcessor("org.projectlombok:lombok:1.18.42")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:4.1.0")
-    testCompileOnly("org.projectlombok:lombok:1.18.42")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+    kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.0")
 
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.projectreactor:reactor-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
