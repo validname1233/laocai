@@ -31,7 +31,7 @@ redis:
   password: replace-with-your-redis-password
 
 laocai:
-  bot:
+  milky:
     url: http://llbot:3010
     access-token: replace-with-your-token
   dispatcher:

@@ -3,17 +3,16 @@ package indi.kyson.laocai.handler;
 import indi.kyson.laocai.ai.ChatClientFactory;
 import indi.kyson.laocai.ai.GPTSoVITSClient;
 import indi.kyson.laocai.ai.model.ReplyDecision;
-import indi.kyson.laocai.bot.annotation.Filter;
-import indi.kyson.laocai.bot.annotation.Listener;
-import indi.kyson.laocai.bot.core.BotSender;
-import indi.kyson.laocai.bot.model.event.Event;
-import indi.kyson.laocai.bot.model.event.data.IncomingGroupMessage;
-import indi.kyson.laocai.bot.model.event.data.IncomingMessage;
-import indi.kyson.laocai.bot.model.response.Response;
-import indi.kyson.laocai.bot.model.response.data.UserProfile;
-import indi.kyson.laocai.bot.model.segment.IncomingImageSegment;
-import indi.kyson.laocai.bot.model.segment.OutgoingRecordSegment;
-import indi.kyson.laocai.bot.model.segment.TextSegment;
+import indi.kyson.laocai.bot.core.Bot;
+import indi.kyson.laocai.bot.core.annotation.Filter;
+import indi.kyson.laocai.bot.core.annotation.Listener;
+import indi.kyson.laocai.bot.core.event.GroupMessageEvent;
+import indi.kyson.laocai.bot.core.event.MessageEvent;
+import indi.kyson.laocai.bot.core.response.Response;
+import indi.kyson.laocai.bot.core.response.UserProfile;
+import indi.kyson.laocai.bot.core.segment.IncomingImageSegment;
+import indi.kyson.laocai.bot.core.segment.OutgoingRecordSegment;
+import indi.kyson.laocai.bot.core.segment.TextSegment;
 import indi.kyson.laocai.ai.model.ChatRecord;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -68,7 +67,7 @@ public class AiHandler {
 
     private final ChatClientFactory chatClientFactory;
 
-    private final BotSender botSender;
+    private final Bot bot;
 
     private final RedisClient redisClient;
 
@@ -80,23 +79,22 @@ public class AiHandler {
     // 群聊闲聊只处理非命令消息，避免 /audio 这类命令同时触发自动回复
     @Listener
     @Filter("(?s)(?!/audio\\b).*")
-    public void test(Event<IncomingGroupMessage> event) {
-        IncomingGroupMessage message = event.data();
-        Long groupId = message.getGroup().groupId();
-        String content = message.getPlainText();
+    public void test(GroupMessageEvent event) {
+        Long groupId = event.getGroup().getGroupId();
+        String content = event.getPlainText();
 
-        Response<UserProfile> response = botSender.getUserProfile(event.selfId()).block();
+        Response<UserProfile> response = bot.getUserProfile(event.getSelfId()).block();
         assert response != null;
-        String nickname = response.data().nickname();
+        String nickname = response.getData().getNickname();
 
         log.info("收到群消息: {}", content);
 
         // 先缓存图片，再把 resourceId 写进历史，避免 Redis 保存大块二进制或临时 URL
-        List<String> imageIds = cacheImages(message);
+        List<String> imageIds = cacheImages(event);
 
         appendMessage(groupId, new ChatRecord(
-                event.time(),
-                message.getSenderId(),
+                event.getTime(),
+                event.getSenderId(),
                 content,
                 imageIds
         ));
@@ -107,7 +105,7 @@ public class AiHandler {
                 .map(json -> jsonMapper.readValue(json, ChatRecord.class))
                 .toList();
 
-        
+
         String historyText = messages.stream()
                 .map(record -> {
                     String imgPart = record.imageIds().isEmpty()
@@ -148,7 +146,7 @@ public class AiHandler {
 
                                 %s
 
-                                文中每出现一个 [图片] 占位符就对应一张按顺序上传的图片""".formatted(event.selfId(), nickname, historyText))
+                                文中每出现一个 [图片] 占位符就对应一张按顺序上传的图片""".formatted(event.getSelfId(), nickname, historyText))
                         .media(images))
                 .call()
                 .entity(ReplyDecision.class);
@@ -177,7 +175,7 @@ public class AiHandler {
 
                                 %s
 
-                                文中每出现一个 [图片] 占位符就对应一张按顺序上传的图片""".formatted(event.selfId(), nickname, historyText))
+                                文中每出现一个 [图片] 占位符就对应一张按顺序上传的图片""".formatted(event.getSelfId(), nickname, historyText))
                         .media(images))
                 .call()
                 .content();
@@ -188,11 +186,11 @@ public class AiHandler {
 
         aiResponse = aiResponse.trim();
 
-        botSender.sendGroupMsg(groupId, List.of(TextSegment.of(aiResponse))).block();
+        bot.sendGroupMsg(groupId, List.of(TextSegment.of(aiResponse))).block();
 
         appendMessage(groupId, new ChatRecord(
                 Instant.now().getEpochSecond(),
-                event.selfId(),
+                event.getSelfId(),
                 aiResponse,
                 List.of()
         ));
@@ -206,16 +204,15 @@ public class AiHandler {
      */
     @Listener
     @Filter("(?s)/audio\\b.*")
-    public void handleAudio(Event<IncomingGroupMessage> event) {
-        IncomingGroupMessage message = event.data();
-        Long groupId = message.getGroup().groupId();
+    public void handleAudio(GroupMessageEvent event) {
+        Long groupId = event.getGroup().getGroupId();
 
         // 去掉命令前缀，剩下的才是要交给模型的实际内容
-        String prompt = message.getPlainText().substring(AUDIO_COMMAND.length()).trim();
+        String prompt = event.getPlainText().substring(AUDIO_COMMAND.length()).trim();
         log.info("收到 /audio 命令: groupId={} prompt={}", groupId, prompt);
 
         if (prompt.isEmpty()) {
-            botSender.sendGroupMsg(groupId, List.of(
+            bot.sendGroupMsg(groupId, List.of(
                     TextSegment.of("用法：/audio 你想让洛琪希说的话")
             )).block();
             return;
@@ -229,7 +226,7 @@ public class AiHandler {
 
         if (reply == null || reply.isBlank()) {
             log.error("洛琪希人格回复为空: groupId={}", groupId);
-            botSender.sendGroupMsg(groupId, List.of(TextSegment.of("生成回复失败了，再试一次吧"))).block();
+            bot.sendGroupMsg(groupId, List.of(TextSegment.of("生成回复失败了，再试一次吧"))).block();
             return;
         }
 
@@ -241,13 +238,13 @@ public class AiHandler {
 
         if (audio == null) {
             // 合成失败时至少把文字发出去，不让用户完全收不到东西
-            botSender.sendGroupMsg(groupId, List.of(
+            bot.sendGroupMsg(groupId, List.of(
                     TextSegment.of("语音合成失败了，先把文字给你：\n" + reply)
             )).block();
             return;
         }
 
-        botSender.sendGroupMsg(groupId, List.of(
+        bot.sendGroupMsg(groupId, List.of(
                 OutgoingRecordSegment.of("file://" + audio)
         )).block();
     }
@@ -276,8 +273,8 @@ public class AiHandler {
      * AI 侧需要稳定可复用的本地资源，而不是只在一次请求中有效的临时 URL。
      * 返回成功缓存的 resourceId 列表。
      */
-    private List<String> cacheImages(IncomingMessage message) {
-        return message.getSegments().stream()
+    private List<String> cacheImages(MessageEvent event) {
+        return event.getSegments().stream()
                 .filter(segment -> segment instanceof IncomingImageSegment)
                 .map(segment -> (IncomingImageSegment) segment)
                 // 单张图片只要能落到本地，就把可复用的 resourceId 留下来；失败则跳过，不阻断整条消息。
@@ -357,5 +354,4 @@ public class AiHandler {
         }
     }
 }
-
 

@@ -1,6 +1,6 @@
 package indi.kyson.laocai.ai.tools;
 
-import indi.kyson.laocai.bot.core.BotSender;
+import indi.kyson.laocai.bot.core.Bot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ToolContext;
 import org.springframework.ai.tool.annotation.Tool;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BotSenderTool {
 
-    private final BotSender botSender;
+    private final Bot bot;
 
     /**
      * 发送群公告。
@@ -31,12 +31,11 @@ public class BotSenderTool {
         if (!StringUtils.hasText(content)) return "失败：公告内容为空，请提供非空的 content";
 
         try {
-            botSender.sendGroupAnnouncement(groupId, content, Optional.empty()).block();
+            bot.sendGroupAnnouncement(groupId, content, Optional.empty()).block();
             return "成功：群公告已发布到群 " + groupId;
         } catch (Exception e) {
             return "失败：" + e.getClass().getSimpleName() + " - " + e.getMessage();
         }
     }
 }
-
 
