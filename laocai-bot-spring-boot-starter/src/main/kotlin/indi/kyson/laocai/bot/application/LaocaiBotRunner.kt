@@ -1,9 +1,9 @@
 package indi.kyson.laocai.bot.application
 
 import indi.kyson.laocai.bot.configuration.LaocaiBotConfigurationProperties
-import indi.kyson.laocai.bot.core.MilkyEventSource
-import indi.kyson.laocai.bot.core.listener.EventDispatcher
-import indi.kyson.laocai.bot.core.listener.EventListenerResolver
+import indi.kyson.laocai.bot.MilkyEventSource
+import indi.kyson.laocai.bot.listener.EventDispatcher
+import indi.kyson.laocai.bot.listener.EventListenerResolver
 import org.slf4j.LoggerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
@@ -11,7 +11,7 @@ import org.springframework.boot.ApplicationRunner
 /**
  * 在 Spring Boot 启动后，自动执行将该类中的逻辑。
  */
-class LaocaiBotRunner(
+internal class LaocaiBotRunner(
     private val eventDispatcher: EventDispatcher,
     private val milkyEventSource: MilkyEventSource,
     private val properties: LaocaiBotConfigurationProperties,

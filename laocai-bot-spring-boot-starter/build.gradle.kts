@@ -35,9 +35,10 @@ repositories {
 
 dependencies {
     api(platform("org.springframework.boot:spring-boot-dependencies:4.1.0"))
-    api("indi.kyson:laocai-bot-core:0.0.1-SNAPSHOT")
     api("org.springframework.boot:spring-boot-starter-webflux")
     api("org.jetbrains.kotlin:kotlin-reflect")
+    api("tools.jackson.core:jackson-databind")
+    api("com.fasterxml.jackson.core:jackson-annotations")
     implementation("org.springframework.boot:spring-boot-webclient")
 
     kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.0")

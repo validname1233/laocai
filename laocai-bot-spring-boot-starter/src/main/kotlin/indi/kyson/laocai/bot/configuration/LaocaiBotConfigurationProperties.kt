@@ -12,11 +12,11 @@ data class LaocaiBotConfigurationProperties(
     /**
      * Milky（LLBot 网关）远端连接配置。
      *
-     * url 和 access token 属于同一组外部连接参数，应该作为一个原子配置块读取。
+     * url 用于触发自动配置；access token 为空时不发送 Authorization 请求头。
      */
     data class Milky(
         val url: String,
-        val accessToken: String,
+        val accessToken: String? = null,
     )
 
     /**

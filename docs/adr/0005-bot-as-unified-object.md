@@ -1,12 +1,15 @@
-# 引入显式的 `Bot` 领域对象，并把 `BotSender` 的能力并入其中
+# 引入显式的 `Bot` 对象，并把 `BotSender` 的能力并入其中
 
-原实现是"全局单例式"的：一个 `milkyWebClient`、一个 `BotSender`、一个 `LaocaiBotRunner`，没有一个类型代表"一个机器人账号"本身，身份信息（`selfId`）只散落在 `Event` 里。改造后引入 `Bot` 作为核心域对象，承载身份与发送/查询能力（`sendGroupMsg`/`sendPrivateMsg`/`sendGroupAnnouncement`/`getUserProfile`，即原 `BotSender` 的方法），不再单独暴露 `BotSender` 类型。目前仍只支持单账号（一个 Spring 应用只有一个 `Bot` bean），但把身份概念收敛到一个类型上，为以后如果要支持多账号留出扩展点，而不需要现在就实现多账号管理。
+原实现把主动调用能力放在 `BotSender` 上，消费方需要认识一个只表达“发送器”的类型。改造后引入 `Bot`，承载发送/查询能力（`sendGroupMsg`、`sendPrivateMsg`、`sendGroupAnnouncement`、`getUserProfile`），不再单独暴露 `BotSender`。
+
+`Bot` 当前只封装 Milky WebClient 和主动调用能力，不持有 `selfId`。机器人身份仍由每条入站 `Event` 提供。未来如果真正支持多账号，需要先明确身份的配置或发现来源，再扩展 `Bot`，而不是让文档提前承诺实现中不存在的状态。
 
 ## Considered Options
 
-- 保持 `Bot`（身份）与 `BotSender`（能力）分离——更接近 simbot 的职责划分，但对当前唯一场景（单账号、能力和身份从不分开使用）只增加了一次跳转成本，放弃。
-- `Bot` 直接持有全部能力——被选中。
+- 保留 `BotSender`——名称只表达发送，无法覆盖查询能力，放弃。
+- 让 `Bot` 同时持有身份与能力——目前没有稳定的 `selfId` 初始化来源，会制造虚假的领域语义，暂不采用。
+- 让 `Bot` 作为主动能力入口，身份留在 `Event`——被选中。
 
 ## Consequences
 
-消费方（`laocai-app`）里所有注入 `BotSender` 的地方改为注入 `Bot`，方法调用方式不变。
+消费方（`laocai-app`）里所有注入 `BotSender` 的地方改为注入 `Bot`。现阶段仍是单账号 Spring Bean，但该限制来自自动配置只创建一个 `Bot`，不是 `Bot` 已经建模了账号身份。

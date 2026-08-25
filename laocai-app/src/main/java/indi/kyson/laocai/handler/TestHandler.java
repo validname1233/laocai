@@ -1,13 +1,13 @@
 package indi.kyson.laocai.handler;
 
-import indi.kyson.laocai.bot.core.Bot;
-import indi.kyson.laocai.bot.core.annotation.Filter;
-import indi.kyson.laocai.bot.core.annotation.Listener;
-import indi.kyson.laocai.bot.core.event.FriendMessageEvent;
-import indi.kyson.laocai.bot.core.event.GroupMessageEvent;
-import indi.kyson.laocai.bot.core.segment.MentionSegment;
-import indi.kyson.laocai.bot.core.segment.OutgoingRecordSegment;
-import indi.kyson.laocai.bot.core.segment.TextSegment;
+import indi.kyson.laocai.bot.Bot;
+import indi.kyson.laocai.bot.annotation.Filter;
+import indi.kyson.laocai.bot.annotation.Listener;
+import indi.kyson.laocai.bot.event.FriendMessageEvent;
+import indi.kyson.laocai.bot.event.GroupMessageEvent;
+import indi.kyson.laocai.bot.segment.MentionSegment;
+import indi.kyson.laocai.bot.segment.OutgoingRecordSegment;
+import indi.kyson.laocai.bot.segment.TextSegment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class TestHandler {
     private final Bot bot;
 
     @Listener
-    @Filter(value = "^[1-9]\\d{4,11}@qq\\.com(\\.cn)?$", targets = {@Filter.Targets(groups = {1234567890L, 1234567890L})})
+    @Filter(value = "^[1-9]\\d{4,11}@qq\\.com(\\.cn)?$", targets = {@Filter.Targets(groups = {634550174L})})
     public void handleGroup(GroupMessageEvent event) {
         // 这个 handler 只是一个最小回声示例，用来验证过滤器和发送链路是否可用。
         log.info("收到群消息: {}", event.getPlainText());

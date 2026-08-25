@@ -1,8 +1,6 @@
 package indi.kyson.laocai.bot.listener
 
-import indi.kyson.laocai.bot.core.annotation.Listener
-import indi.kyson.laocai.bot.core.listener.EventListenerProcessor
-import indi.kyson.laocai.bot.core.listener.EventListenerResolver
+import indi.kyson.laocai.bot.annotation.Listener
 import org.slf4j.LoggerFactory
 import org.springframework.aop.scope.ScopedProxyUtils
 import org.springframework.beans.factory.config.BeanDefinition
@@ -22,7 +20,7 @@ import java.util.function.Supplier
  *
  * 先在 BeanFactory 后处理阶段收集元数据，再延迟实例化监听器，可以避免启动期提前创建不必要的对象。
  */
-class EventListenerResolverRegistryProcessor : BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
+internal class EventListenerResolverRegistryProcessor : BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
     private val logger = LoggerFactory.getLogger(EventListenerResolverRegistryProcessor::class.java)
 

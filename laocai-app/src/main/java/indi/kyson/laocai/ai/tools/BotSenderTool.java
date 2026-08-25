@@ -1,6 +1,6 @@
 package indi.kyson.laocai.ai.tools;
 
-import indi.kyson.laocai.bot.core.Bot;
+import indi.kyson.laocai.bot.Bot;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.model.ToolContext;
 import org.springframework.ai.tool.annotation.Tool;

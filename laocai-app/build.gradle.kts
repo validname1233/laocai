@@ -29,8 +29,7 @@ repositories {
 }
 
 dependencies {
-	implementation("indi.kyson:laocai-bot-spring-boot-starter:0.0.1-SNAPSHOT")
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation(project(":laocai-bot-spring-boot-starter"))
 
 	compileOnly("org.projectlombok:lombok:1.18.42")
 	annotationProcessor("org.projectlombok:lombok:1.18.42")

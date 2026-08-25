@@ -1,11 +1,11 @@
 # Bot 框架
 
-面向 QQ 的、Java 友好的机器人开发框架（`laocai-bot-core` + `laocai-bot-spring-boot-starter`）。负责连接 LLBot、解析事件、把事件分发给业务代码里声明的处理方法。不包含具体业务逻辑（德州扑克、AI 对话等属于消费方 `laocai-app` 的领域，不在这个上下文里）。
+面向 QQ 的、Java 友好的机器人开发框架（`laocai-bot-spring-boot-starter`）。负责连接 LLBot、解析事件、把事件分发给业务代码里声明的处理方法。不包含具体业务逻辑（德州扑克、AI 对话等属于消费方 `laocai-app` 的领域，不在这个上下文里）。
 
 ## Language
 
 **Bot**:
-代表一个已连接的 QQ 机器人账号，聚合身份（`selfId`）与主动发送/查询能力（发群消息、发私聊消息、发群公告、查用户资料）于一身。是消费方代码持有并调用的核心对象。
+主动发送和查询能力的统一入口（发群消息、发私聊消息、发群公告、查用户资料）。当前不持有机器人身份；`selfId` 仍由收到的 `Event` 提供。
 _Avoid_: BotSender（旧名，能力已并入 Bot）、Client。
 
 **LLBot**:
