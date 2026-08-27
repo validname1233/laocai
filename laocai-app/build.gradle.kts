@@ -1,5 +1,8 @@
 plugins {
 	java
+	kotlin("jvm") version "2.4.10"
+	kotlin("plugin.spring") version "2.4.10"
+	kotlin("kapt") version "2.4.10"
 	id("org.springframework.boot") version "4.1.0"
 	id("io.spring.dependency-management") version "1.1.7"
 }
@@ -14,9 +17,10 @@ java {
 	}
 }
 
-configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
+kotlin {
+	compilerOptions {
+		javaParameters = true
+		freeCompilerArgs.add("-Xjsr305=strict")
 	}
 }
 
@@ -31,10 +35,8 @@ repositories {
 dependencies {
 	implementation(project(":laocai-bot-spring-boot-starter"))
 
-	compileOnly("org.projectlombok:lombok:1.18.42")
-	annotationProcessor("org.projectlombok:lombok:1.18.42")
-	testCompileOnly("org.projectlombok:lombok:1.18.42")
-	testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.0")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
