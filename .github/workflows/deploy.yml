@@ -54,20 +54,17 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p "${{ secrets.SERVER_PORT }}" -H "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Restart application
+      - name: Deploy and restart service
         run: |
           ssh -i ~/.ssh/deploy_key \
               -p "${{ secrets.SERVER_PORT }}" \
               "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
-              "cd '${{ env.DEPLOY_DIR }}' && \
-               pkill -f '${{ env.JAR_NAME }}' || true && \
-               sleep 2 && \
-               nohup java -jar ${{ env.JAR_NAME }} > app.log 2>&1 &"
+              "sudo systemctl restart laocai"
 
       - name: Check service status
         run: |
           ssh -i ~/.ssh/deploy_key \
               -p "${{ secrets.SERVER_PORT }}" \
               "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}" \
-              "sleep 3 && ps aux | grep '${{ env.JAR_NAME }}' | grep -v grep && \
-               tail -20 '${{ env.DEPLOY_DIR }}/app.log'"
+              "sudo systemctl status laocai --no-pager && \
+               sudo journalctl -u laocai -n 30 --no-pager"
