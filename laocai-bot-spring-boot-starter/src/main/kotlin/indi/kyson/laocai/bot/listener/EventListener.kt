@@ -11,6 +11,7 @@ import java.lang.reflect.Method
 internal data class EventListener(
     val instance: Any,
     val method: Method,
+    val priority: Int,
     val matcher: (Event) -> Boolean,
 ) {
     /**

@@ -23,8 +23,9 @@ internal class LaocaiBotRunner(
     override fun run(args: ApplicationArguments) {
         logger.info("检测到 {} 个 EventListenerResolver", resolvers.size)
         resolvers.forEach { resolver -> logger.debug("EventListenerResolver 实例: {}", resolver.javaClass.name) }
-        // 将所有 事件监听器解析器EventListenerResolver 注册到 事件分发器eventDispatcher
+        // 将所有事件监听器解析器 EventListenerResolver 注册到事件分发器 eventDispatcher
         resolvers.forEach { resolver -> resolver.resolve(eventDispatcher) }
+        eventDispatcher.sortListeners()
 
         eventDispatcher.consume(
             milkyEventSource.eventFlux(),

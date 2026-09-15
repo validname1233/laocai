@@ -17,6 +17,7 @@ data class LaocaiBotConfigurationProperties(
     data class Milky(
         val url: String,
         val accessToken: String? = null,
+        val enabled: Boolean = true,
     )
 
     /**

@@ -21,7 +21,7 @@ class EventDispatcher {
     /**
      * 监听器队列。
      *
-     * 当前实现按注册顺序分发，先保留顺序语义，后续如果需要排序再替换容器实现。
+     * 所有监听器在启动阶段注册完成后按 priority 升序排列；相同 priority 保留注册顺序。
      */
     private val listenerQueue = mutableListOf<EventListener>()
 
@@ -32,6 +32,14 @@ class EventDispatcher {
      */
     internal fun register(listener: EventListener) {
         listenerQueue.add(listener)
+    }
+
+    /**
+     * 按 priority 升序排列监听器。
+     * Kotlin 的列表排序是稳定的，因此相同 priority 会保留注册顺序。
+     */
+    internal fun sortListeners() {
+        listenerQueue.sortBy { it.priority }
     }
 
     /**

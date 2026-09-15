@@ -1,6 +1,7 @@
 package indi.kyson.laocai.bot.segment
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 import indi.kyson.laocai.bot.enums.ImageSubType
 
 /**
@@ -11,11 +12,14 @@ import indi.kyson.laocai.bot.enums.ImageSubType
 class IncomingImageSegment private constructor(override val data: Data) : Segment {
 
     data class Data(
+        @JsonProperty("resource_id")
         val resourceId: String,
+        @JsonProperty("temp_url")
         val tempUrl: String,
         val width: Long,
         val height: Long,
         val summary: String,
+        @JsonProperty("sub_type")
         val subType: ImageSubType,
     ) {
         fun toSegment(): IncomingImageSegment = IncomingImageSegment(this)

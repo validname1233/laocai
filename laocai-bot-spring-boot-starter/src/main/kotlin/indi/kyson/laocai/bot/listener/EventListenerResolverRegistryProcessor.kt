@@ -22,7 +22,7 @@ import java.util.function.Supplier
  */
 internal class EventListenerResolverRegistryProcessor : BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 
-    private val logger = LoggerFactory.getLogger(EventListenerResolverRegistryProcessor::class.java)
+    private val log = LoggerFactory.getLogger(EventListenerResolverRegistryProcessor::class.java)
 
     private lateinit var applicationContext: ApplicationContext
 
@@ -60,7 +60,7 @@ internal class EventListenerResolverRegistryProcessor : BeanDefinitionRegistryPo
 
             if (annotatedMethods.isEmpty()) continue
 
-            logger.debug("Resolve candidate class {} instance named {} with any @Listener methods", beanType, beanName)
+            log.debug("Resolve candidate class {} instance named {} with any @Listener methods", beanType, beanName)
 
             // 3. 为每个方法生成 EventListenerResolver
             annotatedMethods.forEach { (method, _) ->
@@ -82,8 +82,8 @@ internal class EventListenerResolverRegistryProcessor : BeanDefinitionRegistryPo
                 // 生成 Bean 名称
                 val beanDefinitionName = "$beanName${method.toGenericString()}#GENERATED_LISTENER"
 
-                if (logger.isDebugEnabled) {
-                    logger.debug(
+                if (log.isDebugEnabled) {
+                    log.debug(
                         "Generate event listener resolver instance definition {} named {}",
                         beanDefinition,
                         beanDefinitionName,

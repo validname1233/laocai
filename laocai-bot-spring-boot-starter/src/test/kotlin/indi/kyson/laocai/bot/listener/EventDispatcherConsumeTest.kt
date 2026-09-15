@@ -40,7 +40,7 @@ class EventDispatcherConsumeTest {
     private fun registerRecordingListener(dispatcher: EventDispatcher): RecordingListener {
         val recorder = RecordingListener()
         val method = RecordingListener::class.java.getDeclaredMethod("onEvent", Event::class.java)
-        dispatcher.register(EventListener(recorder, method) { true })
+        dispatcher.register(EventListener(recorder, method, 0) { true })
         return recorder
     }
 

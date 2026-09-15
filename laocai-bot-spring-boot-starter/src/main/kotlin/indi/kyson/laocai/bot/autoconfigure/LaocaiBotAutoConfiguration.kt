@@ -33,7 +33,7 @@ class LaocaiBotAutoConfiguration {
         webClientBuilder: WebClient.Builder,
         properties: LaocaiBotConfigurationProperties,
     ): WebClient {
-        val builder = webClientBuilder.baseUrl(properties.milky.url.trimEnd('/') + "/")
+        val builder = webClientBuilder.baseUrl(properties.milky.url.trimEnd('/') + "/api/")
         val accessToken = properties.milky.accessToken
         if (!accessToken.isNullOrBlank()) {
             builder.defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer $accessToken")
@@ -47,6 +47,7 @@ class LaocaiBotAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "laocai.milky", name = ["enabled"], havingValue = "true", matchIfMissing = true)
     fun milkyEventSource(@Qualifier("milkyWebClient") milkyWebClient: WebClient): MilkyEventSource =
         MilkyEventSource(milkyWebClient)
 
@@ -58,6 +59,7 @@ class LaocaiBotAutoConfiguration {
     internal fun eventListenerProcessor(): EventListenerProcessor = EventListenerProcessor()
 
     @Bean
+    @ConditionalOnProperty(prefix = "laocai.milky", name = ["enabled"], havingValue = "true", matchIfMissing = true)
     internal fun laocaiBotRunner(
         eventDispatcher: EventDispatcher,
         milkyEventSource: MilkyEventSource,

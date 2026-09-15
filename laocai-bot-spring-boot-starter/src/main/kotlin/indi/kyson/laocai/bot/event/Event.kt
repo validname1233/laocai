@@ -4,6 +4,7 @@ import indi.kyson.laocai.bot.entity.FriendEntity
 import indi.kyson.laocai.bot.entity.GroupEntity
 import indi.kyson.laocai.bot.entity.GroupMemberEntity
 import indi.kyson.laocai.bot.segment.Segment
+import com.fasterxml.jackson.annotation.JsonProperty
 import tools.jackson.core.JsonParser
 import tools.jackson.databind.DeserializationContext
 import tools.jackson.databind.JsonNode
@@ -25,20 +26,29 @@ sealed interface Event {
     class EventDeserializer : ValueDeserializer<Event>() {
 
         private data class GroupMessageData(
+            @JsonProperty("message_scene")
             val messageScene: String,
+            @JsonProperty("peer_id")
             val peerId: Long,
+            @JsonProperty("message_seq")
             val messageSeq: Long,
+            @JsonProperty("sender_id")
             val senderId: Long,
             val time: Long,
             val segments: List<Segment>,
             val group: GroupEntity,
+            @JsonProperty("group_member")
             val groupMember: GroupMemberEntity,
         )
 
         private data class FriendMessageData(
+            @JsonProperty("message_scene")
             val messageScene: String,
+            @JsonProperty("peer_id")
             val peerId: Long,
+            @JsonProperty("message_seq")
             val messageSeq: Long,
+            @JsonProperty("sender_id")
             val senderId: Long,
             val time: Long,
             val segments: List<Segment>,

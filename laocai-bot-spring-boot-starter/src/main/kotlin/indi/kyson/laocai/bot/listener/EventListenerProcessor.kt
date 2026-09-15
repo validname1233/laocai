@@ -1,11 +1,14 @@
 package indi.kyson.laocai.bot.listener
 
 import indi.kyson.laocai.bot.annotation.Filter
+import indi.kyson.laocai.bot.annotation.Listener
 import indi.kyson.laocai.bot.annotation.MatchType
 import indi.kyson.laocai.bot.annotation.MultiFilter
+import indi.kyson.laocai.bot.constant.PriorityConstant
 import indi.kyson.laocai.bot.event.Event
 import indi.kyson.laocai.bot.event.GroupMessageEvent
 import indi.kyson.laocai.bot.event.MessageEvent
+import org.springframework.core.annotation.AnnotatedElementUtils
 import org.springframework.core.annotation.MergedAnnotation
 import org.springframework.core.annotation.MergedAnnotations
 import org.springframework.util.StringUtils
@@ -41,10 +44,13 @@ internal class EventListenerProcessor {
         // Filter 是可重复的，所以这里要按优先级排序后统一合并。
         matchers.addAll(filterDataList.sortedByDescending { it.priority }.map { it.matcher })
 
+        val priority = AnnotatedElementUtils.findMergedAnnotation(method, Listener::class.java)?.priority
+            ?: PriorityConstant.DEFAULT
+
         return EventListenerResolver { dispatcher ->
             val instance = beanProvider(beanName)
             if (!method.canAccess(instance)) method.isAccessible = true
-            val listener = EventListener(instance, method) { event ->
+            val listener = EventListener(instance, method, priority) { event ->
                 matchers.all { matcher -> matcher(event) }
             }
             dispatcher.register(listener)

@@ -1,6 +1,7 @@
 package indi.kyson.laocai.bot.segment
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * 入站的引用回复消息段。
@@ -10,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 class IncomingReplySegment private constructor(override val data: Data) : Segment {
 
     data class Data(
+        @JsonProperty("message_seq")
         val messageSeq: Long,
+        @JsonProperty("sender_id")
         val senderId: Long,
+        @JsonProperty("sender_name")
         val senderName: String?,
         val time: Long,
         val segments: List<Segment>,
