@@ -9,6 +9,8 @@ laocai-app/src/main/resources/application.yml
 cookies.txt
 papers/
 
+.agents/
+
 tmp/
 
 HELP.md

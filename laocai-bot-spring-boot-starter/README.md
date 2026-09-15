@@ -1,6 +1,6 @@
 # Laocai Bot Spring Boot Starter
 
-面向 LLBot/Milky 的 QQ 机器人 Spring Boot Starter。该 Artifact 同时包含 Milky 协议客户端、事件模型、监听器分发以及 Spring Boot 自动配置；不再单独发布 `laocai-bot-core`。
+面向 LLBot/Milky 的 QQ 机器人 Spring Boot Starter。
 
 ## 依赖
 
@@ -10,21 +10,14 @@ dependencies {
 }
 ```
 
-本仓库使用 Gradle composite build。请从仓库根目录调用 wrapper，例如：
-
-```shell
-./gradlew :laocai-bot-spring-boot-starter:build
-./gradlew :laocai-app:test
-```
-
 ## 自动配置
 
-不需要添加 `@EnableLaocaiBot`。Classpath 中存在 starter 且配置了 `laocai.milky.url` 时，Spring Boot 会自动创建 Bot 基础设施。
+Classpath 中存在 starter 且配置了 `laocai.milky.url` 时，Spring Boot 会自动创建 Bot 基础设施。
 
 ```yaml
 laocai:
   milky:
-    url: http://localhost:3000
+    url: http://localhost:3010
     # 可选；为空或省略时不发送 Authorization 请求头
     access-token: your-token
   dispatcher:
@@ -34,7 +27,7 @@ laocai:
     buffer-size: 5000
 ```
 
-未配置 `laocai.milky.url` 时，starter 不创建 `Bot`、事件源或 Dispatcher，也不会连接 LLBot。
+未配置 `laocai.milky.url` 时，starter 不创建 `Bot`、事件源或 Dispatcher，也不会连接 Milky 协议源。
 
 事件流断开后固定等待 5 秒并无限重连。事件分发采用有界缓冲区，溢出时使用 `DROP_LATEST` 策略。
 
@@ -72,7 +65,7 @@ public class PingListener {
 
 ## Bot API
 
-`Bot` 是主动发送和查询能力的入口，当前提供群消息、私聊消息、群公告和用户资料查询等方法。它不持有 `selfId`；机器人身份仍从收到的 `Event` 读取。
+`Bot` 是主动发送和查询能力的入口，当前提供群消息、私聊消息、群公告和用户资料查询等方法。
 
 Spring Boot 应用通常直接注入 `Bot`。高级场景也可以脱离容器直接构造：
 
@@ -93,5 +86,3 @@ var bot = new Bot(webClient);
 - `Bot`
 - `MilkyEventSource`
 - `EventDispatcher`
-
-这些扩展点保持现有具体类型；本版本不新增替代接口或继承契约。

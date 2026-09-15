@@ -70,11 +70,15 @@ class Bot(private val milkyWebClient: WebClient) {
      *
      * 回复逻辑需要昵称等展示字段，统一走客户端封装可以避免业务代码重复拼请求。
      */
-    fun getUserProfile(userId: Long): Mono<Response<UserProfile>> {
-        return milkyWebClient.post()
+    fun getUserProfile(userId: Long): Mono<Response<UserProfile>> 
+         = milkyWebClient.post()
             .uri("api/get_user_profile")
             .bodyValue(mapOf("user_id" to userId))
             .retrieve()
             .bodyToMono(object : ParameterizedTypeReference<Response<UserProfile>>() {})
+    
+    
+    fun getGroupMemberInfo(groupId: Long, userId: Long, noCache: Boolean?) {
+        
     }
 }

@@ -15,11 +15,8 @@ class ChatClientFactory(
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    @Value("classpath:/prompt/chat-persona-system-prompt.txt")
-    private lateinit var chatPersonaSystemPrompt: Resource
-
-    @Value("classpath:/prompt/reply-decision-system-prompt.txt")
-    private lateinit var replyDecisionSystemPrompt: Resource
+    @Value("classpath:/prompt/chat-laocai-system-prompt.md")
+    private lateinit var chatLaocaiSystemPrompt: Resource
 
     @Value("classpath:/prompt/roxy-voice-system-prompt.txt")
     private lateinit var roxyVoiceSystemPrompt: Resource
@@ -29,18 +26,10 @@ class ChatClientFactory(
         return ChatClient.builder(openAiChatModel).build()
     }
 
-    fun getChatPersonaClient(id: Long): ChatClient {
-        log.info("为 id: {} 创建 ChatPersonaClient 实例", id)
+    fun getChatLaocaiClient(id: Long): ChatClient {
+        log.info("为 id: {} 创建 ChatLaocaiClient 实例", id)
         return ChatClient.builder(openAiChatModel)
-            .defaultSystem(chatPersonaSystemPrompt)
-            .defaultAdvisors(SimpleLoggerAdvisor.builder().build())
-            .build()
-    }
-
-    fun getReplyDecisionClient(id: Long): ChatClient {
-        log.info("为 id: {} 创建回复判断 ChatClient 实例", id)
-        return ChatClient.builder(openAiChatModel)
-            .defaultSystem(replyDecisionSystemPrompt)
+            .defaultSystem(chatLaocaiSystemPrompt)
             .defaultAdvisors(SimpleLoggerAdvisor.builder().build())
             .build()
     }
