@@ -43,9 +43,7 @@ dependencies {
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-	implementation(platform("org.springframework.ai:spring-ai-bom:2.0.0"))
-	implementation("org.springframework.ai:spring-ai-starter-model-openai")
-	implementation("org.springframework.ai:spring-ai-starter-model-deepseek")
+	implementation("com.embabel.agent:embabel-agent-starter:1.5.1")
 	implementation("redis.clients:jedis:7.4.1")
 }
 

@@ -32,6 +32,7 @@ redis:
 
 laocai:
   milky:
+    enabled: true
     url: http://llbot:3010
     access-token: replace-with-your-token
   dispatcher:
