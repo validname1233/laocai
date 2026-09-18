@@ -20,7 +20,6 @@ class ChatHistoryHandler(
 
     @Listener(priority = -100)
     fun handle(event: GroupMessageEvent) {
-        log.info("{}", event.segments)
         val cached = imageCacheService.cache(event)
         if (imageCacheService.containsGif(event)) {
             log.info("忽略包含 GIF 的群消息: groupId={} messageSeq={} cachedImages={}",
