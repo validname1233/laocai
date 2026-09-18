@@ -4,14 +4,16 @@ tmp/
 simpler-robot/
 laocai-app/src/main/resources/application.yml
 /laocai-app/application.yml
+.bun-install/
+.bun/
+.bun-tmp/
+.kotlin/
 
 .claude/
 cookies.txt
 papers/
 
 .agents/
-
-tmp/
 
 HELP.md
 .gradle
@@ -50,3 +52,7 @@ out/
 
 ### VS Code ###
 .vscode/
+/laocai-bot-spring-boot-starter/src/test/resources/application.yml
+/laocai-bot-spring-boot-starter/src/test/resources/application-*.yml
+/laocai-app/src/test/resources/application.yml
+/laocai-app/src/test/resources/application-*.yml
