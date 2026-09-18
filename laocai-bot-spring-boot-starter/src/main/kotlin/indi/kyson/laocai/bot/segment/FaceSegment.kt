@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * 表情消息段。
  */
-class FaceSegment private constructor(override val data: Data) : Segment {
+data class FaceSegment private constructor(override val data: Data) : Segment {
 
     data class Data(
         @JsonProperty("face_id") val faceId: String,

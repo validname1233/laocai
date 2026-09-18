@@ -62,6 +62,7 @@ class LaocaiBotAutoConfigurationTests {
                 webClient.get().uri("probe").retrieve().toBodilessEntity().block()
 
                 val request = context.getBean(RequestRecorder::class.java).request.get()
+                assertThat(request.url().path).isEqualTo("/probe")
                 assertThat(request.headers().getFirst(HttpHeaders.AUTHORIZATION)).isNull()
             }
     }

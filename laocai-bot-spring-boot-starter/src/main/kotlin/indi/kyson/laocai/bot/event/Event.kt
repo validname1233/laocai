@@ -3,8 +3,10 @@ package indi.kyson.laocai.bot.event
 import indi.kyson.laocai.bot.entity.FriendEntity
 import indi.kyson.laocai.bot.entity.GroupEntity
 import indi.kyson.laocai.bot.entity.GroupMemberEntity
+import indi.kyson.laocai.bot.enums.MessageScene
 import indi.kyson.laocai.bot.segment.Segment
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.slf4j.LoggerFactory
 import tools.jackson.core.JsonParser
 import tools.jackson.databind.DeserializationContext
 import tools.jackson.databind.JsonNode
@@ -24,6 +26,8 @@ sealed interface Event {
     val selfId: Long
 
     class EventDeserializer : ValueDeserializer<Event>() {
+
+        private val log = LoggerFactory.getLogger(javaClass)
 
         private data class GroupMessageData(
             @JsonProperty("message_scene")
@@ -55,6 +59,21 @@ sealed interface Event {
             val friend: FriendEntity,
         )
 
+        private data class MessageRecallData(
+            @JsonProperty("message_scene")
+            val messageScene: String,
+            @JsonProperty("peer_id")
+            val peerId: Long,
+            @JsonProperty("message_seq")
+            val messageSeq: Long,
+            @JsonProperty("sender_id")
+            val senderId: Long,
+            @JsonProperty("operator_id")
+            val operatorId: Long,
+            @JsonProperty("display_suffix")
+            val displaySuffix: String,
+        )
+
         override fun deserialize(p: JsonParser, context: DeserializationContext): Event {
             val root: JsonNode = p.readValueAsTree()
 
@@ -63,7 +82,23 @@ sealed interface Event {
             val selfId = root.get("self_id").asLong()
             val dataNode = root.get("data")
 
+            // log.info("data: {}", dataNode.toString())
+
             return when (eventType) {
+                "bot_offline" -> BotOfflineEvent(time, selfId, dataNode.get("reason").asString())
+                "message_recall" -> {
+                    val d = context.readTreeAsValue(dataNode, MessageRecallData::class.java)
+                    MessageRecallEvent(
+                        time,
+                        selfId,
+                        MessageScene.fromValue(d.messageScene),
+                        d.peerId,
+                        d.messageSeq,
+                        d.senderId,
+                        d.operatorId,
+                        d.displaySuffix,
+                    )
+                }
                 "message_receive" -> {
                     when (val messageScene = dataNode.get("message_scene").asString()) {
                         "friend" -> {

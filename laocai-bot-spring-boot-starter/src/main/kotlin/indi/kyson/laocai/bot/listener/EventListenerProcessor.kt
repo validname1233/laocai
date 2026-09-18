@@ -9,8 +9,6 @@ import indi.kyson.laocai.bot.event.Event
 import indi.kyson.laocai.bot.event.GroupMessageEvent
 import indi.kyson.laocai.bot.event.MessageEvent
 import org.springframework.core.annotation.AnnotatedElementUtils
-import org.springframework.core.annotation.MergedAnnotation
-import org.springframework.core.annotation.MergedAnnotations
 import org.springframework.util.StringUtils
 import java.lang.reflect.Method
 import java.util.regex.Pattern
@@ -71,18 +69,22 @@ internal class EventListenerProcessor {
     /**
      * 将方法上的所有 Filter / MultiFilter 注解数据转换为 FilterData 列表。
      *
+     * 这里使用 JDK 的 getAnnotationsByType，而不是 Spring MergedAnnotations.stream：
+     * MultiFilter 的 value 本身包含 Filter 注解，后者不会被 MergedAnnotations 作为方法上的
+     * MultiFilter 发现，导致 NONE 过滤器被静默跳过。
+     *
      * 单独重复的 @Filter 之间是"全部满足"（AND）；@MultiFilter 内部按其 type 声明的
      * ANY/ALL/NONE 逻辑组合一组 @Filter，作为整体再参与外层的 AND 组合。
      */
     private fun getFilterDataList(method: Method): List<FilterData> {
         val result = mutableListOf<FilterData>()
 
-        MergedAnnotations.from(method).stream(Filter::class.java).forEach { mergedAnnotation ->
-            result.add(FilterData(mergedAnnotation.getInt("priority"), toFilterMatcher(mergedAnnotation)))
+        method.getAnnotationsByType(Filter::class.java).forEach { filter ->
+            result.add(FilterData(filter.priority, toFilterMatcher(filter)))
         }
 
-        MergedAnnotations.from(method).stream(MultiFilter::class.java).forEach { mergedAnnotation ->
-            result.add(FilterData(mergedAnnotation.getInt("priority"), toMultiFilterMatcher(mergedAnnotation)))
+        method.getAnnotationsByType(MultiFilter::class.java).forEach { multiFilter ->
+            result.add(FilterData(multiFilter.priority, toMultiFilterMatcher(multiFilter)))
         }
 
         return result
@@ -91,21 +93,19 @@ internal class EventListenerProcessor {
     /**
      * 将单个 Filter 注解转换为匹配器（关键词匹配 + Targets 匹配同时满足）
      */
-    private fun toFilterMatcher(mergedAnnotation: MergedAnnotation<Filter>): (Event) -> Boolean {
-        val keywordMatcher = getKeywordMatcher(mergedAnnotation)
-        val targetMatcher = getTargetMatcher(mergedAnnotation)
+    private fun toFilterMatcher(filter: Filter): (Event) -> Boolean {
+        val keywordMatcher = getKeywordMatcher(filter)
+        val targetMatcher = getTargetMatcher(filter)
         return { event -> keywordMatcher(event) && targetMatcher(event) }
     }
 
     /**
      * 将 MultiFilter 注解转换为匹配器，按其 type 组合内部的一组 Filter
      */
-    private fun toMultiFilterMatcher(mergedAnnotation: MergedAnnotation<MultiFilter>): (Event) -> Boolean {
-        val filters = mergedAnnotation.getAnnotationArray("value", Filter::class.java)
-        val subMatchers = filters.map { toFilterMatcher(it) }
-        val type = mergedAnnotation.getEnum("type", MultiFilter.Type::class.java)
+    private fun toMultiFilterMatcher(multiFilter: MultiFilter): (Event) -> Boolean {
+        val subMatchers = multiFilter.value.map { toFilterMatcher(it) }
 
-        return when (type) {
+        return when (multiFilter.type) {
             MultiFilter.Type.ANY -> { event -> subMatchers.any { it(event) } }
             MultiFilter.Type.ALL -> { event -> subMatchers.all { it(event) } }
             MultiFilter.Type.NONE -> { event -> subMatchers.none { it(event) } }
@@ -115,18 +115,17 @@ internal class EventListenerProcessor {
     /**
      * 获取 Filter 注解中的 String value 匹配器
      */
-    private fun getKeywordMatcher(mergedAnnotation: MergedAnnotation<Filter>): (Event) -> Boolean {
-        val value = mergedAnnotation.getString("value")
+    private fun getKeywordMatcher(filter: Filter): (Event) -> Boolean {
+        val value = filter.value
         // 如果 value 为空，则返回 true 匹配器
         if (!StringUtils.hasText(value)) return { true }
 
-        val matchType = mergedAnnotation.getEnum("matchType", MatchType::class.java)
         return { event ->
             if (event !is MessageEvent) {
                 false
             } else {
                 val msgContent = event.plainText
-                when (matchType) {
+                when (filter.matchType) {
                     MatchType.EQUALS -> msgContent == value
                     MatchType.EQUALS_IGNORE_CASE -> msgContent.equals(value, ignoreCase = true)
                     MatchType.STARTS_WITH -> msgContent.startsWith(value)
@@ -146,23 +145,23 @@ internal class EventListenerProcessor {
      * 单个 Targets 内部的 users/groups/mentions/mentionBot 各维度之间是"全部满足"（AND），
      * 某个维度未声明（空数组/false）时视为不限制该维度。
      */
-    private fun getTargetMatcher(mergedAnnotation: MergedAnnotation<Filter>): (Event) -> Boolean {
-        val targetsAnnotations = mergedAnnotation.getAnnotationArray("targets", Filter.Targets::class.java)
+    private fun getTargetMatcher(filter: Filter): (Event) -> Boolean {
+        val targets = filter.targets
         // 没有声明任何 Targets，则不限制
-        if (targetsAnnotations.isEmpty()) return { true }
+        if (targets.isEmpty()) return { true }
 
-        val targetMatchers = targetsAnnotations.map { toTargetMatcher(it) }
+        val targetMatchers = targets.map { toTargetMatcher(it) }
         return { event -> targetMatchers.any { matcher -> matcher(event) } }
     }
 
     /**
      * 将单个 Targets 注解转换为匹配器
      */
-    private fun toTargetMatcher(targets: MergedAnnotation<Filter.Targets>): (Event) -> Boolean {
-        val users = targets.getLongArray("users")
-        val groups = targets.getLongArray("groups")
-        val mentions = targets.getLongArray("mentions")
-        val mentionBot = targets.getBoolean("mentionBot")
+    private fun toTargetMatcher(targets: Filter.Targets): (Event) -> Boolean {
+        val users = targets.users
+        val groups = targets.groups
+        val mentions = targets.mentions
+        val mentionBot = targets.mentionBot
 
         return { event ->
             if (event !is MessageEvent) {

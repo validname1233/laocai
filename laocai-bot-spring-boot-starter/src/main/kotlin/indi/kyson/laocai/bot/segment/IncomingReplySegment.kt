@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * 只在反序列化时产生，携带被回复消息的完整内容。
  */
-class IncomingReplySegment private constructor(override val data: Data) : Segment {
+data class IncomingReplySegment private constructor(override val data: Data) : Segment {
 
     data class Data(
         @JsonProperty("message_seq")

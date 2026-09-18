@@ -1,8 +1,10 @@
 package indi.kyson.laocai.bot.segment
 
-class OutgoingRecordSegment private constructor(override val data: Data) : Segment {
+data class OutgoingRecordSegment private constructor(override val data: Data) : Segment {
 
-    data class Data(val uri: String)
+    data class Data(val uri: String) {
+        fun toSegment(): OutgoingRecordSegment = OutgoingRecordSegment(this)
+    }
 
     override val type: String
         get() = "record"

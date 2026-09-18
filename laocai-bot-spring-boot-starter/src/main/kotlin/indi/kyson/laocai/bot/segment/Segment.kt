@@ -19,18 +19,29 @@ sealed interface Segment {
 
     val data: Any
 
+    /**
+     * 反序列化协议返回的入站消息段。
+     *
+     * 出站消息段由对应的 [OutgoingImageSegment]、[OutgoingReplySegment]、
+     * [OutgoingRecordSegment] 工厂方法创建，不在这里反序列化。
+     */
     class SegmentDeserializer : ValueDeserializer<Segment>() {
 
         override fun deserialize(p: JsonParser, context: DeserializationContext): Segment {
             val root: JsonNode = p.readValueAsTree()
-            val type = root.get("type").asString()
-            val dataNode = root.get("data")
+            val type = requireNotNull(root.get("type")?.asString()) {
+                "Segment type is missing"
+            }
+            val dataNode = requireNotNull(root.get("data")) {
+                "Segment data is missing"
+            }
             return when (type) {
-                "text" -> context.readTreeAsValue(dataNode, TextSegment.Data::class.java).toSegment()
-                "mention" -> context.readTreeAsValue(dataNode, MentionSegment.Data::class.java).toSegment()
-                "face" -> context.readTreeAsValue(dataNode, FaceSegment.Data::class.java).toSegment()
-                "image" -> context.readTreeAsValue(dataNode, IncomingImageSegment.Data::class.java).toSegment()
-                "reply" -> context.readTreeAsValue(dataNode, IncomingReplySegment.Data::class.java).toSegment()
+                "text" -> context.readTreeAsValue(dataNode, TextSegment.Data::class.java)!!.toSegment()
+                "markdown" -> context.readTreeAsValue(dataNode, MarkdownSegment.Data::class.java)!!.toSegment()
+                "mention" -> context.readTreeAsValue(dataNode, MentionSegment.Data::class.java)!!.toSegment()
+                "face" -> context.readTreeAsValue(dataNode, FaceSegment.Data::class.java)!!.toSegment()
+                "image" -> context.readTreeAsValue(dataNode, IncomingImageSegment.Data::class.java)!!.toSegment()
+                "reply" -> context.readTreeAsValue(dataNode, IncomingReplySegment.Data::class.java)!!.toSegment()
                 else -> UnknownSegment.of(type, dataNode)
             }
         }

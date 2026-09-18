@@ -33,7 +33,9 @@ class LaocaiBotAutoConfiguration {
         webClientBuilder: WebClient.Builder,
         properties: LaocaiBotConfigurationProperties,
     ): WebClient {
-        val builder = webClientBuilder.baseUrl(properties.milky.url.trimEnd('/') + "/api/")
+        // SSE 事件流使用 /event，Bot 操作接口使用 /api/**。
+        // 客户端只配置到 Milky 根地址，由各请求自行指定协议路径。
+        val builder = webClientBuilder.baseUrl(properties.milky.url.trimEnd('/') + "/")
         val accessToken = properties.milky.accessToken
         if (!accessToken.isNullOrBlank()) {
             builder.defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer $accessToken")

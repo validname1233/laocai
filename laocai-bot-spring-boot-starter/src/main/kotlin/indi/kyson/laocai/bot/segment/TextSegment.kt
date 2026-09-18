@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 /**
  * 纯文本消息段。
  */
-class TextSegment private constructor(override val data: Data) : Segment {
+data class TextSegment private constructor(override val data: Data) : Segment {
 
     data class Data(val text: String) {
         fun toSegment(): TextSegment = TextSegment(this)

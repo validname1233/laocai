@@ -9,7 +9,7 @@ import indi.kyson.laocai.bot.enums.ImageSubType
  *
  * 只在反序列化时产生，携带协议返回的临时资源信息。
  */
-class IncomingImageSegment private constructor(override val data: Data) : Segment {
+data class IncomingImageSegment private constructor(override val data: Data) : Segment {
 
     data class Data(
         @JsonProperty("resource_id")

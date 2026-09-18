@@ -26,7 +26,7 @@ class Bot(private val milkyWebClient: WebClient) {
      * 群聊和私聊的协议字段不一样，必须按各自的 endpoint 和 body 结构分别构造。
      */
     fun sendGroupMsg(groupId: Long, segments: List<Segment>): Mono<String> = milkyWebClient.post()
-            .uri("send_group_message")
+            .uri("/api/send_group_message")
             .bodyValue(mapOf("group_id" to groupId, "message" to segments))
             .retrieve()
             .bodyToMono(String::class.java)
@@ -38,7 +38,7 @@ class Bot(private val milkyWebClient: WebClient) {
      * 协议把私聊对象标识单独命名为 user_id，和群消息必须分开处理。
      */
     fun sendPrivateMsg(userId: Long, segments: List<Segment>): Mono<String> = milkyWebClient.post()
-        .uri("send_private_message")
+        .uri("/api/send_private_message")
         .bodyValue(mapOf("user_id" to userId, "message" to segments))
         .retrieve()
         .bodyToMono(String::class.java)
@@ -51,7 +51,7 @@ class Bot(private val milkyWebClient: WebClient) {
      */
     fun sendGroupAnnouncement(groupId: Long, content: String, imageUri: String?): Mono<Response<Any>> =
         milkyWebClient.post()
-            .uri("send_group_announcement")
+            .uri("/api/send_group_announcement")
             .bodyValue(
                 mapOf(
                     "group_id" to groupId,
@@ -69,14 +69,14 @@ class Bot(private val milkyWebClient: WebClient) {
      * 回复逻辑需要昵称等展示字段，统一走客户端封装可以避免业务代码重复拼请求。
      */
     fun getUserProfile(userId: Long): Mono<Response<UserProfile>> = milkyWebClient.post()
-        .uri("get_user_profile")
+        .uri("/api/get_user_profile")
         .bodyValue(mapOf("user_id" to userId))
         .retrieve()
         .bodyToMono(object : ParameterizedTypeReference<Response<UserProfile>>() {})
 
 
     fun getGroupMemberInfo(groupId: Long, userId: Long, noCache: Boolean?): Mono<Response<GroupMemberInfo>> =  milkyWebClient.post()
-        .uri("get_group_member_info")
+        .uri("/api/get_group_member_info")
         .bodyValue(mapOf("group_id" to groupId, "user_id" to userId, "no_cache" to noCache))
         .retrieve()
         .bodyToMono(object : ParameterizedTypeReference<Response<GroupMemberInfo>>() {})

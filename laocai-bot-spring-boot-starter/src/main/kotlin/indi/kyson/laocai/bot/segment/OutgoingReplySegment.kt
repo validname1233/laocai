@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * 发送时只需要指明被回复消息的 messageSeq，协议字段名为 shouldReply。
  */
-class OutgoingReplySegment private constructor(override val data: Data) : Segment {
+data class OutgoingReplySegment private constructor(override val data: Data) : Segment {
 
     data class Data(@JsonProperty("message_seq") val messageSeq: Long) {
         fun toSegment(): OutgoingReplySegment = OutgoingReplySegment(this)

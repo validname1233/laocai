@@ -9,7 +9,7 @@ import indi.kyson.laocai.bot.enums.ImageSubType
  *
  * 发送时通过 uri 指明图片来源，和入站的临时资源结构不同，协议 type 都是 image。
  */
-class OutgoingImageSegment private constructor(override val data: Data) : Segment {
+data class OutgoingImageSegment private constructor(override val data: Data) : Segment {
 
     data class Data(
         val uri: String,
