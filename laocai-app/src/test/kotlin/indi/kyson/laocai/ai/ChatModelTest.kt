@@ -5,13 +5,20 @@ import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
 import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.content.Media
-import org.springframework.ai.deepseek.DeepSeekChatModel
+import org.springframework.ai.chat.model.ChatModel
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
+import org.junit.jupiter.api.Assumptions.assumeTrue
 import org.springframework.ai.openai.OpenAiChatModel
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.core.io.ClassPathResource
 import org.springframework.util.MimeTypeUtils
 
-@SpringBootTest
+@SpringBootTest(
+    properties = [
+        "laocai.milky.enabled=false"
+    ]
+)
 class ChatModelTest {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -20,7 +27,7 @@ class ChatModelTest {
     private lateinit var openAiChatModel: OpenAiChatModel
 
     @Resource
-    private lateinit var deepSeekChatModel: DeepSeekChatModel
+    private var deepSeekChatModel: ChatModel? = null
 
     @Test
     fun testOpenAiChatModel() {
@@ -29,8 +36,8 @@ class ChatModelTest {
             UserMessage.builder()
                 .text("这张图里有什么")
                 .media(Media.builder()
-                    .mimeType(MimeTypeUtils.IMAGE_PNG)
-                    .data(ClassPathResource("kakuya.png"))
+                    .mimeType(MimeTypeUtils.IMAGE_JPEG)
+                    .data(ClassPathResource("nobita.jpg"))
                     .build())
                 .build()
         )
@@ -41,7 +48,8 @@ class ChatModelTest {
 
     @Test
     fun testDeepSeekChatModel() {
-        val content = deepSeekChatModel.call("黑洞是什么")
+        assumeTrue(deepSeekChatModel != null, "当前配置没有启用 DeepSeek")
+        val content = deepSeekChatModel!!.call("黑洞是什么")
         log.info(content)
     }
 }

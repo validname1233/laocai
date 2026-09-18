@@ -16,7 +16,7 @@ class BotSenderToolTest {
 
     @Test
     fun sendGroupAnnouncement() {
-        chatClientFactory.getChatPersonaClient(1098197034L)
+        chatClientFactory.getChatLaocaiClient(1098197034L)
             .prompt()
             .tools(botSenderTool)
             .toolContext(mapOf("groupId" to 1098197034L))

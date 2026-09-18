@@ -15,10 +15,10 @@ class ChatClientFactory(
 
     private val log = LoggerFactory.getLogger(javaClass)
 
-    @Value("classpath:/prompt/chat-laocai-system-prompt.md")
+    @Value("classpath:/prompts/chat-laocai-system-prompt.md")
     private lateinit var chatLaocaiSystemPrompt: Resource
 
-    @Value("classpath:/prompt/roxy-voice-system-prompt.txt")
+    @Value("classpath:/prompts/roxy-voice-system-prompt.txt")
     private lateinit var roxyVoiceSystemPrompt: Resource
 
     fun getChatClient(id: Long): ChatClient {

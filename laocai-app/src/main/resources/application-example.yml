@@ -38,3 +38,11 @@ laocai:
   dispatcher:
     concurrency: 32
     buffer-size: 5000
+embabel:
+  agent:
+    platform:
+      models:
+        openai:
+          # Embabel uses its own namespace; reuse the Spring AI OpenAI-compatible endpoint.
+          api-key: ${spring.ai.openai.api-key}
+          base-url: ${spring.ai.openai.base-url}

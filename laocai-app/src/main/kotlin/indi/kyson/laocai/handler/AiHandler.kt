@@ -2,6 +2,8 @@ package indi.kyson.laocai.handler
 
 import indi.kyson.laocai.bot.annotation.Filter
 import indi.kyson.laocai.bot.annotation.Listener
+import indi.kyson.laocai.bot.annotation.MatchType
+import indi.kyson.laocai.bot.annotation.MultiFilter
 import indi.kyson.laocai.bot.event.GroupMessageEvent
 import indi.kyson.laocai.service.AiConversationService
 import indi.kyson.laocai.service.AudioReplyService
@@ -14,14 +16,18 @@ class AiHandler(
 ) {
     @Listener
     @Filter(
-        value = "(?s)(?!/audio\\b).*",
         targets = [Filter.Targets(mentionBot = true)],
     )
-    fun proacive(event: GroupMessageEvent) = aiConversationService.handle(event)
+    @MultiFilter(
+        value = [Filter(value = "/audio", matchType = MatchType.STARTS_WITH)],
+        type = MultiFilter.Type.NONE,
+    )
+    fun handleMentionBot(event: GroupMessageEvent) = aiConversationService.handle(event)
 
     @Listener
     @Filter(
-        value = "(?s)/audio\\b.*",
+        value = "/audio",
+        matchType = MatchType.STARTS_WITH,
         targets = [Filter.Targets(mentionBot = true)],
     )
     fun handleAudio(event: GroupMessageEvent) = audioReplyService.handle(event)

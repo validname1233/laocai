@@ -1,6 +1,7 @@
 package indi.kyson.laocai.service
 
 import indi.kyson.laocai.bot.Bot
+import indi.kyson.laocai.bot.event.Event
 import indi.kyson.laocai.bot.event.FriendMessageEvent
 import indi.kyson.laocai.bot.event.GroupMessageEvent
 import indi.kyson.laocai.bot.segment.MentionSegment
@@ -13,10 +14,8 @@ import org.springframework.stereotype.Service
 class TestMessageService(private val bot: Bot) {
     private val log = LoggerFactory.getLogger(javaClass)
 
-    fun handleGroup(event: GroupMessageEvent) {
-        log.info("收到群消息: {}", event.plainText)
-        val text = if (event.senderId == 1938437495L) " 哈！" else " 喵"
-        bot.sendGroupMsg(event.group.groupId, listOf(MentionSegment.of(event.senderId), TextSegment.of(text))).block()
+    fun handleGroup(event: Event) {
+        
     }
 
     fun handleFriend(event: FriendMessageEvent) {

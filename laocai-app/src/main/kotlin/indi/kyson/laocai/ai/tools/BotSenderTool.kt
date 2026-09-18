@@ -25,7 +25,7 @@ class BotSenderTool(
         }
 
         return try {
-            bot.sendGroupAnnouncement(groupId, content, Optional.empty()).block()
+            bot.sendGroupAnnouncement(groupId, content, null).block()
             "成功：群公告已发布到群 $groupId"
         } catch (e: Exception) {
             "失败：${e::class.simpleName} - ${e.message}"
