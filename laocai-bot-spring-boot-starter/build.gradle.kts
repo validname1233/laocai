@@ -34,14 +34,14 @@ repositories {
 }
 
 dependencies {
-    api(platform("org.springframework.boot:spring-boot-dependencies:4.1.0"))
+    api(platform("org.springframework.boot:spring-boot-dependencies:4.1.1"))
     api("org.springframework.boot:spring-boot-starter-webflux")
     api("org.jetbrains.kotlin:kotlin-reflect")
     api("tools.jackson.core:jackson-databind")
     api("com.fasterxml.jackson.core:jackson-annotations")
     implementation("org.springframework.boot:spring-boot-webclient")
 
-    kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.0")
+    kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.1")
 
     testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

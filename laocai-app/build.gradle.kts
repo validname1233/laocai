@@ -36,7 +36,7 @@ dependencies {
 	implementation(project(":laocai-bot-spring-boot-starter"))
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.0")
+	kapt("org.springframework.boot:spring-boot-configuration-processor:4.1.1")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
@@ -44,7 +44,7 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("com.embabel.agent:embabel-agent-starter:1.5.1")
-	implementation("com.embabel.agent:embabel-agent-starter-openai:1.5.1")
+	implementation("com.embabel.agent:embabel-agent-starter-openai-custom:1.5.1")
 	// Registers Spring AI's OpenAI auto-configuration and creates OpenAiChatModel.
 	implementation("org.springframework.ai:spring-ai-starter-model-openai:2.0.0")
 	implementation("redis.clients:jedis:7.4.1")

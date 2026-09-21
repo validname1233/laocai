@@ -39,10 +39,14 @@ laocai:
     concurrency: 32
     buffer-size: 5000
 embabel:
+  models:
+    default-llm: glm-4.6v
   agent:
     platform:
       models:
         openai:
-          # Embabel uses its own namespace; reuse the Spring AI OpenAI-compatible endpoint.
-          api-key: ${spring.ai.openai.api-key}
-          base-url: ${spring.ai.openai.base-url}
+          custom:
+            # Reuse the existing Spring AI OpenAI-compatible endpoint and credentials.
+            api-key: ${spring.ai.openai.api-key}
+            base-url: ${spring.ai.openai.base-url}
+            models: glm-4.6v
